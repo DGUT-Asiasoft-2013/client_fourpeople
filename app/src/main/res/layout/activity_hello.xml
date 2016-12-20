@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_hello"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.fourpeople.campushousekeeper.HelloActivity">
+    android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="hello" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="hello" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/activity_hello_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="@+id/activity_hello"
-        app:layout_constraintLeft_toLeftOf="@+id/activity_hello"
-        app:layout_constraintRight_toRightOf="@+id/activity_hello"
-        app:layout_constraintTop_toTopOf="@+id/activity_hello" />
+        android:text="Login" />
 
-</android.support.constraint.ConstraintLayout>
+
+</LinearLayout>
