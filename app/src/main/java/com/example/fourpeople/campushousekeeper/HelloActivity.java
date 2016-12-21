@@ -17,13 +17,13 @@ public class HelloActivity extends Activity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boot();
+                goLogin();
             }
         });
     }
 
-    void boot() {
-        Intent intent = new Intent(this, BootActivity.class);
+    void goLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }
