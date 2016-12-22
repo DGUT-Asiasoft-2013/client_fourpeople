@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type">
+        <item>商品</item>
+        <item>店铺</item>
+    </string-array>
+    <string-array name="shopType">
+        <item>请选择分类:</item>
+        <item>图书音像</item>
+        <item>手机数码</item>
+        <item>生活用品</item>
+        <item>个护化装</item>
+        <item>综合用品</item>
+    </string-array>
+    <string-array name="sexitem">
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+</resources>

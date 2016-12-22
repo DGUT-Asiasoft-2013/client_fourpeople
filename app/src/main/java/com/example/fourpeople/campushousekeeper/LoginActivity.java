@@ -20,12 +20,11 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class LoginActivity extends Activity {
-    SimpleTextInputCellFragment fragAccount,fragPassword;
+    SimpleTextInputCellFragment fragStudentId,fragPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        fragAccount = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_account);
+        fragStudentId = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_account);
         fragPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password);
     }
 
@@ -64,8 +63,8 @@ public class LoginActivity extends Activity {
     protected void onResume() {
         super.onResume();
         //设置项目名
-        fragAccount.setLabelText("账户名");
-        fragAccount.setHintText("请输入账户名");
+        fragStudentId.setLabelText("学号");
+        fragStudentId.setHintText("请输入学号");
         fragPassword.setLabelText("密码");
         fragPassword.setHintText("请输入密码");
         fragPassword.setIsPassword(true);
@@ -78,10 +77,10 @@ public class LoginActivity extends Activity {
 
     void goLogin(){  //输入用户名、密码进入登录界面
 
-        String account = fragAccount.getText();
+        String studentId = fragStudentId.getText();
         String password = fragPassword.getText();
         //检查用户名密码是否已填
-        if (account.equals("") || password.equals("")){
+        if (studentId.equals("") || password.equals("")){
             new AlertDialog.Builder(this)
                     .setTitle("提示")
                     .setMessage("请填写账号密码")
@@ -95,10 +94,8 @@ public class LoginActivity extends Activity {
             return ;
         }
 
-        OkHttpClient client = Server.getSharedClient();
-
         MultipartBody requestBody = new MultipartBody.Builder()
-                .addFormDataPart("account", account)
+                .addFormDataPart("studentId", studentId)
                 .addFormDataPart("passwordHash", MD5.getMD5(password))
                 .build();
 
@@ -110,10 +107,10 @@ public class LoginActivity extends Activity {
         final ProgressDialog dlg = new ProgressDialog(this);
         dlg.setCancelable(false);
         dlg.setCanceledOnTouchOutside(false);
-        dlg.setMessage("正在登录");
+        dlg.setMessage("正在登录...");
         dlg.show();
 
-        client.newCall(request).enqueue(new Callback() {
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
 
             @Override
             public void onResponse(Call arg0, Response arg1) throws IOException {
@@ -174,7 +171,6 @@ public class LoginActivity extends Activity {
         });
 
     }
-
     void goRecoverPassword(){  //进入密码找回界面
         Intent itnt = new Intent(this, PasswordRecoverActivity.class);
         startActivity(itnt);

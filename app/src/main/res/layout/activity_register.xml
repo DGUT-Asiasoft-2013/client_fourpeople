@@ -4,88 +4,98 @@
     android:layout_height="match_parent">
 
     <View
+        android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:focusable="true"
-        android:focusableInTouchMode="true"/>
+        android:focusableInTouchMode="true" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/view">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@android:color/white">
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
             <fragment
                 android:id="@+id/input_student_id"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
-                tools:layout="@layout/fragment_inputcell_simpletext"/>
+                tools:layout="@layout/fragment_inputcell_simpletext" />
 
             <fragment
                 android:id="@+id/input_name"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 tools:layout="@layout/fragment_inputcell_simpletext" />
 
             <fragment
                 android:id="@+id/input_password"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
-                tools:layout="@layout/fragment_inputcell_simpletext"/>
+                tools:layout="@layout/fragment_inputcell_simpletext" />
 
             <fragment
                 android:id="@+id/input_password_repeat"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
-                tools:layout="@layout/fragment_inputcell_simpletext"/>
+                tools:layout="@layout/fragment_inputcell_simpletext" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="性别："
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
 
             <Spinner
                 android:id="@+id/input_sex"
-                android:entries="@array/sexitem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="50dp"
+                android:entries="@array/sexitem" />
 
             <fragment
                 android:id="@+id/input_address"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
-                tools:layout="@layout/fragment_inputcell_simpletext"/>
+                tools:layout="@layout/fragment_inputcell_simpletext" />
 
             <fragment
                 android:id="@+id/input_email"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
-                tools:layout="@layout/fragment_inputcell_simpletext"/>
+                tools:layout="@layout/fragment_inputcell_simpletext" />
 
             <fragment
                 android:id="@+id/input_tel"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
-                tools:layout="@layout/fragment_inputcell_simpletext"/>
+                tools:layout="@layout/fragment_inputcell_simpletext" />
 
             <fragment
                 android:id="@+id/input_avatar"
+                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.PictureInputCellFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
                 tools:layout="@layout/fragment_inputcell_picture" />
 
             <Button
                 android:id="@+id/btn_submit"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="确认注册"/>
+                android:text="确认注册" />
 
         </LinearLayout>
     </ScrollView>

@@ -22,6 +22,7 @@ public class BootActivity extends Activity {
     PersonFragment personFragment = new PersonFragment();
     //获取四个按钮
     MainChoiceFragment mainChoiceFragment;
+    int selectedIndex = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class BootActivity extends Activity {
         mainChoiceFragment.setOnBtnSelectedListener(new MainChoiceFragment.OnBtnSelectedListener() {
             @Override
             public void onBtnSelected(int index) {
+                selectedIndex = index;
                 changeFragment(index);
             }
         });
@@ -68,10 +70,11 @@ public class BootActivity extends Activity {
     protected void onResume() {
         super.onResume();
         //设置没有点击过按钮时显示第一个页面
-        mainChoiceFragment.setSelectedItem(0);
-        //判断是否在另一个界面返回时设置显示页面是否有误
-        if (mainChoiceFragment.getSelectedIndex() < 0) {
+        if (selectedIndex < 0) {
             mainChoiceFragment.setSelectedItem(0);
+        } else if (selectedIndex >= 0) {
+            mainChoiceFragment.setSelectedItem(selectedIndex);
+
         }
     }
 }

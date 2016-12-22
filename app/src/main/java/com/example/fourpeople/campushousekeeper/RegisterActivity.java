@@ -1,15 +1,5 @@
 package com.example.fourpeople.campushousekeeper;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.fourpeople.campushousekeeper.R;
-import com.example.fourpeople.campushousekeeper.api.Server;
-import com.example.fourpeople.campushousekeeper.fragment.inputcells.PictureInputCellFragment;
-import com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment;
-import com.example.fourpeople.campushousekeeper.information.MD5;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -17,14 +7,20 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Spinner;
+
+import com.example.fourpeople.campushousekeeper.api.Server;
+import com.example.fourpeople.campushousekeeper.fragment.inputcells.PictureInputCellFragment;
+import com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment;
+import com.example.fourpeople.campushousekeeper.information.MD5;
+
+import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
@@ -41,21 +37,34 @@ public class RegisterActivity extends Activity {
     SimpleTextInputCellFragment fragInputAddress;
     SimpleTextInputCellFragment fragInputTel;
     PictureInputCellFragment fragInputAvatar;
+    String spinnerStr;//用来获得当前的性别下拉框的内容
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        fragInputStudentId = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_account);
-        fragInputEmail = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_email);
-        fragInputName = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_name);
-        fragInputCellPassword = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_password);
-        fragInputCellPasswordRepeat = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_password_repeat);
+        fragInputStudentId = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_student_id);
+        fragInputEmail = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_email);
+        fragInputName = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_name);
+        fragInputCellPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password);
+        fragInputCellPasswordRepeat = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password_repeat);
         spinnerInputSex = (Spinner) findViewById(R.id.input_sex);
-        fragInputAddress = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_address);
-        fragInputTel = (SimpleTextInputCellFragment)getFragmentManager().findFragmentById(R.id.input_tel);
-        fragInputAvatar = (PictureInputCellFragment)getFragmentManager().findFragmentById(R.id.input_avatar);
+        fragInputAddress = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_address);
+        fragInputTel = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_tel);
+        fragInputAvatar = (PictureInputCellFragment) getFragmentManager().findFragmentById(R.id.input_avatar);
+//获取下拉框内容
+        spinnerInputSex.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                spinnerStr = adapterView.getItemAtPosition(i).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                spinnerStr = adapterView.getItemAtPosition(0).toString();
+            }
+        });
 
         findViewById(R.id.btn_submit).setOnClickListener(new OnClickListener() {
 
@@ -70,33 +79,37 @@ public class RegisterActivity extends Activity {
     protected void onResume() {
         super.onResume();
         //设置项目名
-        fragInputStudentId.setLabelText("学号");
+        fragInputStudentId.setLabelText("学号(必填):");
         fragInputStudentId.setHintText("请输入学号");
-        fragInputName.setLabelText("昵称");
+        fragInputName.setLabelText("昵称:");
         fragInputName.setHintText("请输入昵称");
-        fragInputCellPassword.setLabelText("密码");
+        fragInputCellPassword.setLabelText("密码（必填）:");
         fragInputCellPassword.setHintText("请输入密码");
         fragInputCellPassword.setIsPassword(true);
-        fragInputCellPasswordRepeat.setLabelText("重复密码");
+        fragInputCellPasswordRepeat.setLabelText("重复密码（必填）：");
         fragInputCellPasswordRepeat.setHintText("请重复密码");
         fragInputCellPasswordRepeat.setIsPassword(true);
-        fragInputEmail.setLabelText("电子邮箱");
+        fragInputEmail.setLabelText("电子邮箱（必填）：");
         fragInputEmail.setHintText("请输入电子邮箱");
-        fragInputAddress.setLabelText("你的地址");
-        fragInputAddress.setHintText("请输入地址");
-        fragInputTel.setLabelText("电话");
-        fragInputTel.setHintText("请输入电话");
+        fragInputAddress.setLabelText("联系地址");
+        fragInputAddress.setHintText("请输入联系地址");
+        fragInputTel.setLabelText("联系方式");
+        fragInputTel.setHintText("请输入联系方式");
     }
 
-    void submit()
-    {
-        String password = fragInputCellPassword.getText();
+    void submit() {
+        String studentId = fragInputStudentId.getText();
+        String name = fragInputName.getText();
+        String passwordHash = fragInputCellPassword.getText();
         String passwordRepeat = fragInputCellPasswordRepeat.getText();
+        String sex = spinnerStr;
+        String email = fragInputEmail.getText();
+        String address = fragInputAddress.getText();
+        String tel = fragInputTel.getText();
 
-        if (!password.equals(passwordRepeat))
-        {
+        if (studentId.equals("") || passwordHash.equals("") || passwordRepeat.equals("") || email.equals("")) {
             new AlertDialog.Builder(RegisterActivity.this)
-                    .setMessage("重复密码不一致，")
+                    .setMessage("请填写必填内容!")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setNegativeButton("OK", null)
                     .show();
@@ -104,25 +117,34 @@ public class RegisterActivity extends Activity {
             return;
         }
 
-        password = MD5.getMD5(password);
+        if (!passwordHash.equals(passwordRepeat)) {
+            new AlertDialog.Builder(RegisterActivity.this)
+                    .setMessage("重复密码不一致!")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setNegativeButton("OK", null)
+                    .show();
 
-        String studentId = fragInputStudentId.getText();
-        String name = fragInputName.getText();
-        String email = fragInputEmail.getText();
-        String sex = (String) spinnerInputSex.getSelectedItem();
+            return;
+        }
 
-        OkHttpClient client = Server.getSharedClient();
+        passwordHash = MD5.getMD5(passwordHash);
 
         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("studentId", studentId)
                 .addFormDataPart("name", name)
+                .addFormDataPart("passwordHash", passwordHash)
+                .addFormDataPart("sex", sex)
                 .addFormDataPart("email", email)
-                .addFormDataPart("passwordHash", password);
+                .addFormDataPart("address", address)
+                .addFormDataPart("tel", tel)
+                .addFormDataPart("balance","0");
 
-        if (fragInputAvatar.getPngData()!=null )  //上传照片
+
+        if (fragInputAvatar.getPngData() != null)  //上传照片
         {
-            requestBodyBuilder.addFormDataPart("avatar",
+            requestBodyBuilder.addFormDataPart(
+                    "avatar",
                     "avatar",
                     RequestBody
                             .create(MediaType.parse("image/png"), fragInputAvatar.getPngData()));
@@ -136,12 +158,12 @@ public class RegisterActivity extends Activity {
 
         //进度对话框ProgressDialog显示“请稍候”
         final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
-        progressDialog.setMessage("请稍候");
+        progressDialog.setMessage("请稍候...");
         progressDialog.setCancelable(false);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
-        client.newCall(request).enqueue(new Callback() {
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
             //处理结果
             @Override
             public void onResponse(final Call arg0, final Response arg1) throws IOException {
@@ -185,7 +207,7 @@ public class RegisterActivity extends Activity {
         new AlertDialog.Builder(this)
                 .setTitle("注册成功")
                 .setMessage(responseBody)
-                .setPositiveButton("好", new DialogInterface.OnClickListener() {
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -197,9 +219,9 @@ public class RegisterActivity extends Activity {
     void onFailure(Call arg0, Exception arg1)//注册失败提示
     {
         new AlertDialog.Builder(this)
-                .setTitle("请求失败")
+                .setTitle("网络连接失败...")
                 .setMessage(arg1.getLocalizedMessage())
-                .setNegativeButton("好", null)
+                .setNegativeButton("OK", null)
                 .show();
 
     }
