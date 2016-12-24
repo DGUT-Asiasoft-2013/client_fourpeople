@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/fragment_jobBar"
+        class="com.example.fourpeople.campushousekeeper.fragments_widgets.MainTabbarFragmentJobs"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        tools:layout="@layout/fragment_widget_job_tabbar">
+
+    </fragment>
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/fragment_jobs_kinds"
+        class="com.example.fourpeople.campushousekeeper.fragments_widgets.JobsKinds"
+        tools:layout="@layout/fragment_job_kind">
+
+    </fragment>
+
+    <ListView
+        android:id="@+id/list_jods"
+        android:layout_width="match_parent"
+        android:layout_height="280dp">
+
+    </ListView>
+</LinearLayout>

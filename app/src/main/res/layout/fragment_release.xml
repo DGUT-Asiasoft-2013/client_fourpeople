@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/release_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="发布"
+        android:textColor="@android:color/black"
+        android:textSize="28sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/darker_gray" />
+
+    <Button
+        android:id="@+id/btn_advertise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="招聘信息" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/darker_gray" />
+    <Button
+        android:id="@+id/btn_sendResume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="简历" />
+
+
+
+
+</LinearLayout>

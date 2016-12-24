@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <Spinner
+        android:id="@+id/choice_city"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"></Spinner>
+
+    <LinearLayout
+        android:id="@+id/tab_release"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/tab_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher"
+            android:layout_weight="0.09" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发布"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_searchJob"
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="搜索"
+        android:layout_weight="0.90" />
+    <LinearLayout
+    android:id="@+id/tab_searchJob"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@drawable/tab_background"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="找工作"
+        android:textColor="@android:color/black" />
+</LinearLayout>
+    <LinearLayout
+        android:id="@+id/tab_searchPerson"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/tab_background"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="找人"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+
+</LinearLayout>
