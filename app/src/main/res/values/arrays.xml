@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="auction_method" >
+        <item>明拍 换物</item>
+        <item>明拍 换钱</item>
+        <item>暗拍 换物</item>
+        <item>暗拍 换钱</item>
+    </string-array>
     <string-array name="type">
         <item>商品</item>
         <item>店铺</item>
