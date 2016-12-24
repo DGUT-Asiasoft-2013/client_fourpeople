@@ -44,7 +44,7 @@ public class HelloActivity extends Activity {
                     @Override
                     public void run() {
                         try {
-                            Toast.makeText(HelloActivity.this, response.body().string(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(HelloActivity.this, response.body().string().toString(), Toast.LENGTH_LONG).show();
                             startLoginActivity();
                         } catch (IOException e) {
                             e.printStackTrace();

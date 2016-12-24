@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+        
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:text="修改资料"
+            android:gravity="center|left"
+            android:paddingLeft="15dp"
+            android:background="#FFA500"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <fragment
+            android:id="@+id/modify_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
+            tools:layout="@layout/fragment_inputcell_simpletext" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="性别："
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+            <Spinner
+                android:id="@+id/modify_sex"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:entries="@array/sexitem" />
+        
+        <fragment
+            android:id="@+id/modify_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
+            tools:layout="@layout/fragment_inputcell_simpletext" />
+
+        <fragment
+            android:id="@+id/modify_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment"
+            tools:layout="@layout/fragment_inputcell_simpletext" />
+
+        <fragment
+            android:id="@+id/modify_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.PictureInputCellFragment"
+            tools:layout="@layout/fragment_inputcell_picture" />
+
+        <Button
+            android:id="@+id/btn_upload_modify"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="提交修改"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+        
+    </ScrollView>
+
+</FrameLayout>

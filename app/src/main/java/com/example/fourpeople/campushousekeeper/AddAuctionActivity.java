@@ -11,14 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.fragment.widget.AuctionPictureInputCellFragment;
 import com.example.fourpeople.campushousekeeper.fragment.widget.AuctionSimpleTextCellFragment;
 import com.example.fourpeople.campushousekeeper.fragment.widget.MenuFragment;
-import com.example.fourpeople.campushousekeeper.fragment.widget.PictureInputCellFragment;
-import com.example.fourpeople.campushousekeeper.fragment.widget.SimpleTextCellFragment;
 
 import java.io.IOException;
 
@@ -103,7 +100,7 @@ public class AddAuctionActivity extends Activity {
         itemMethod.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
                 String[] method = getResources().getStringArray(R.array.auction_method);
-                Toast.makeText(AddAuctionActivity.this, method[arg2], Toast.LENGTH_LONG).show();
+               // Toast.makeText(AddAuctionActivity.this, method[arg2], Toast.LENGTH_LONG).show();
                 arg0.setVisibility(View.VISIBLE);
             }
 

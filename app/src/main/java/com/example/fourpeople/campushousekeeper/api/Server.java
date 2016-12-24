@@ -25,10 +25,17 @@ public class Server {
     public static OkHttpClient getSharedClient() {
         return okHttpClient;
     }
-    public static String serverAddress = "http://172.27.0.24:8080/membercenter/";
+
+    public static String serverAddress = "http://172.27.15.49:8080/membercenter/";
+
     public static Request.Builder requestBuildWithApi(String api) {
         return new Request.Builder()
                 .url(serverAddress+"api/"+api);
+    }
+
+    public static Request.Builder requestBuildWithMall(String mall) {
+        return new Request.Builder()
+                .url(serverAddress + "mall/" + mall);
     }
     public static Request.Builder requestBuildWithAuction(String Auction) {
         return new Request.Builder()
@@ -37,7 +44,6 @@ public class Server {
     public  static Request.Builder requestBuilderWithPartTime(String parttime)
     {
         return new Request.Builder()
-//                .url("Http://172.27.0.36:8080/membercenter/api/"+api)
                 .url(serverAddress+"parttime/"+parttime);
     }
 

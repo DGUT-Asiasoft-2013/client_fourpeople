@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fourpeople.campushousekeeper">
+    package="com.example.fourpeople.campushousekeeper">I
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -16,7 +17,60 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BootActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".PasswordRecoverActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".BootActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".OpenShopActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".ManageShopActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".AddAuctionActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".AuctionsListActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".MyAuctionActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".FindJobActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".FindPersonActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".JobContentActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".NewJobsActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".NewResumeActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".PersonContentActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".ReleaseActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+
+
     </application>
 
 </manifest>

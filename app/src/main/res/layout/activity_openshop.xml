@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="欢迎使用微店!"
+        android:textSize="35px" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="微店名称：" />
+
+    <EditText
+        android:id="@+id/openShop_edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/rounded_edittext2"
+        android:hint="请输入微店名称" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="微店分类:" />
+
+    <Spinner
+        android:id="@+id/openShop_spinner_type"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:entries="@array/shopType"></Spinner>
+
+    <fragment
+        android:id="@+id/openShop_avatar"
+        class="com.example.fourpeople.campushousekeeper.fragment.inputcells.PictureInputCellFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/fragment_inputcell_picture"></fragment>
+
+    <Button
+        android:id="@+id/openShop_btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="建立微店"
+        android:padding="5dp"/>
+
+
+</LinearLayout>

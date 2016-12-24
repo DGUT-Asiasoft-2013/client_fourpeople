@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="用户个人信息"
+            android:gravity="center|left"
+            android:paddingLeft="15dp"
+            android:background="#FFA500"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"/>
+
+        <fragment
+            android:id="@+id/info_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment"
+            tools:layout="@layout/fragment_info_item_cell" />
+
+        <fragment
+            android:id="@+id/info_student_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment"
+            tools:layout="@layout/fragment_info_item_cell" />
+
+        <fragment
+            android:id="@+id/info_sex"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_info_item_cell" />
+
+        <fragment
+            android:id="@+id/info_address"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_info_item_cell" />
+
+        <fragment
+            android:id="@+id/info_tel"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_info_item_cell" />
+
+        <fragment
+            android:id="@+id/info_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment"
+            tools:layout="@layout/fragment_info_item_cell" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="25dp"/>
+
+        <Button
+            android:id="@+id/btn_update_info"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="点击修改资料功能？"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

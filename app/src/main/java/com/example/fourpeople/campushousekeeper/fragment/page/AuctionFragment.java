@@ -1,23 +1,16 @@
 package com.example.fourpeople.campushousekeeper.fragment.page;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.example.fourpeople.campushousekeeper.AddAuctionActivity;
 import com.example.fourpeople.campushousekeeper.AuctionsListActivity;
-import com.example.fourpeople.campushousekeeper.HelloActivity;
-import com.example.fourpeople.campushousekeeper.MyAuctionActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.fragment.ADFragment;
-import com.example.fourpeople.campushousekeeper.fragment.widget.MenuFragment;
 
 /**
  * Created by Administrator on 2016/12/19.
@@ -25,11 +18,6 @@ import com.example.fourpeople.campushousekeeper.fragment.widget.MenuFragment;
 
 public class AuctionFragment extends Fragment {
     View view;
-
-
-
-    ;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
@@ -67,8 +55,6 @@ public class AuctionFragment extends Fragment {
         });
 
         ADFragment adFragment = (ADFragment) getFragmentManager().findFragmentById(R.id.frag_ad_main);
-
-
         return view;
     }
 

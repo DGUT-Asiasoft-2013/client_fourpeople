@@ -1,10 +1,12 @@
 package com.example.fourpeople.campushousekeeper.api;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/12/21.
  */
 
-public class User {
+public class User implements Serializable {
     String studentId;
     String passwordHash;
     String name;

@@ -1,6 +1,5 @@
 package com.example.fourpeople.campushousekeeper.fragment.inputcells;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,6 @@ import android.widget.TextView;
 import com.example.fourpeople.campushousekeeper.R;
 
 public class SimpleTextInputCellFragment extends BaseInputCellFragment {
-
-
     TextView label;
     EditText edit;
 
@@ -40,6 +37,26 @@ public class SimpleTextInputCellFragment extends BaseInputCellFragment {
     public String getText()
     {
         return edit.getText().toString();
+    }
+
+    public TextView getLabel() {
+        return label;
+    }
+
+    public void setLabel(TextView label) {
+        this.label = label;
+    }
+
+    public EditText getEdit() {
+        return edit;
+    }
+
+    public void setEdit(EditText edit) {
+        this.edit = edit;
+    }
+
+    public void setText(String text) {
+        this.edit.setText(text);
     }
 
     public void setIsPassword(boolean isPassword)
