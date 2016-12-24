@@ -12,8 +12,17 @@ public class User {
     String tel;
     String address;
     String email;
-    double balance;  //余额
+    String balance;  //余额
     String avatar;
+    Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getStudentId() {
         return studentId;
@@ -71,11 +80,11 @@ public class User {
         this.email = email;
     }
 
-    public double getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 

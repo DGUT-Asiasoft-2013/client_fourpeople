@@ -54,7 +54,8 @@ public class PasswordRecoverActivity extends Activity {
         getFragmentManager().beginTransaction().replace(R.id.container, step1).commit();
     }
 
-    void goStep2() { // 切换fragment并使用动画渐变效果
+    void goStep2() {
+        // 切换fragment并使用动画渐变效果
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, step2)
@@ -92,7 +93,9 @@ public class PasswordRecoverActivity extends Activity {
                 .addFormDataPart("email", step1.getEmail())
                 .addFormDataPart("passwordHash", MD5.getMD5(step2.getPassword()))
                 .build();
-        Request request = Server.requestBuildWithApi("passwordrecover").post(body).build();
+        Request request = Server.requestBuildWithApi("passwordrecover")
+                .post(body)
+                .build();
 
         client.newCall(request).enqueue(new Callback() {
 
