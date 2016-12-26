@@ -45,7 +45,7 @@ public class MallFragment extends Fragment {
             });
             //列表设置
             mallListView = (ListView) view.findViewById(R.id.fragment_mall_listView);
-            getMoreView = inflater.inflate(R.layout.button_get_more, null);
+            getMoreView = inflater.inflate(R.layout.mall_button_get_more, null);
             getMoreBtn = (TextView) getMoreView.findViewById(R.id.btn_get_more);
             mallListView.addFooterView(getMoreView);
             mallListView.setAdapter(baseAdapter);

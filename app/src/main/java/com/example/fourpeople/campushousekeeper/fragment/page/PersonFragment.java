@@ -9,11 +9,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.fourpeople.campushousekeeper.ManageShopActivity;
-import com.example.fourpeople.campushousekeeper.OpenShopActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
-import com.example.fourpeople.campushousekeeper.fragment.inputcells.InfoItemCellFragment;
+import com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

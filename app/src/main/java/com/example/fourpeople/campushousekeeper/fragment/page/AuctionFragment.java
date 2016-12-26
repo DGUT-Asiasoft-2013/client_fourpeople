@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.fourpeople.campushousekeeper.AddAuctionActivity;
-import com.example.fourpeople.campushousekeeper.AuctionsListActivity;
+import com.example.fourpeople.campushousekeeper.auction.activity.AddAuctionActivity;
+import com.example.fourpeople.campushousekeeper.auction.activity.AuctionsListActivity;
+import com.example.fourpeople.campushousekeeper.auction.fragment.ADFragment;
 import com.example.fourpeople.campushousekeeper.R;
-import com.example.fourpeople.campushousekeeper.fragment.ADFragment;
 
 /**
  * Created by Administrator on 2016/12/19.
@@ -21,7 +21,7 @@ public class AuctionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_auction, null);
+            view = inflater.inflate(R.layout.auction_fragment_auction, null);
         }
 
         view.findViewById(R.id.btn_enter).setOnClickListener(new View.OnClickListener() {
@@ -61,13 +61,6 @@ public class AuctionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       /* Drawable rewardIcon=getResources().getDrawable(R.drawable.menu);
-        if(rewardIcon!=null)
-        {
-            rewardIcon.setBounds(0, 0, rewardIcon.getMinimumWidth(), rewardIcon.getMinimumHeight());
-            menu.setCompoundDrawables(rewardIcon, null, null, null);
-        }*/
-
 
     }
 }

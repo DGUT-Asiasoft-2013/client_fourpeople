@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.fourpeople.campushousekeeper.FindJobActivity;
-import com.example.fourpeople.campushousekeeper.FindPersonActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.FindJobActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.FindPersonActivity;
 import com.example.fourpeople.campushousekeeper.R;
-import com.example.fourpeople.campushousekeeper.ReleaseActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.ReleaseActivity;
 
 /**
  * Created by Administrator on 2016/12/19.

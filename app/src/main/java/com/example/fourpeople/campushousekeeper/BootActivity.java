@@ -5,10 +5,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.example.fourpeople.campushousekeeper.fragment.MainChoiceFragment;
-import com.example.fourpeople.campushousekeeper.fragment.ModifyInfoFragment;
+import com.example.fourpeople.campushousekeeper.person.ModifyInfoFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.AuctionFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.MallFragment;
-import com.example.fourpeople.campushousekeeper.fragment.MyInfoFragment;
+import com.example.fourpeople.campushousekeeper.person.MyInfoFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.PartTimeFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.PersonFragment;
 
