@@ -74,7 +74,7 @@
             android:id="@+id/btn_update_info"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="点击修改资料功能？"
+            android:text="修改资料"
             android:textSize="20sp" />
 
     </LinearLayout>

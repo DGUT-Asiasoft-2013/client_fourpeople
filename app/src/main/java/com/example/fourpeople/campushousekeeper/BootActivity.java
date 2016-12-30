@@ -5,10 +5,9 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.example.fourpeople.campushousekeeper.fragment.MainChoiceFragment;
-import com.example.fourpeople.campushousekeeper.person.ModifyInfoFragment;
+import com.example.fourpeople.campushousekeeper.person.ModifyInfoActivity;
 import com.example.fourpeople.campushousekeeper.fragment.page.AuctionFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.MallFragment;
-import com.example.fourpeople.campushousekeeper.person.MyInfoFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.PartTimeFragment;
 import com.example.fourpeople.campushousekeeper.fragment.page.PersonFragment;
 
@@ -26,8 +25,7 @@ public class BootActivity extends Activity {
     MainChoiceFragment mainChoiceFragment;
     int selectedIndex = -1;
 
-    MyInfoFragment myInfo = new MyInfoFragment();
-    ModifyInfoFragment modifyInfo = new ModifyInfoFragment();
+    ModifyInfoActivity modifyInfo = new ModifyInfoActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +41,6 @@ public class BootActivity extends Activity {
             }
         });
 
-        personFragment.setOnGoInfoListener(new PersonFragment.OnGoInfoListener() {
-            @Override
-            public void onGoInfo() {
-                goInfo();
-            }
-        });
-
-        myInfo.setOnGoModifyListener(new MyInfoFragment.OnGoModifyListener() {
-
-            @Override
-            public void onGoModify() {
-                goModify();
-            }
-        });
     }
 
     //四个按钮事件
@@ -99,21 +83,5 @@ public class BootActivity extends Activity {
         }
     }
 
-    void goInfo() {
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left,
-                        R.animator.slide_in_left, R.animator.slide_out_right).replace(R.id.boot_show,myInfo)
-                .addToBackStack(null)
-                .commit();
-    }
 
-    void goModify() {
-        getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.animator.slide_in_right, R.animator.slide_out_left,
-                        R.animator.slide_in_left, R.animator.slide_out_right).replace(R.id.boot_show, modifyInfo)
-                .addToBackStack(null)
-                .commit();
-    }
 }
