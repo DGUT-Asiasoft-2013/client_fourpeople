@@ -70,6 +70,18 @@
             android:name=".parttime.activity.SearchActivity"
             android:windowSoftInputMode="adjustPan"></activity>
 
+        <activity
+            android:name=".person.MyInfoActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".person.ModifyInfoActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".person.ChargeActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+
 
     </application>
 
