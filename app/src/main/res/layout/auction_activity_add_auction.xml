@@ -70,6 +70,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
                     android:text=" 方  式 "
                     android:textAlignment="center" />
 
@@ -87,6 +88,8 @@
                     android:spinnerMode="dialog"
                     android:textAlignment="gravity" />
             </LinearLayout>
+
+
 
             <fragment
                 android:id="@+id/item_introduction"
@@ -107,11 +110,74 @@
                 android:layout_margin="7dp"
                 android:layout_weight="1"
                 tools:layout="@layout/auction_fragment_inputcell_auction"></fragment>
+            <LinearLayout
+                android:id="@+id/ll_days"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@id/item_others"
+                android:layout_margin="7dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center_vertical"
+                    android:text=" 为  期 "
+                    android:textAlignment="center" />
+
+                <!--<Spinner
+                    android:id="@+id/spinner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/auction_bg"
+                    android:entries="@array/auction_method"
+                    android:gravity="center_horizontal"
+                    android:prompt="@string/spinner_title"
+                    android:scrollbarSize="15dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="gravity" />-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_days"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/auction_bg"
+                        android:ems="10"
+                        android:gravity="center_horizontal"
+                        android:hint="历时天数"
+                        android:inputType="textPassword"
+                        android:padding="2dp">
+
+                    </EditText>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignBaseline="@id/et_days"
+                        android:layout_toRightOf="@id/et_days"
+                        android:text="天" />
+                </RelativeLayout>
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/item_others"
+                android:layout_below="@id/ll_days"
                 android:layout_marginTop="30dp"
                 android:layout_weight="2"
 
@@ -167,5 +233,6 @@
                 android:gravity="center" />
 
         </RelativeLayout>
+
     </RelativeLayout>
 </RelativeLayout>

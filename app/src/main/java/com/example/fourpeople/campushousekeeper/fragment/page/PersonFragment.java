@@ -1,5 +1,6 @@
 package com.example.fourpeople.campushousekeeper.fragment.page;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,33 +8,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fourpeople.campushousekeeper.api.User;
 import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity;
 import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
+import com.example.fourpeople.campushousekeeper.person.AvatarView;
+import com.example.fourpeople.campushousekeeper.person.ChargeActivity;
 import com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment;
+import com.example.fourpeople.campushousekeeper.person.MyInfoActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class PersonFragment extends Fragment {
-
-    InfoItemCellFragment fragBalance;
     View view;
+
+    TextView myName;
+    InfoItemCellFragment fragBalance;
+    AvatarView avatar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view==null) {
             view = inflater.inflate(R.layout.fragment_person, null);
 
+            myName = (TextView) view.findViewById(R.id.my_name);
             fragBalance = (InfoItemCellFragment) getFragmentManager().findFragmentById(R.id.info_balance);
+            avatar = (AvatarView) view.findViewById(R.id.person_avatar);
 
             view.findViewById(R.id.btn_info).setOnClickListener(new OnClickListener() {
 
@@ -76,30 +87,81 @@ public class PersonFragment extends Fragment {
         super.onResume();
 
         fragBalance.setItemName("余额");
-        fragBalance.setItemInfo("0");
+
+        OkHttpClient client = Server.getSharedClient();
+        Request request = Server.requestBuildWithApi("info")
+                .method("get", null)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+
+            @Override
+            public void onResponse(final Call arg0, Response arg1) throws IOException {
+                try {
+                    final User user = new ObjectMapper().readValue(arg1.body().bytes(), User.class);
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            PersonFragment.this.onResponse(arg0,user);
+
+                        }
+                    });
+                } catch (final Exception e) {
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            PersonFragment.this.onFailure(arg0, e);
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onFailure(final Call arg0, final IOException arg1) {
+                getActivity().runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        PersonFragment.this.onFailure(arg0, arg1);
+
+                    }
+                });
+
+            }
+        });
     }
 
-    //去个人信息Fragment
-    public static interface OnGoInfoListener{ void onGoInfo(); }
-
-    OnGoInfoListener onGoInfoListener;
-
-    public void setOnGoInfoListener(OnGoInfoListener onGoInfoListener)
+    void onResponse(Call arg0, User user)
     {
-        this.onGoInfoListener = onGoInfoListener;
+        myName.setText(user.getName());
+        avatar.load(user);
+        fragBalance.setItemInfo(user.getBalance());
     }
 
+    void onFailure(Call call, Exception e) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("ERROR")
+                .setMessage(e.getMessage())
+                .setNegativeButton("OK", null)
+                .show();
+    }
+
+    //去个人信息Activity
     void goInfo()
     {
-        if (onGoInfoListener!=null)
-            onGoInfoListener.onGoInfo();
+        Intent itnt = new Intent(getActivity(), MyInfoActivity.class);
+        startActivity(itnt);
     }
 
     //去充值页面
     void goCharge()
     {
-//        Intent itnt = new Intent(getActivity(), ChargeActivity.class);
-//        startActivity(itnt);
+        Intent itnt = new Intent(getActivity(), ChargeActivity.class);
+        startActivity(itnt);
     }
 
     //去商店管理页面

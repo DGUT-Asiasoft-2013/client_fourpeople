@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fourpeople.campushousekeeper">I
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    package="com.example.fourpeople.campushousekeeper">
+    I
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,55 +20,69 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RegisterActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".PasswordRecoverActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".BootActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".mall.activity.OpenShopActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".mall.activity.ManageShopActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".auction.activity.AddAuctionActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".auction.activity.AuctionsListActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".auction.activity.MyAuctionActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".parttime.activity.FindJobActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".parttime.activity.FindPersonActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".parttime.activity.JobContentActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".parttime.activity.NewJobsActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".parttime.activity.NewResumeActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".parttime.activity.PersonContentActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".parttime.activity.ReleaseActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".parttime.activity.SearchActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".auction.activity.ShowAuctionActivity"
             android:windowSoftInputMode="adjustPan"></activity>
 
         <activity
-            android:name=".parttime.activity.ReleaseActivity"
+            android:name=".person.MyInfoActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+
         <activity
-            android:name=".parttime.activity.SearchActivity"
+            android:name=".person.ModifyInfoActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+
+        <activity
+            android:name=".person.ChargeActivity"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".parttime.activity.MyEmployActivity"
             android:windowSoftInputMode="adjustPan"></activity>

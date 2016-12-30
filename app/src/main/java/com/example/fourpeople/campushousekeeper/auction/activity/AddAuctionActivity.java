@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
@@ -35,11 +36,14 @@ public class AddAuctionActivity extends Activity {
     AuctionSimpleTextCellFragment itemPrice;
     AuctionSimpleTextCellFragment itemIntroduucton;
     AuctionSimpleTextCellFragment itemOthers;
+
     AuctionPictureInputCellFragment itemPicture;
+
     MenuFragment menuFragment = new MenuFragment();
     Spinner itemMethod;
     ImageButton menu;
     Boolean isOpen = false;
+    EditText days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class AddAuctionActivity extends Activity {
         itemOthers = (AuctionSimpleTextCellFragment) getFragmentManager().findFragmentById(R.id.item_others);
         itemPicture= (AuctionPictureInputCellFragment) getFragmentManager().findFragmentById(R.id.item_picture);
 
+
+        days= (EditText) findViewById(R.id.et_days);
         menu = (ImageButton)findViewById(R.id.btn_menu);
 
         menu.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +137,7 @@ public class AddAuctionActivity extends Activity {
         String auctionItemIntroduction = itemIntroduucton.getText();
         String auctionItemOthers = itemOthers.getText();
         String auctionItemMethod = itemMethod.getSelectedItem().toString();
+        String auctionItemDays=days.getText().toString();
 
 
 
@@ -140,6 +147,7 @@ public class AddAuctionActivity extends Activity {
                 .addFormDataPart("price", auctionItemPrice)
                 .addFormDataPart("others", auctionItemOthers)
                 .addFormDataPart("method",auctionItemMethod)
+                .addFormDataPart("days",auctionItemDays)
                 .addFormDataPart("introduction",auctionItemIntroduction);
         if (itemPicture.getPngData() != null)  //上传照片
         {
@@ -199,6 +207,7 @@ public class AddAuctionActivity extends Activity {
         itemOthers.setLabelText(" 补  充 ");
         itemOthers.setHintText("其他补充");
         itemOthers.setPassword(false);
+
         menu.setImageDrawable(getResources().getDrawable(R.drawable.auction_menu));
 
     }

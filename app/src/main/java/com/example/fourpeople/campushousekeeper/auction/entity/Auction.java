@@ -10,7 +10,7 @@ import java.util.Date;
  * Created by Administrator on 2016/12/23.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Auction implements Serializable{
+public class Auction implements Serializable {
     public Integer getId() {
         return id;
     }
@@ -29,6 +29,17 @@ public class Auction implements Serializable{
     String price;
     String method;
     String others;
+
+    public Boolean getIsAuctioning() {
+        return isAuctioning;
+    }
+
+    public void setIsAuctioning(Boolean auctioning) {
+        isAuctioning = auctioning;
+    }
+
+    Boolean isAuctioning;
+
 
     public User getAuctinner() {
         return auctinner;
