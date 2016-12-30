@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.fourpeople.campushousekeeper.auction.fragment.MyAuctionFragment;
 import com.example.fourpeople.campushousekeeper.auction.fragment.widget.MenuFragment;
 import com.example.fourpeople.campushousekeeper.R;
 
@@ -14,12 +15,14 @@ public class MyAuctionActivity extends Activity {
     Button menu;
     Boolean isOpen = false;
     MenuFragment menuFragment = new MenuFragment();
+    MyAuctionFragment myAuctionFragment=new MyAuctionFragment();
     ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auction_activity_my_auction);
+        getFragmentManager().beginTransaction().replace(R.id.container,myAuctionFragment).commit();
         initView();
     }
 

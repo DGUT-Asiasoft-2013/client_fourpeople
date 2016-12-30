@@ -1,16 +1,20 @@
 package com.example.fourpeople.campushousekeeper.auction.fragment;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.fourpeople.campushousekeeper.BootActivity;
+import com.example.fourpeople.campushousekeeper.auction.activity.ShowAuctionActivity;
 import com.example.fourpeople.campushousekeeper.auction.view.AuctionnerView;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Page;
@@ -35,6 +39,7 @@ public class AuctionsListFragment extends Fragment {
     ListView auctionList;
     // AuctionAdapter auctionAdapter;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,9 +49,25 @@ public class AuctionsListFragment extends Fragment {
             auctionList = (ListView) view.findViewById(R.id.lv_auctions_list);
             //  auctionAdapter = new AuctionAdapter(getActivity(), auctionData);
             auctionList.setAdapter(auctionAdapter);
+            auctionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    onClick(i);
+                }
+            });
         }
         //loadData();
+
         return view;
+    }
+
+    private void onClick(int i) {
+        Intent intent=new Intent(getActivity(), ShowAuctionActivity.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("auctionItem",auctionData.get(i));
+        intent.putExtra("isMy",false);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private void loadData() {
@@ -66,6 +87,7 @@ public class AuctionsListFragment extends Fragment {
                     Page<Auction> auction = mapper.readValue(responseString, new TypeReference<Page<Auction>>() {
                     });
                     auctionData = auction.getContent();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

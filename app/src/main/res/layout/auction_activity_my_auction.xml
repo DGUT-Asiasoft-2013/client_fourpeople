@@ -37,6 +37,7 @@
         android:layout_marginTop="50dp"></FrameLayout>
 
     <LinearLayout
+        android:id="@+id/ll_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -55,6 +56,8 @@
             android:layout_height="wrap_content"
             android:text="成交记录" />
     </LinearLayout>
+
+
 
 
 </RelativeLayout>
