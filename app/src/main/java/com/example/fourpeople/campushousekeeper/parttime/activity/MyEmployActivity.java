@@ -2,6 +2,7 @@ package com.example.fourpeople.campushousekeeper.parttime.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -18,6 +19,8 @@ import com.example.fourpeople.campushousekeeper.api.Jobs;
 import com.example.fourpeople.campushousekeeper.api.Page;
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.AvatarView;
+import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.EmployChoiceFragment;
+import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.EmployPage.EmployResumeFragment;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -31,10 +34,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2016/12/20.
+ * Created by Administrator on 2016/12/27.
  */
 
-public class FindJobActivity extends Activity {
+public class MyEmployActivity extends Activity {
     ListView listView;
     List<Jobs> data;
     View btnLoadMore;
@@ -44,18 +47,19 @@ public class FindJobActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.part_activity_findjob);
-        listView = (ListView) findViewById(R.id.list_jods);
-        listView.setAdapter(listAdapter);
+        setContentView(R.layout.part_activity_myemploy);
+        listView = (ListView) findViewById(R.id.MyReleaseJob);
+        listView.setAdapter(JobsAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 onItemClicked(i);
             }
         });
+
     }
 
-    BaseAdapter listAdapter = new BaseAdapter() {
+    BaseAdapter JobsAdapter = new BaseAdapter() {
         @Override
         public int getCount() {
             return data == null ? 0 : data.size();
@@ -74,16 +78,12 @@ public class FindJobActivity extends Activity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             View view;
-            if ((convertView == null)) {
+            if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(parent.getContext());
                 view = inflater.inflate(R.layout.part_job_list_item, null);
             } else {
                 view = convertView;
-
             }
-            //TextView username=(TextView)view.findViewById(R.id.user_name);
-            //要通过view去寻找
-            //TextView username=(TextView)findViewById(R.id.user_name);这样会空指针异常
             TextView username=(TextView)view.findViewById(R.id.user_name);
             TextView jobKind=(TextView)view.findViewById(R.id.job_kind);
             TextView relearceTime=(TextView)view.findViewById(R.id.relearce_time);
@@ -106,15 +106,12 @@ public class FindJobActivity extends Activity {
     protected void onResume() {
         super.onResume();
         reload();
-
-
     }
 
-    void reload()
-    {
-        OkHttpClient client= Server.getSharedClient();
-        Request request=Server.requestBuilderWithPartTime("jobs/list")
-                .method("GET",null)
+    void reload() {
+        OkHttpClient client = Server.getSharedClient();
+        Request request = Server.requestBuilderWithPartTime("releaseJobs/list")
+                .method("GET", null)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -124,24 +121,22 @@ public class FindJobActivity extends Activity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
                 try {
-                    final Page<Jobs> data=new ObjectMapper().readValue(response.body().string(),new TypeReference<Page<Jobs>>(){});
+                    final Page<Jobs> data = new ObjectMapper().readValue(response.body().string(), new TypeReference<Page<Jobs>>() {
+                    });
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            FindJobActivity.this.page=data.getNumber();
-                            FindJobActivity.this.data=data.getContent();
-                            listAdapter.notifyDataSetChanged();
+                            MyEmployActivity.this.page = data.getNumber();
+                            MyEmployActivity.this.data = data.getContent();
+                            JobsAdapter.notifyDataSetChanged();
                         }
                     });
-
-                }catch (final Exception e)
-                {
+                } catch (final Exception e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new AlertDialog.Builder(FindJobActivity.this).setMessage(e.getMessage())
+                            new AlertDialog.Builder(MyEmployActivity.this).setMessage(e.getMessage())
                                     .show();
                         }
                     });
@@ -150,11 +145,11 @@ public class FindJobActivity extends Activity {
 
             }
         });
+
     }
-    void onItemClicked(int position) {
-
-
-        Intent itnt = new Intent(FindJobActivity.this, JobContentActivity.class);
+    void onItemClicked(int position)
+    {
+        Intent itnt = new Intent(MyEmployActivity.this, MyReleaseJobContentActivity.class);
         Bundle bundle=new Bundle();
         bundle.putSerializable("content",data.get(position));
         itnt.putExtras(bundle);

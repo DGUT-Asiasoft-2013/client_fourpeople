@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <fragment
+        android:id="@+id/Employ_tabBar"
+        class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.EmployChoiceFragment"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        tools:layout="@layout/part_employchoice_fragment"></fragment>
+
+    <FrameLayout
+        android:id="@+id/ReleaseJobContent_show"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"></FrameLayout>
+
+</LinearLayout>

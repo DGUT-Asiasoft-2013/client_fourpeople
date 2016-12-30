@@ -6,22 +6,22 @@
     android:orientation="vertical"
     android:weightSum="1">
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_gravity="center">
         <TextView
             android:id="@+id/release_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="找工作"
+            android:text="简历库"
             android:textColor="@android:color/black"
             android:textSize="28sp" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/search_job"
+            android:id="@+id/btn_search_person"
             android:text="搜索"/>
     </LinearLayout>
 
@@ -31,30 +31,12 @@
         android:layout_height="1dp"
         android:layout_gravity="bottom"
         android:background="@android:color/darker_gray" />
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/fragment_job_kinds"
-        class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.JobsKinds"
-        tools:layout="@layout/part_fragment_job_kind">
-
-    </fragment>
-
 
     <ListView
-        android:id="@+id/list_jods"
+        android:id="@+id/resume_warehouse"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </ListView>
-
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/fragment_jobs_kinds"
-        class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.JobsKinds"
-        tools:layout="@layout/part_fragment_job_kind">
-
-    </fragment>
 
 </LinearLayout>

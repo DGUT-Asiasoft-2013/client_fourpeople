@@ -69,6 +69,10 @@
         <activity
             android:name=".parttime.activity.SearchActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".parttime.activity.MyEmployActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".parttime.activity.MyReleaseJobContentActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
 
 
     </application>

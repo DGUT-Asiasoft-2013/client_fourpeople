@@ -21,6 +21,7 @@ public class Resume implements Serializable {
     String avater;
     Date createDate;
     Date editDete;
+    int id;
 
     public String getName() {
         return name;
@@ -108,5 +109,13 @@ public class Resume implements Serializable {
 
     public void setEditDete(Date editDete) {
         this.editDete = editDete;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
