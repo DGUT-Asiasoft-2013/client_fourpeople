@@ -5,10 +5,10 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.fourpeople.campushousekeeper.mall.page.GoodsDisposeFragment;
-import com.example.fourpeople.campushousekeeper.mall.page.GoodsListFragment;
-import com.example.fourpeople.campushousekeeper.mall.page.OrderCenterFragment;
-import com.example.fourpeople.campushousekeeper.mall.page.ShopCenterFragment;
+import com.example.fourpeople.campushousekeeper.mall.fragment.page.GoodsDisposeFragment;
+import com.example.fourpeople.campushousekeeper.mall.fragment.page.GoodsListFragment;
+import com.example.fourpeople.campushousekeeper.mall.fragment.page.OrderCenterFragment;
+import com.example.fourpeople.campushousekeeper.mall.fragment.page.ShopCenterFragment;
 import com.example.fourpeople.campushousekeeper.R;
 
 /**

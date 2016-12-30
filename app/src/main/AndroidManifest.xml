@@ -72,6 +72,15 @@
         <activity
             android:name=".auction.activity.ShowAuctionActivity"
             android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".mall.activity.GoodsListDisposeActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".mall.activity.GoodsShowActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".mall.activity.GoodsBuyActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <activity
             android:name=".person.MyInfoActivity"

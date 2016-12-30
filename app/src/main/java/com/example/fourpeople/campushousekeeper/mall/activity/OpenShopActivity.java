@@ -9,11 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
-import com.example.fourpeople.campushousekeeper.mall.view.MallPictureInputFragment;
+import com.example.fourpeople.campushousekeeper.mall.fragment.MallPictureInputFragment;
+import com.example.fourpeople.campushousekeeper.mall.view.Closeed;
 
 import java.io.IOException;
 
@@ -30,8 +32,9 @@ import okhttp3.Response;
  */
 
 public class OpenShopActivity extends Activity {
+    LinearLayout linearLayout;
     MallPictureInputFragment pictureInputCellFragment;
-    EditText shopNameEdit;
+    EditText shopNameEdit, shopAboutEdit;
     Spinner shopTypeSpinner;
     Button okBtn;
     String shopType;
@@ -40,8 +43,10 @@ public class OpenShopActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mall_activity_openshop);
+        linearLayout = (LinearLayout)findViewById(R.id.mall_activity_openShop);
         pictureInputCellFragment = (MallPictureInputFragment) getFragmentManager().findFragmentById(R.id.openShop_avatar);
         shopNameEdit = (EditText) findViewById(R.id.openShop_edit_name);
+        shopAboutEdit = (EditText) findViewById(R.id.openShop_edit_about);
         shopTypeSpinner = (Spinner) findViewById(R.id.openShop_spinner_type);
         okBtn = (Button) findViewById(R.id.openShop_btn_ok);
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +59,7 @@ public class OpenShopActivity extends Activity {
         shopTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Closeed.onCloseClick(OpenShopActivity.this);
                 shopType = adapterView.getItemAtPosition(i).toString();
             }
 
@@ -62,14 +68,22 @@ public class OpenShopActivity extends Activity {
 
             }
         });
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Closeed.onCloseClick(OpenShopActivity.this);
+            }
+        });
     }
 
     //创建微店按钮方法
     void submit() {
+        Closeed.onCloseClick(OpenShopActivity.this);
         String shopName = shopNameEdit.getText().toString();
-        if (shopName.equals("") || shopType.equals("请选择分类:")) {
+        String shopAbout = shopAboutEdit.getText().toString();
+        if (shopName.equals("") || shopType.equals("请选择分类:") || shopAbout.equals("")) {
             new AlertDialog.Builder(OpenShopActivity.this)
-                    .setMessage("请输入微店名称或者选择微店类型!")
+                    .setMessage("请填充完整内容!")
                     .setNegativeButton("确认", null)
                     .show();
             return;
@@ -77,7 +91,8 @@ public class OpenShopActivity extends Activity {
         MultipartBody.Builder body = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("shopName", shopName)
-                .addFormDataPart("shopType", shopType);
+                .addFormDataPart("shopType", shopType)
+                .addFormDataPart("shopAbout", shopAbout);
         //加载图片数据
         if (pictureInputCellFragment.getPngData() != null) {
             body.addFormDataPart(

@@ -13,13 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.fourpeople.campushousekeeper.R;
-import com.example.fourpeople.campushousekeeper.api.Page;
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.auction.entity.AdDomain;
 import com.example.fourpeople.campushousekeeper.auction.entity.Auction;
 import com.example.fourpeople.campushousekeeper.auction.util.ADAdapter;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiscCache;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -29,18 +26,12 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Request;
-import okhttp3.Response;
 
 
 public class ADFragment extends Fragment {
@@ -136,7 +127,7 @@ public class ADFragment extends Fragment {
 
     public List<AdDomain> getBannerAd() {
         List<AdDomain> adList = new ArrayList<AdDomain>();
-        loadData();
+        //loadData();
         List<Auction> data = auctionDatas;
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if (data != null) {
@@ -307,7 +298,7 @@ public class ADFragment extends Fragment {
         addDynamicView();
     }
 
-    public void loadData() {
+/*    public void loadData() {
 
         Request request = Server.requestBuildWithAuction("auctions").method("get", null).build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
@@ -339,12 +330,12 @@ public class ADFragment extends Fragment {
             }
         });
 
-    }
+    }*/
 
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+        //loadData();
     }
 
 }

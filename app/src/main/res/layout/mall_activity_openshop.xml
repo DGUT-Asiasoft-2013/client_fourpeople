@@ -3,34 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/mall_activity_openShop">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="欢迎使用微店!"
-        android:textSize="35px" />
+        android:text="欢迎使用微店!" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp"
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="微店名称：" />
+        android:layout_height="20dp"
+        android:text="小店名称：" />
 
     <EditText
         android:id="@+id/openShop_edit_name"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/mall_rounded_edittext2"
-        android:hint="请输入微店名称" />
+        android:hint="请输入小店名称" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="微店分类:" />
+        android:layout_height="20dp"
+        android:text="小店分类:" />
 
     <Spinner
         android:id="@+id/openShop_spinner_type"
@@ -38,12 +47,38 @@
         android:layout_height="40dp"
         android:entries="@array/shopType"></Spinner>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text="小店介绍：" />
+
+    <EditText
+        android:id="@+id/openShop_edit_about"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/mall_rounded_edittext2"
+        android:hint="请输入介绍小店内容" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp" />
+
     <fragment
         android:id="@+id/openShop_avatar"
-        class="com.example.fourpeople.campushousekeeper.mall.view.MallPictureInputFragment"
+        class="com.example.fourpeople.campushousekeeper.mall.fragment.MallPictureInputFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="135dp"
         tools:layout="@layout/mall_fragment_inputcell_picture"></fragment>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp" />
 
     <Button
         android:id="@+id/openShop_btn_ok"
@@ -51,8 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="建立微店"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:text="建立微店" />
 
 
 </LinearLayout>

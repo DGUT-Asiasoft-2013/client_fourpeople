@@ -26,8 +26,8 @@ public class Server {
         return okHttpClient;
     }
 
-    public static String serverAddress = "http://172.27.15.17:8080/membercenter/";
-    public static String serverAddressPartTime = "http://172.27.15.17:8080/membercenter/api";
+    public static String serverAddress = "http://172.27.15.11:8080/membercenter/";
+    public static String serverAddressPartTime = "http://172.27.15.11:8080/membercenter/api";
 
     public static Request.Builder requestBuildWithApi(String api) {
         return new Request.Builder()

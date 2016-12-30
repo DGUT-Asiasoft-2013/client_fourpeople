@@ -15,6 +15,24 @@ public class Mall implements Serializable {
     User user;
     Date createDate;
     Date editDate;
+    int shopLiked;
+    String shopAbout;
+
+    public int getShopLiked() {
+        return shopLiked;
+    }
+
+    public void setShopLiked(int shopLiked) {
+        this.shopLiked = shopLiked;
+    }
+
+    public String getShopAbout() {
+        return shopAbout;
+    }
+
+    public void setShopAbout(String shopAbout) {
+        this.shopAbout = shopAbout;
+    }
 
     public Date getCreateDate() {
         return createDate;

@@ -17,6 +17,15 @@ public class Goods implements Serializable {
     Mall mall;
     Date createDate;
     Date editDate;
+    int goodsLiked;
+
+    public int getGoodsLiked() {
+        return goodsLiked;
+    }
+
+    public void setGoodsLiked(int goodsLiked) {
+        this.goodsLiked = goodsLiked;
+    }
 
     public Date getCreateDate() {
         return createDate;

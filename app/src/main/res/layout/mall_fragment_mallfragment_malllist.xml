@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="80dp"
     android:orientation="vertical">
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal">
 
-        <com.example.fourpeople.campushousekeeper.mall.view.GoodsAvatar
-            android:id="@+id/goodsList_goodsAvatar"
+        <com.example.fourpeople.campushousekeeper.mall.view.AvatarDispose
+            android:id="@+id/mallFragment_mallList_avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_gravity="top"
-            android:padding="2dp"
-            tools:ignore="ContentDescription" />
-        <!--<ImageView
-            android:id="@+id/goodsList_goodsAvatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:padding="2dp" />-->
+            android:padding="2dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,7 +26,10 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -42,23 +37,37 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/goodsList_goodsName"
+                        android:id="@+id/mallFragment_mallList_name"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:paddingLeft="10dp"
-                        android:text="商品名字"
+                        android:text="商店名字"
                         android:textSize="30px" />
 
-                    <TextView
-                        android:id="@+id/goodsList_goodsAbout"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:paddingLeft="10dp"
-                        android:text="商品备注" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/mallFragment_mallList_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:text="商店类型" />
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/mallFragment_mallList_about"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="小店介绍" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/goodsList_like"
+                    android:id="@+id/mallFragment_mallList_like"
                     android:layout_width="70dp"
                     android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
@@ -66,6 +75,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="收藏(0)" />
+
             </RelativeLayout>
 
             <LinearLayout
@@ -74,25 +84,27 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/goodsList_goodsPiece"
+                    android:id="@+id/mallFragment_mallList_user"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="10"
-                    android:paddingLeft="10dp"
-                    android:text="商品价格" />
+                    android:layout_weight="6"
+                    android:text="店家:" />
 
                 <TextView
-                    android:id="@+id/goodsList_goodsNumber"
+                    android:id="@+id/mallFragment_mallList_date"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_weight="10"
-                    android:text="数量" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="12"
+                    android:text="创建日期" />
 
                 <TextView
-                    android:layout_width="15dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="..." />
+                    android:layout_weight="10.77"
+                    android:gravity="center"
+                    android:text="进入店铺..."
+                    android:textSize="13px" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

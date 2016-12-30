@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_goodsdispose"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,9 +13,15 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:gravity="center"
             android:text="上架商品" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="4dp"
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,8 +54,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:background="@drawable/mall_rounded_edittext2"
-                android:hint="请输入单价" />
+                android:hint="请输入单价"
+                android:inputType="numberDecimal" />
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,7 +80,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
                 android:background="@drawable/mall_rounded_edittext2"
-                android:hint="请输入数量" />
+                android:hint="请输入数量"
+                android:inputType="number" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,9 +98,14 @@
                 android:hint="请输入备注" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="4dp" />
+
         <fragment
             android:id="@+id/goodsDispose_avatar"
-            class="com.example.fourpeople.campushousekeeper.mall.view.MallPictureInputFragment"
+            class="com.example.fourpeople.campushousekeeper.mall.fragment.MallPictureInputFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/mall_fragment_inputcell_picture" />
@@ -97,45 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="上架" />
+            android:text="上架商品" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="4dp"
-        android:background="@android:color/darker_gray" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="下架商品" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="商品:" />
-
-        <Spinner
-            android:id="@+id/goodsDispose_goods"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mall_rounded_edittext2"></Spinner>
-
-        <Button
-            android:id="@+id/goodsDispose_pull"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确定" />
-    </LinearLayout>
 
 </LinearLayout>

@@ -1,15 +1,15 @@
 package com.example.fourpeople.campushousekeeper.mall.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 import android.graphics.Shader;
+import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
@@ -25,44 +25,43 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2016/12/23.
+ * Created by Administrator on 2016/12/26.
  */
 
-public class AvatarDispose extends View {
-    /*
-    * 绘制圆形的头像
-    * */
+public class GoodsAvatar extends View {
+/*
+* 绘制正方形的图片
+* */
+
     Paint paint;
     float srcWidth, srcHeight;
     Handler mainThreadHandler = new Handler();
 
-    public AvatarDispose(Context context) {
+    public GoodsAvatar(Context context) {
         super(context);
     }
 
-    public AvatarDispose(Context context, AttributeSet attributeSet) {
-        super(context, attributeSet);
+    public GoodsAvatar(Context context, AttributeSet attrs) {
+        super(context, attrs);
     }
 
-    public AvatarDispose(Context context, AttributeSet attributeSet, int defStyleAttr) {
-        super(context, attributeSet, defStyleAttr);
+    public GoodsAvatar(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public GoodsAvatar(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
 
     public void setBitmap(Bitmap bmp) {
-        if (bmp == null) {
-            paint = new Paint();
-            paint.setColor(Color.GRAY);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(1);
-            paint.setPathEffect(new DashPathEffect(new float[]{5, 10, 15, 20}, 0));
-            paint.setAntiAlias(true);
-        } else {
-            paint = new Paint();
-            paint.setShader(new BitmapShader(bmp, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT));
-            paint.setAntiAlias(true);
-            srcWidth = bmp.getWidth();
-            srcHeight = bmp.getHeight();
-        }
+        paint = new Paint();
+        paint.setShader(new BitmapShader(bmp, Shader.TileMode.REPEAT, Shader.TileMode.REPEAT));
+        paint.setAntiAlias(true);//使用抗锯齿功能
+        //paint.setStyle(Paint.Style.STROKE);//设置填充方式为描边
+        srcWidth = bmp.getWidth();
+        srcHeight = bmp.getHeight();
         invalidate();
     }
 
@@ -73,7 +72,6 @@ public class AvatarDispose extends View {
                 .build();
 
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
-
             @Override
             public void onResponse(Call arg0, Response arg1) throws IOException {
                 try {
@@ -88,8 +86,7 @@ public class AvatarDispose extends View {
                                 Resources res = getResources();
                                 Bitmap bmp = BitmapFactory.decodeResource(res, R.drawable.app);
                                 setBitmap(bmp);
-                                //2.没有头像的情况，传输null，绘制
-                                //setBitmap(null);
+
                             }
 
                         }
@@ -102,8 +99,6 @@ public class AvatarDispose extends View {
                             Resources res = getResources();
                             Bitmap bmp = BitmapFactory.decodeResource(res, R.drawable.app);
                             setBitmap(bmp);
-                            //解释错误,绘制null
-                            //setBitmap(null);
                         }
                     });
                 }
@@ -129,8 +124,11 @@ public class AvatarDispose extends View {
             float scaleX = srcWidth / dstWidth;
             float scaleY = srcHeight / dstHeight;
             canvas.scale(1 / scaleX, 1 / scaleY);
-            canvas.drawCircle(srcWidth / 2, srcHeight / 2, Math.min(srcWidth, srcHeight) / 2, paint);
+           // canvas.drawCircle(srcWidth / 2, srcHeight / 2, Math.min(srcWidth, srcHeight) / 2, paint);
+            canvas.drawRect(0,0,srcWidth,srcHeight,paint);
             canvas.restore();
         }
     }
+
+
 }
