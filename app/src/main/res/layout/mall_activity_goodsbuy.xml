@@ -29,7 +29,7 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="收藏" />
+            android:text="点赞" />
     </RelativeLayout>
 
     <View
@@ -38,16 +38,19 @@
         android:layout_margin="4dp"
         android:background="@android:color/darker_gray" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <com.example.fourpeople.campushousekeeper.mall.view.GoodsAvatar
         android:id="@+id/goodsBuy_avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
-
+        android:layout_height="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +61,7 @@
             android:id="@+id/goodsBuy_name"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:gravity="center"
             android:text="name" />
 
@@ -133,6 +136,10 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -160,12 +167,10 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp" />
+        android:layout_height="10dp" />
 
     <ListView
-        android:id="@+id/goodsBuy_commentList"
+        android:id="@+id/goodsBuy_comment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
-
-
 </LinearLayout>
