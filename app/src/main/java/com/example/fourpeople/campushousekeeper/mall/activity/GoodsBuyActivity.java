@@ -74,6 +74,8 @@ public class GoodsBuyActivity extends Activity {
                             goodsBuyNumber.setText(String.valueOf(i));
                         }
                     });
+                } else if (Integer.valueOf(goods.getGoodsNumber().toString()).intValue() <= 0) {
+                    goodsBuyNumber.setText(String.valueOf(0));
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override

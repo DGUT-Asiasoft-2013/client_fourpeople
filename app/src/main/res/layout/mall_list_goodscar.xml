@@ -14,6 +14,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
+            android:paddingLeft="10dp"
             android:text="Mall" />
 
         <TextView
@@ -37,14 +38,16 @@
 
         <com.example.fourpeople.campushousekeeper.mall.view.GoodsAvatar
             android:id="@+id/goodsCarList_goodsAvatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
             android:gravity="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +63,7 @@
                     android:text="name" />
 
                 <View
-                    android:layout_width="20dp"
+                    android:layout_width="10dp"
                     android:layout_height="match_parent" />
 
                 <TextView
@@ -72,7 +75,7 @@
                     android:text="about" />
 
                 <View
-                    android:layout_width="100dp"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent" />
 
                 <TextView
@@ -98,7 +101,7 @@
                     android:text="piece" />
 
                 <View
-                    android:layout_width="20dp"
+                    android:layout_width="10dp"
                     android:layout_height="match_parent" />
 
                 <TextView
@@ -110,12 +113,12 @@
                     android:text="number" />
 
                 <View
-                    android:layout_width="40dp"
+                    android:layout_width="5dp"
                     android:layout_height="match_parent" />
 
                 <TextView
                     android:id="@+id/goodsCarList_add"
-                    android:layout_width="50dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="+" />
@@ -123,14 +126,14 @@
 
                 <TextView
                     android:id="@+id/goodsCarList_buyNumber"
-                    android:layout_width="25dp"
+                    android:layout_width="15dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="1" />
 
                 <TextView
                     android:id="@+id/goodsCarList_reduce"
-                    android:layout_width="50dp"
+                    android:layout_width="30dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="-" />
