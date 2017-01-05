@@ -1,6 +1,7 @@
 package com.example.fourpeople.campushousekeeper.mall.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -118,12 +119,26 @@ public class GoodsBuyActivity extends Activity {
         goodsDate.setText("上架时间:" + new SimpleDateFormat("yyyy-MM-dd").format(goods.getCreateDate()));
         goodsPiece.setText("价格:￥" + goods.getGoodsPiece());
         goodsNumber.setText("库存:" + goods.getGoodsNumber());
+        if (Integer.valueOf(goods.getGoodsNumber()).intValue() > 0) {
+            goodsBuyNumber.setText("1");
+        } else {
+            goodsBuyNumber.setText("0");
+        }
         super.onResume();
     }
 
     void addCart() {
+        if (Integer.valueOf(goodsBuyNumber.getText().toString()).intValue() <= 0) {
+            new AlertDialog.Builder(GoodsBuyActivity.this)
+                    .setTitle("ERROR")
+                    .setMessage("购买数量错误!")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
         MultipartBody multipartBody = new MultipartBody.Builder()
                 .addFormDataPart("goodsId", goods.getId().toString())
+                .addFormDataPart("buyNumber", goodsBuyNumber.getText().toString())
                 .build();
         Request request = Server.requestBuildWithMall("shop/goods/addCart")
                 .post(multipartBody)

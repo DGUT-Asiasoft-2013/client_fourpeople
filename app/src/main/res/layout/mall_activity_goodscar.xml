@@ -41,6 +41,18 @@
             android:layout_height="match_parent"
             android:layout_weight="5" />
 
+        <TextView
+            android:id="@+id/goodsCar_money"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="money" />
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent" />
+
         <Button
             android:id="@+id/goodsCar_buy"
             android:layout_width="80dp"

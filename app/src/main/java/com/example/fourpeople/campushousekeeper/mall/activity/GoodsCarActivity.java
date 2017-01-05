@@ -2,6 +2,8 @@ package com.example.fourpeople.campushousekeeper.mall.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,8 @@ public class GoodsCarActivity extends Activity {
     ListView goodsCarList;
     CheckBox goodsCarCheckBox;
     Button goodsCarBuy;
-
+    TextView goodsCarMoney;
+    int money = 0;
     List<Car> car = new ArrayList<>();
 
     @Override
@@ -51,6 +55,7 @@ public class GoodsCarActivity extends Activity {
         goodsCarList = (ListView) findViewById(R.id.goodsCar_goodsList);
         goodsCarCheckBox = (CheckBox) findViewById(R.id.goodsCar_choiceAll);
         goodsCarBuy = (Button) findViewById(R.id.goodsCar_buy);
+        goodsCarMoney = (TextView) findViewById(R.id.goodsCar_money);
         goodsCarList.setAdapter(baseAdapter);
         //全选按钮事件
         goodsCarCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -69,7 +74,34 @@ public class GoodsCarActivity extends Activity {
                         }
                     }
                 }
+                setMoney();
                 baseAdapter.notifyDataSetInvalidated();
+            }
+        });
+        goodsCarBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(GoodsCarActivity.this)
+                        .setTitle("提示")
+                        .setMessage("是否确认下单？")
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                List<Car> buyCar = new ArrayList<>();
+                                for (int n = 0; n < car.size(); n++) {
+                                    if (car.get(n).getChoice()) {
+                                        buyCar.add(car.get(n));
+                                    }
+                                }
+                                if (buyCar != null) {
+                                    Intent intent = new Intent(GoodsCarActivity.this, GoodsOrderActivity.class);
+                                    intent.putExtra("car", (Serializable) buyCar);
+                                    startActivity(intent);
+                                }
+                            }
+                        }).setNegativeButton("取消", null)
+                        .show();
+
             }
         });
     }
@@ -118,11 +150,28 @@ public class GoodsCarActivity extends Activity {
                     + currentCar.getGoods().getMall().getShopName());
             goodsCarAvatar.load(currentCar.getGoods().getGoodsAvatar());
             goodsCarName.setText(currentCar.getGoods().getGoodsName());
-            goodsCarAbout.setText("备注:" + currentCar.getGoods().getGoodsAbout());
+            goodsCarAbout.setText(currentCar.getGoods().getGoodsAbout());
             goodsCarDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(currentCar.getCreateDate()));
             goodsCarPiece.setText("价格:￥" + currentCar.getGoods().getGoodsPiece());
             goodsCarNumber.setText("库存:" + currentCar.getGoods().getGoodsNumber());
-            goodsCarBuyNumber.setText("1");
+            //当前购买数量设置
+            if (Integer.valueOf(currentCar.getBuyNumber()).intValue()
+                    <= Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue()
+                    && Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue() > 1) {
+                goodsCarBuyNumber.setText(String.valueOf(currentCar.getBuyNumber()));
+            } else if (Integer.valueOf(currentCar.getBuyNumber()).intValue()
+                    > Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue()
+                    && Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue() > 1) {
+                goodsCarBuyNumber.setText("1");
+                currentCar.setBuyNumber(1);
+            } else if (Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue() == 1) {
+                goodsCarBuyNumber.setText("1");
+                currentCar.setBuyNumber(1);
+            } else {
+                goodsCarBuyNumber.setText("0");
+                currentCar.setBuyNumber(0);
+            }
+
             //设置是否选中
             if (currentCar.getChoice()) {
                 goodsCarCheck.setChecked(true);
@@ -137,11 +186,14 @@ public class GoodsCarActivity extends Activity {
                             < Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue()) {
                         int i = Integer.valueOf(goodsCarBuyNumber.getText().toString()).intValue() + 1;
                         goodsCarBuyNumber.setText(String.valueOf(i));
+                        currentCar.setBuyNumber(i);
                     } else if (Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue() <= 0) {
                         goodsCarBuyNumber.setText(String.valueOf(0));
+                        currentCar.setBuyNumber(0);
                     } else {
                         Toast.makeText(GoodsCarActivity.this, "已达到最大购买数量!", Toast.LENGTH_SHORT).show();
                     }
+                    setMoney();
                 }
             });
             //减号事件
@@ -152,6 +204,8 @@ public class GoodsCarActivity extends Activity {
                             > 1 && Integer.valueOf(currentCar.getGoods().getGoodsNumber().toString()).intValue() > 1) {
                         int i = Integer.valueOf(goodsCarBuyNumber.getText().toString()).intValue() - 1;
                         goodsCarBuyNumber.setText(String.valueOf(i));
+                        currentCar.setBuyNumber(i);
+                        setMoney();
                     }
                 }
             });
@@ -168,8 +222,10 @@ public class GoodsCarActivity extends Activity {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (goodsCarCheck.isChecked()) {
                         currentCar.setChoice(true);
+                        setMoney();
                     } else {
                         currentCar.setChoice(false);
+                        setMoney();
                     }
                 }
             });
@@ -229,11 +285,26 @@ public class GoodsCarActivity extends Activity {
         });
     }
 
+    void setMoney() {
+        money = 0;
+        if (car != null) {
+            for (int i = 0; i < car.size(); i++) {
+                if (car.get(i).getChoice()) {
+                    money = money + Integer.valueOf(car.get(i).getGoods().getGoodsPiece()).intValue()
+                            * Integer.valueOf(car.get(i).getBuyNumber()).intValue();
+                }
+            }
+            goodsCarMoney.setText("总金额:" + String.valueOf(money));
+        } else {
+            goodsCarMoney.setText("总金额:" + String.valueOf(money));
+        }
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
         getMessage();
+        setMoney();
     }
 
     void getMessage() {

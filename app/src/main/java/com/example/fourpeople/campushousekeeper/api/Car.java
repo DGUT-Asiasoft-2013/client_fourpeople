@@ -14,6 +14,15 @@ public class Car implements Serializable {
     Integer customerId;
     Integer id;
     Boolean choice;
+    int buyNumber;
+
+    public int getBuyNumber() {
+        return buyNumber;
+    }
+
+    public void setBuyNumber(int buyNumber) {
+        this.buyNumber = buyNumber;
+    }
 
     public Boolean getChoice() {
         return choice;
