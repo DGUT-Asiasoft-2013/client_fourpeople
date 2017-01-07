@@ -8,13 +8,20 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/myOrder_back"
+            android:layout_width="55dp"
+            android:layout_height="40dp"
+            android:background="@drawable/app" />
+
         <TextView
             android:id="@+id/myOrder_text"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="订单管理" />
+            android:text="我的订单" />
     </RelativeLayout>
 
     <View

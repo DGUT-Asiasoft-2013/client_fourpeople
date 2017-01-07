@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.fourpeople.campushousekeeper.api.User;
 import com.example.fourpeople.campushousekeeper.mall.activity.GoodsCarActivity;
 import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.MyOrderActivity;
 import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
@@ -76,6 +77,13 @@ public class PersonFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     goOrders();
+                }
+            });
+            //购物车
+            view.findViewById(R.id.btn_buyCar).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    goBuyCar();
                 }
             });
         }
@@ -212,6 +220,11 @@ public class PersonFragment extends Fragment {
     //去个人订单详情页面
     void goOrders() {
         //
+        Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+        startActivity(intent);
+    }
+
+    void goBuyCar(){
         Intent intent = new Intent(getActivity(), GoodsCarActivity.class);
         startActivity(intent);
     }

@@ -99,9 +99,14 @@
         <activity
             android:name=".parttime.activity.MyReleaseJobContentActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".mall.activity.GoodsCarActivity"></activity>
-        <activity android:name=".mall.activity.GoodsOrderActivity"></activity>
+        <activity
+            android:name=".mall.activity.GoodsCarActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity
+            android:name=".mall.activity.GoodsOrderActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".mall.activity.AlterAddressActivity"></activity>
+        <activity android:name=".mall.activity.MyOrderActivity"></activity>
 
 
     </application>

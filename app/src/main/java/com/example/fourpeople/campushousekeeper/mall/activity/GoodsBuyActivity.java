@@ -2,7 +2,9 @@ package com.example.fourpeople.campushousekeeper.mall.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -10,13 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fourpeople.campushousekeeper.R;
+import com.example.fourpeople.campushousekeeper.api.Car;
 import com.example.fourpeople.campushousekeeper.api.Goods;
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.mall.view.GoodsAvatar;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -41,6 +48,7 @@ public class GoodsBuyActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         goods = (Goods) getIntent().getSerializableExtra("goods");
+        //
         setContentView(R.layout.mall_activity_goodsbuy);
         goodsAvatar = (GoodsAvatar) findViewById(R.id.goodsBuy_avatar);
         goodsName = (TextView) findViewById(R.id.goodsBuy_name);
@@ -109,6 +117,13 @@ public class GoodsBuyActivity extends Activity {
                 addCart();
             }
         });
+        //购买按钮事件
+        goodsBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goOrder();
+            }
+        });
     }
 
     @Override
@@ -118,16 +133,21 @@ public class GoodsBuyActivity extends Activity {
         goodsAbout.setText("备注:" + goods.getGoodsAbout());
         goodsDate.setText("上架时间:" + new SimpleDateFormat("yyyy-MM-dd").format(goods.getCreateDate()));
         goodsPiece.setText("价格:￥" + goods.getGoodsPiece());
-        goodsNumber.setText("库存:" + goods.getGoodsNumber());
+
         if (Integer.valueOf(goods.getGoodsNumber()).intValue() > 0) {
             goodsBuyNumber.setText("1");
         } else {
             goodsBuyNumber.setText("0");
         }
         super.onResume();
+        //及时更新goodsnumber
+        getGoodNumber();
     }
 
-    void addCart() {
+    //购买按钮事件
+    void goOrder() {
+        List<Car> buyCar = new ArrayList<>();
+        Car car = new Car();
         if (Integer.valueOf(goodsBuyNumber.getText().toString()).intValue() <= 0) {
             new AlertDialog.Builder(GoodsBuyActivity.this)
                     .setTitle("ERROR")
@@ -136,6 +156,33 @@ public class GoodsBuyActivity extends Activity {
                     .show();
             return;
         }
+        car.setId(0);
+        car.setBuyNumber(Integer.valueOf(goodsBuyNumber.getText().toString()).intValue());
+        car.setChoice(null);
+        car.setCreateDate(new Date());
+        car.setCustomerId(null);
+        Log.d("GoodsBuyActivity++", "this is ++" + car.getCustomerId());
+        car.setEditDate(null);
+        car.setGoods(goods);
+        buyCar.add(car);
+        //
+        if (buyCar.size() > 0) {
+            Intent intent = new Intent(GoodsBuyActivity.this, GoodsOrderActivity.class);
+            intent.putExtra("car", (Serializable) buyCar);
+            startActivity(intent);
+        }
+    }
+
+    void addCart() {
+        if (Integer.valueOf(goodsBuyNumber.getText().toString()).intValue() <= 0&&Integer.valueOf(goodsNumber.getText().toString())>0) {
+            new AlertDialog.Builder(GoodsBuyActivity.this)
+                    .setTitle("ERROR")
+                    .setMessage("购买数量错误!")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
+
         MultipartBody multipartBody = new MultipartBody.Builder()
                 .addFormDataPart("goodsId", goods.getId().toString())
                 .addFormDataPart("buyNumber", goodsBuyNumber.getText().toString())
@@ -181,6 +228,43 @@ public class GoodsBuyActivity extends Activity {
                             Toast.makeText(GoodsBuyActivity.this, "添加购物车失败!", Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+            }
+        });
+    }
+
+    void getGoodNumber() {
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .addFormDataPart("goodId", goods.getId().toString())
+                .build();
+        Request request = Server.requestBuildWithMall("getGoods")
+                .post(multipartBody)
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(GoodsBuyActivity.this, "网络挂了...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    final Goods currentGoods = new ObjectMapper().readValue(response.body().string(), Goods.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //更新number
+                            goodsNumber.setText("库存:" + currentGoods.getGoodsNumber());
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -3,25 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="#FFB937"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_marginTop="30dip"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <FrameLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginLeft="15dp" >
+                android:layout_marginLeft="15dp">
 
                 <!--                 <ImageView -->
                 <!--                     android:id="@+id/avatar" -->
@@ -46,7 +46,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/my_name"
@@ -71,18 +71,18 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"/>
-
+        android:layout_height="5dp" />
     <fragment
         android:id="@+id/info_balance"
+        class="com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment"
         tools:layout="@layout/person_fragment_info_item_cell" />
+
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp"/>
+        android:layout_height="5dp" />
 
     <Button
         android:id="@+id/btn_charge"
@@ -93,7 +93,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="5dp" />
 
     <Button
         android:id="@+id/btn_store_management"
@@ -104,13 +104,35 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="5dp" />
+
+    <Button
+        android:id="@+id/btn_buyCar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="我的购物车"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
 
     <Button
         android:id="@+id/btn_orders"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="订单详情"
+        android:text="我的订单"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
+    <Button
+        android:id="@+id/btn_liked"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="我的收藏"
         android:textSize="20sp" />
 
 </LinearLayout>

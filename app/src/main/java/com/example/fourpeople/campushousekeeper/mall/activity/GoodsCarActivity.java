@@ -45,7 +45,7 @@ public class GoodsCarActivity extends Activity {
     CheckBox goodsCarCheckBox;
     Button goodsCarBuy;
     TextView goodsCarMoney;
-    int money = 0;
+    double money = 0;
     List<Car> car = new ArrayList<>();
 
     @Override
@@ -93,10 +93,12 @@ public class GoodsCarActivity extends Activity {
                                         buyCar.add(car.get(n));
                                     }
                                 }
-                                if (buyCar != null) {
+                                if (buyCar.size() > 0) {
                                     Intent intent = new Intent(GoodsCarActivity.this, GoodsOrderActivity.class);
                                     intent.putExtra("car", (Serializable) buyCar);
                                     startActivity(intent);
+                                } else {
+                                    Toast.makeText(GoodsCarActivity.this, "订单内容为空，请选择商品！", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }).setNegativeButton("取消", null)
@@ -286,12 +288,12 @@ public class GoodsCarActivity extends Activity {
     }
 
     void setMoney() {
-        money = 0;
+        money = 0.0;
         if (car != null) {
             for (int i = 0; i < car.size(); i++) {
                 if (car.get(i).getChoice()) {
-                    money = money + Integer.valueOf(car.get(i).getGoods().getGoodsPiece()).intValue()
-                            * Integer.valueOf(car.get(i).getBuyNumber()).intValue();
+                    money = money + Double.valueOf(car.get(i).getGoods().getGoodsPiece())
+                            * Double.valueOf(car.get(i).getBuyNumber());
                 }
             }
             goodsCarMoney.setText("总金额:" + String.valueOf(money));
