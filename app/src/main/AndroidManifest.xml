@@ -93,13 +93,20 @@
         <activity
             android:name=".person.ChargeActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".parttime.activity.MyEmployActivity"
+        <activity
+            android:name=".parttime.activity.MyEmployActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".parttime.activity.MyReleaseJobContentActivity"
+        <activity
+            android:name=".parttime.activity.MyReleaseJobContentActivity"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".parttime.activity.MyParttimeActivity"></activity>
         <activity android:name=".parttime.activity.MyWantJobActivity"></activity>
         <activity android:name=".parttime.activity.ResumeContentActivity"></activity>
+        <activity android:name=".mall.activity.GoodsCarActivity"></activity>
+        <activity android:name=".mall.activity.GoodsOrderActivity"></activity>
+        <activity android:name=".mall.activity.AlterAddressActivity"></activity>
+
+
     </application>
 
 </manifest>
