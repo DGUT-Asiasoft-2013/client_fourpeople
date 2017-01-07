@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+    <fragment
+        android:id="@+id/image_play"
+        class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.ImagePlayFragment"
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        tools:layout="@layout/part_fragment_image_play"></fragment>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:layout_marginLeft="50dp"
+            android:id="@+id/btn_myrelease"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/part_release1"
+            android:background="@color/Wheat"/>
+
+        <ImageButton
+            android:id="@+id/mycolection"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="80dp"
+            android:src="@drawable/part_colection"
+            android:background="@color/Wheat"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="24dp"></View>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <ImageButton
+            android:id="@+id/my_employ"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:background="@color/Wheat"
+            android:scaleType="fitXY"
+            android:src="@drawable/part_myemploy" />
+
+        <ImageButton
+            android:id="@+id/my_job"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="65dp"
+            android:background="@color/Wheat"
+            android:scaleType="fitXY"
+            android:src="@drawable/part_myjob" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/myorder"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="47dp"
+            android:background="#00ffffff"
+            android:scaleType="fitXY"
+            android:src="@drawable/part_myorder" />
+    </LinearLayout>
+</LinearLayout>

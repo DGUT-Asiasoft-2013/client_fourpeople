@@ -97,8 +97,9 @@
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".parttime.activity.MyReleaseJobContentActivity"
             android:windowSoftInputMode="adjustPan"></activity>
-
-
+        <activity android:name=".parttime.activity.MyParttimeActivity"></activity>
+        <activity android:name=".parttime.activity.MyWantJobActivity"></activity>
+        <activity android:name=".parttime.activity.ResumeContentActivity"></activity>
     </application>
 
 </manifest>

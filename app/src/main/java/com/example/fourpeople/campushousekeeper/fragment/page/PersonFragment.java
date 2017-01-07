@@ -16,6 +16,7 @@ import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity
 import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
+import com.example.fourpeople.campushousekeeper.parttime.activity.MyParttimeActivity;
 import com.example.fourpeople.campushousekeeper.person.AvatarView;
 import com.example.fourpeople.campushousekeeper.person.ChargeActivity;
 import com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment;
@@ -78,6 +79,13 @@ public class PersonFragment extends Fragment {
                 }
             });
         }
+        view.findViewById(R.id.btn_parttime).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getActivity(), MyParttimeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
