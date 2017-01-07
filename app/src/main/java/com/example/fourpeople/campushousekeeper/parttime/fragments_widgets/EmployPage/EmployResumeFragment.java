@@ -20,6 +20,7 @@ import com.example.fourpeople.campushousekeeper.api.Resume;
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.parttime.activity.FindPersonActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.PersonContentActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.ResumeContentActivity;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.AvatarView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -155,9 +156,10 @@ public class EmployResumeFragment extends Fragment{
     void onItemClicked(int position) {
 
 
-        Intent itnt = new Intent(getActivity(), PersonContentActivity.class);
+        Intent itnt = new Intent(getActivity(), ResumeContentActivity.class);
         Bundle bundle=new Bundle();
         bundle.putSerializable("content",data.get(position));
+        bundle.putSerializable("jobs",jobs);
         itnt.putExtras(bundle);
         startActivity(itnt);
     }

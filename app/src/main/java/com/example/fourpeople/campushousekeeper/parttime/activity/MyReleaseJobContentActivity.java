@@ -21,11 +21,12 @@ public class MyReleaseJobContentActivity extends Activity{
     ResumeWarehouseFragment resumeWarehouseFragment=new ResumeWarehouseFragment();
     EmployChoiceFragment employChoiceFragment;
     int selectedIndex = -1;
+    Jobs jobs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.part_activity_release_job);
-       Jobs jobs = (Jobs) getIntent().getSerializableExtra("content");
+        jobs = (Jobs) getIntent().getSerializableExtra("content");
         employChoiceFragment=(EmployChoiceFragment)getFragmentManager().findFragmentById(R.id.Employ_tabBar);
         employChoiceFragment.setOnBtnSelectedListener(new EmployChoiceFragment.OnBtnSelectedListener() {
             @Override

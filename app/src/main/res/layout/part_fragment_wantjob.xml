@@ -16,13 +16,13 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@drawable/partresume" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="应聘简历"
+            android:text="我的简历"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -37,35 +37,13 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/part_warehouse" />
+            android:scaleType="fitXY"
+            android:src="@drawable/partinterview" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="简历库"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/JobInformation"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/part_information" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="职位信息"
+            android:text="面试邀请"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -80,13 +58,13 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/part_question_and_answer" />
+            android:scaleType="fitXY"
+            android:src="@drawable/partrecord" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="职位问答"
+            android:text="申请记录"
             android:textColor="@android:color/black" />
     </LinearLayout>
 </LinearLayout>
