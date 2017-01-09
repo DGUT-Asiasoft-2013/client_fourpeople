@@ -3,6 +3,10 @@
     package="com.example.fourpeople.campushousekeeper">
     I
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -71,7 +75,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".auction.activity.ShowAuctionActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".mall.activity.GoodsListDisposeActivity"
             android:windowSoftInputMode="adjustPan"></activity>
@@ -84,15 +88,16 @@
 
         <activity
             android:name=".person.MyInfoActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
-
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".person.ModifyInfoActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
-
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".person.ChargeActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".auction.activity.ExchangeActivity"></activity>
+        <activity android:name=".chat.ChatActivity"></activity>
+
         <activity
             android:name=".parttime.activity.MyEmployActivity"
             android:windowSoftInputMode="adjustPan"></activity>
@@ -108,8 +113,7 @@
         <activity android:name=".parttime.activity.MyParttimeActivity"></activity>
         <activity android:name=".parttime.activity.MyWantJobActivity"></activity>
         <activity android:name=".parttime.activity.ResumeContentActivity"></activity>
-        <activity android:name=".mall.activity.GoodsCarActivity"></activity>
-        <activity android:name=".mall.activity.GoodsOrderActivity"></activity>
+
         <activity android:name=".mall.activity.AlterAddressActivity"></activity>
         <activity android:name=".mall.activity.MyOrderActivity"></activity>
 

@@ -9,12 +9,12 @@
         android:id="@+id/frag_ad_main"
         class="com.example.fourpeople.campushousekeeper.auction.fragment.ADFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="170dp"
         tools:layout="@layout/auction_fragment_banner"></fragment>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:background="@drawable/auction_bg"
         android:orientation="horizontal"
         android:weightSum="2">
@@ -38,7 +38,12 @@
             android:textColor="@android:color/white" />
 
     </LinearLayout>
+<Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/chat"
 
+    />
 
 
 </LinearLayout>

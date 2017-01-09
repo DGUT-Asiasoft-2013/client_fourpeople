@@ -50,6 +50,7 @@ public class ShowAuctionActivity extends Activity {
     TextView bidCount;
     EditText price;
     ImageView auctionImage;
+
     Handler myHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -63,6 +64,7 @@ public class ShowAuctionActivity extends Activity {
     Bitmap bitmap;
     Auction auction;
     Button bid;
+    Button bidPrice;
     Boolean isMy;
 
 
@@ -72,12 +74,10 @@ public class ShowAuctionActivity extends Activity {
         setContentView(R.layout.auction_activity_show_auction);
 
         auction = (Auction) getIntent().getSerializableExtra("auctionItem");
-        isMy=getIntent().getBooleanExtra("isMy",false);
+        isMy = getIntent().getBooleanExtra("isMy", false);
         initView();
         initData();
         reload();
-
-
     }
 
     private void initData() {
@@ -120,8 +120,10 @@ public class ShowAuctionActivity extends Activity {
         bid = (Button) findViewById(R.id.btn_bid);
         price = (EditText) findViewById(R.id.et_price);
         bidCount = (TextView) findViewById(R.id.tv_count);
-        RelativeLayout relativeLayout= (RelativeLayout) findViewById(R.id.bid_menu);
+        bidPrice = (Button) findViewById(R.id.btn_bid_price);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bid_menu);
 
+        bidPrice.setText(auction.getBidPrice());
         auctionName.setText(auction.getAuctionName());
         auctionPrice.setText("￥" + auction.getPrice());
         auctionIntroduction.setText("\u3000\u3000" + "" + auction.getIntroduction());
@@ -129,7 +131,7 @@ public class ShowAuctionActivity extends Activity {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         endDate.setText(format.format(auction.getCreateDate()));
         Boolean isAuctioning = auction.getIsAuctioning();
-
+        Log.d("bidPrice", "onResponse: " + auction.getBidPrice());
         if (isMy) {
             relativeLayout.setVisibility(View.GONE);
         }
@@ -145,15 +147,38 @@ public class ShowAuctionActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String priceString = price.getText().toString().trim();
-                postBid(priceString);
+                postBid(priceString, 1);
 
+            }
+        });
+        bidPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String priceString = price.getText().toString().trim();
+                postBid(priceString, 2);
             }
         });
 
     }
 
-    void postBid(final String price) {
-        MultipartBody multipartBody = new MultipartBody.Builder().addFormDataPart("price", price).addFormDataPart("auctionId", auction.getId().toString()).build();
+    void postBid(final String price, int type) {
+        MultipartBody multipartBody;
+        //换物
+        if (type == 1) {
+            multipartBody = new MultipartBody.Builder()
+                    .addFormDataPart("type", "1")
+                    .addFormDataPart("price", price)
+                    .addFormDataPart("auctionId", auction.getId().toString())
+                    .build();
+        } else {
+            //换钱
+            multipartBody = new MultipartBody.Builder()
+                    .addFormDataPart("price", price)
+                    .addFormDataPart("type", "2")
+                    .addFormDataPart("auctionId", auction.getId().toString())
+                    .build();
+        }
+
         Request request = Server.requestBuildWithAuction("bid").method("post", null).post(multipartBody).build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
@@ -219,10 +244,10 @@ public class ShowAuctionActivity extends Activity {
 
 
                 try {
-                    String responseString=response.body().string();
-                    Log.d("count", "onResponse: "+responseString);
+                    String responseString = response.body().string();
+                    Log.d("count", "onResponse: " + responseString);
                     ObjectMapper mapper = new ObjectMapper();
-                    final String count=mapper.readValue(responseString,String.class);
+                    final String count = mapper.readValue(responseString, String.class);
 
                     if (!count.equals("")) {
                         runOnUiThread(new Runnable() {

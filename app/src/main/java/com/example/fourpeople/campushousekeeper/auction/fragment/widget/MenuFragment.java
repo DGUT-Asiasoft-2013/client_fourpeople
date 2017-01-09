@@ -30,69 +30,68 @@ public class MenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.auction_fragment_menu, null);
+            AuctionnerView picture = (AuctionnerView) view.findViewById(R.id.picture);
+            picture.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person));
+
+            myAcution = (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_my_auction);
+            backToMain = (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_back_to_main);
+            search = (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_search);
+            addAuction = (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_add_auction);
+
+            myAcution.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
+                @Override
+                public void onClick() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(), MyAuctionActivity.class));
+
+                        }
+                    });
+                }
+            });
+
+            backToMain.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
+                @Override
+                public void onClick() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(), BootActivity.class));
+
+                        }
+                    });
+                }
+            });
+            search.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
+                @Override
+                public void onClick() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(), BootActivity.class));
+
+
+                        }
+                    });
+                }
+            });
+            addAuction.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
+                @Override
+                public void onClick() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getActivity().finish();
+                            startActivity(new Intent(getActivity(), AddAuctionActivity.class));
+                        }
+                    });
+                }
+            });
         }
-
-        AuctionnerView picture = (AuctionnerView) view.findViewById(R.id.picture);
-        picture.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.person));
-
-        myAcution= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_my_auction);
-        backToMain= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_back_to_main);
-        search= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_search);
-        addAuction= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_add_auction);
-
-        myAcution.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
-            @Override
-            public void onClick() {
-              getActivity().runOnUiThread(new Runnable() {
-                  @Override
-                  public void run() {
-                      getActivity().finish();
-                      startActivity(new Intent(getActivity(), MyAuctionActivity.class));
-
-                  }
-              });
-            }
-        });
-
-        backToMain.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
-            @Override
-            public void onClick() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().finish();
-                        startActivity(new Intent(getActivity(), BootActivity.class));
-
-                    }
-                });
-            }
-        });
-        search.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
-            @Override
-            public void onClick() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().finish();
-                        startActivity(new Intent(getActivity(), BootActivity.class));
-
-
-                    }
-                });
-            }
-        });
-        addAuction.setOnClicklistener(new SimpleButtonItemFragment.OnClicklistener() {
-            @Override
-            public void onClick() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getActivity().finish();
-                        startActivity(new Intent(getActivity(), AddAuctionActivity.class));
-                    }
-                });
-            }
-        });
         return view;
     }
 

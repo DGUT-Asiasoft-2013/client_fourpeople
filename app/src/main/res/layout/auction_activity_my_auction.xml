@@ -51,13 +51,17 @@
             android:text="我的拍卖" />
 
         <Button
+            android:id="@+id/btn_my_bid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的出价" />
+
+        <Button
             android:id="@+id/btn_my_deals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="成交记录" />
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

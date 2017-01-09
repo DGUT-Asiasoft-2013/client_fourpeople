@@ -44,6 +44,7 @@ public class AddAuctionActivity extends Activity {
     ImageButton menu;
     Boolean isOpen = false;
     EditText days;
+    EditText bidPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class AddAuctionActivity extends Activity {
         itemMethod = (Spinner) findViewById(R.id.spinner);
         Button commit = (Button) findViewById(R.id.btn_commit);
         Button quit = (Button) findViewById(R.id.btn_quit);
+        bidPrice= (EditText) findViewById(R.id.et_addprice);
         itenName = (AuctionSimpleTextCellFragment) getFragmentManager().findFragmentById(R.id.item_name);
         itemPrice = (AuctionSimpleTextCellFragment) getFragmentManager().findFragmentById(R.id.item_price);
         itemIntroduucton = (AuctionSimpleTextCellFragment) getFragmentManager().findFragmentById(R.id.item_introduction);
@@ -138,6 +140,7 @@ public class AddAuctionActivity extends Activity {
         String auctionItemOthers = itemOthers.getText();
         String auctionItemMethod = itemMethod.getSelectedItem().toString();
         String auctionItemDays=days.getText().toString();
+        String auctionBidPrice=bidPrice.getText().toString();
 
 
 
@@ -145,6 +148,7 @@ public class AddAuctionActivity extends Activity {
         builder.addFormDataPart("itemName", auctionItemName)
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("price", auctionItemPrice)
+                .addFormDataPart("bidPrice",auctionBidPrice)
                 .addFormDataPart("others", auctionItemOthers)
                 .addFormDataPart("method",auctionItemMethod)
                 .addFormDataPart("days",auctionItemDays)

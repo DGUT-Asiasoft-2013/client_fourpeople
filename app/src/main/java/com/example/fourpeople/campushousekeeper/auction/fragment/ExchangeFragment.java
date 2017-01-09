@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,9 +21,9 @@ import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.auction.activity.ExchangeActivity;
 import com.example.fourpeople.campushousekeeper.auction.activity.ShowAuctionActivity;
 import com.example.fourpeople.campushousekeeper.auction.entity.Auction;
+import com.example.fourpeople.campushousekeeper.auction.entity.Bid;
 import com.example.fourpeople.campushousekeeper.auction.entity.Transaction;
 import com.example.fourpeople.campushousekeeper.auction.view.AuctionnerView;
-import com.example.fourpeople.campushousekeeper.chat.ChatActivity;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,27 +38,23 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class MyAuctionFragment extends Fragment {
-
+public class ExchangeFragment extends Fragment {
     View view;
-    List<Auction> auctionData;
-    ListView auctionList;
-    Transaction transaction=null;
-
-    // AuctionAdapter auctionAdapter;
+    List<Bid> exchangeData;
+    ListView exchangeList;
+    Transaction transaction;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        transaction= (Transaction) getActivity().getIntent().getSerializableExtra("transaction");
         if (view == null) {
-            view = inflater.inflate(R.layout.auction_fragment_auctions_list, null);
-            auctionList = (ListView) view.findViewById(R.id.lv_auctions_list);
+            view = inflater.inflate(R.layout.auction_fragment_exchange, null);
+            exchangeList = (ListView) view.findViewById(R.id.lv_bid_list);
             //  auctionAdapter = new AuctionAdapter(getActivity(), auctionData);
-            auctionList.setAdapter(auctionAdapter);
-            auctionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            exchangeList.setAdapter(auctionAdapter);
+            exchangeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     onClick(i);
@@ -71,57 +66,23 @@ public class MyAuctionFragment extends Fragment {
         return view;
     }
 
-    private void onClick(int index) {
-        final Auction item=auctionData.get(index);
-        if (item.getStateInfo().equals("交易中")) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                  new AlertDialog.Builder(getActivity()).setMessage("是否确认完成交易？").setPositiveButton("是的", new DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialogInterface, int i) {
-                          if(transaction==null){
-                              finishTransaction(item.getId());
-                          }else{
-                              new AlertDialog.Builder(getActivity()).setMessage("私信？").setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                                  @Override
-                                  public void onClick(DialogInterface dialogInterface, int i) {
-                                      Intent intent=new Intent(getActivity(), ChatActivity.class);
-                                      Bundle bundle=new Bundle();
-                                      bundle.putSerializable("mine",transaction.getAuctionner());
-                                      bundle.putSerializable("him",transaction.getBid().getBider());
-                                      intent.putExtras(bundle);
-                                      startActivity(intent);
-                                  }
-                              }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                  @Override
-                                  public void onClick(DialogInterface dialogInterface, int i) {
+    private void onClick(final int index) {
+        new AlertDialog.Builder(getActivity()).setTitle("交换信息").setMessage("客官确定交换此物？").setPositiveButton("是的，此物对我有用", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                postTransaction(exchangeData.get(index));
 
-                                  }
-                              }).show();
-                          }
+            }
+        }).setNegativeButton("我再考虑一下吧！", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
 
-                      }
-                  }).setNegativeButton("还没交易", new DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialogInterface, int i) {
-
-                      }
-                  }).show();
-                }
-            });
-        }else{
-            Intent intent=new Intent(getActivity(), ExchangeActivity.class);
-            Bundle bundle=new Bundle();
-            bundle.putSerializable("auctionItem",item);
-            intent.putExtra("isMy",true);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
+            }
+        }).show();
     }
 
-    private void loadData() {
-        Request request = Server.requestBuildWithAuction("auctions/my").method("get", null).build();
+    private void loadData(Integer id) {
+        Request request = Server.requestBuildWithAuction("mybid/" + id).method("get", null).build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -134,9 +95,15 @@ public class MyAuctionFragment extends Fragment {
                 try {
                     final String responseString = response.body().string();
                     ObjectMapper mapper = new ObjectMapper();
-                    Page<Auction> auction = mapper.readValue(responseString, new TypeReference<Page<Auction>>() {
+                    List<Bid> bid = mapper.readValue(responseString, new TypeReference<List<Bid>>() {
                     });
-                    auctionData = auction.getContent();
+              /*  for (Bid item : bid) {
+                        if (item.getMethodIsPrice()!=true) {
+                            exchangeData.add(item);
+                            Log.d("item", "onResponse: "+item.getPrice());
+                        }
+                    }*/
+                    exchangeData = bid;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -144,6 +111,7 @@ public class MyAuctionFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         auctionAdapter.notifyDataSetChanged();
                     }
                 });
@@ -156,19 +124,20 @@ public class MyAuctionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadData();
+        Auction auctionItem = (Auction) getActivity().getIntent().getSerializableExtra("auctionItem");
+        loadData(auctionItem.getId());
     }
 
     BaseAdapter auctionAdapter = new BaseAdapter() {
 
         @Override
         public int getCount() {
-            return auctionData == null ? 0 : auctionData.size();
+            return exchangeData == null ? 0 : exchangeData.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return auctionData.get(position);
+            return exchangeData.get(position);
         }
 
         @Override
@@ -179,47 +148,46 @@ public class MyAuctionFragment extends Fragment {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             // View itemview = null;
-           ViewHolder holder;
+            ViewHolder holder;
             if (convertView == null) {
                 //convertView = View.inflate(parent.getContext(), R.layout.auction_fragment_auction_item, null);
                 holder = new ViewHolder();
                 LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-                convertView = layoutInflater.inflate(R.layout.auction_fragment_auction_item, null);
+                convertView = layoutInflater.inflate(R.layout.auction_fragment_bid_item, null);
                 holder.auctionName = (TextView) convertView.findViewById(R.id.tv_auctionners);
                 holder.auctionnerView = (AuctionnerView) convertView.findViewById(R.id.img_picture);
-                holder.introduction = (TextView) convertView.findViewById(R.id.tv_introduction);
-                holder.time = (TextView) convertView.findViewById(R.id.tv_time);
+                holder.introduction = (TextView) convertView.findViewById(R.id.tv_price);
             } else {
                 holder = (ViewHolder) convertView.getTag();
                 //itemview = convertView;
             }
 
-            holder.auctionName.setText(auctionData.get(position).getAuctinner().getName());
-            holder.introduction.setText(auctionData.get(position).getIntroduction());
+            holder.auctionName.setText(exchangeData.get(position).getBider().getName());
+            holder.introduction.setText(exchangeData.get(position).getPrice());
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            holder.time.setText(format.format(auctionData.get(position).getCreateDate()));
-            holder.auctionnerView.load(Server.serverAddress + auctionData.get(position).getPicture());
+            //   holder.time.setText(format.format(exchangeData.get(position).getCreateDate()));
+            holder.auctionnerView.load(Server.serverAddress + exchangeData.get(position).getBider().getAvatar());
             convertView.setTag(holder);
-            Log.d("view", auctionData.get(position).toString());
+            Log.d("view", exchangeData.get(position).toString());
             return convertView;
         }
 
 
     };
-    static  class ViewHolder{
+
+    static class ViewHolder {
         TextView auctionName;
         AuctionnerView auctionnerView;
-        TextView time;
+        //TextView time;
         TextView introduction;
     }
 
+    public void postTransaction(Bid bidItem) {
 
-    private void finishTransaction(Integer id) {
-
-        //Log.d("post", "postTransaction: "+bidItem.getId());
+        Log.d("post", "postTransaction: "+bidItem.getId());
         MultipartBody.Builder builder = new MultipartBody.Builder();
-        // builder.addFormDataPart("bidId", bidItem.getId().toString()).setType(MultipartBody.FORM);
-        Request request = Server.requestBuildWithAuction("finishtransaction/" + id).method("get", null).build();
+        builder.addFormDataPart("bidId", bidItem.getId().toString()).setType(MultipartBody.FORM);
+        Request request = Server.requestBuildWithAuction("transaction/").method("post", null).post(builder.build()).build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -236,8 +204,7 @@ public class MyAuctionFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //  new AlertDialog.Builder(getActivity()).setMessage(responseString.toString()).show();
-                            loadData();
+                            new AlertDialog.Builder(getActivity()).setMessage(responseString.toString()).show();
                         }
                     });
 

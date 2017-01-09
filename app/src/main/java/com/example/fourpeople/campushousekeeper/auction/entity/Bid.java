@@ -10,9 +10,37 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Bid implements Serializable {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    Integer id;
     User bider;
     Auction auction;
     String price;
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    public Boolean getMethodIsPrice() {
+        return methodIsPrice;
+    }
+
+    public void setMethodIsPrice(Boolean methodIsPrice) {
+        this.methodIsPrice = methodIsPrice;
+    }
+
+    String count;
+    Boolean methodIsPrice;
 
     public User getBider() {
         return bider;

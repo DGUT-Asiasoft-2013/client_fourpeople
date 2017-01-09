@@ -29,6 +29,26 @@ public class Auction implements Serializable {
     String price;
     String method;
     String others;
+    String bidPrice;
+    Boolean isAuctioning;
+    String stateInfo;
+
+    public String getStateInfo() {
+        return stateInfo;
+    }
+
+    public void setStateInfo(String stateInfo) {
+        this.stateInfo = stateInfo;
+    }
+
+    public String getBidPrice() {
+        return bidPrice;
+    }
+
+    public void setBidPrice(String bidPrice) {
+        this.bidPrice = bidPrice;
+    }
+
 
     public Boolean getIsAuctioning() {
         return isAuctioning;
@@ -37,8 +57,6 @@ public class Auction implements Serializable {
     public void setIsAuctioning(Boolean auctioning) {
         isAuctioning = auctioning;
     }
-
-    Boolean isAuctioning;
 
 
     public User getAuctinner() {

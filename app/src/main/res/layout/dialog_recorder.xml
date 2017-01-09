@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+  
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+       android:background="@android:color/transparent"
+        android:minHeight="1dp"
+        android:orientation="vertical"
+        android:paddingTop="1dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
+            android:textColor="@android:color/white" />
+
+        <ImageView
+            android:id="@+id/id_recorder_dialog_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/recorder"
+            android:visibility="gone" 
+            
+            />
+
+        <ImageView
+            android:id="@+id/id_recorder_dialog_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/v1"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/id_recorder_dialog_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手指上滑，取消发送"
+        android:textColor="#ffffff" />
+
+</LinearLayout>

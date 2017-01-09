@@ -11,6 +11,8 @@ import com.example.fourpeople.campushousekeeper.auction.activity.AddAuctionActiv
 import com.example.fourpeople.campushousekeeper.auction.activity.AuctionsListActivity;
 import com.example.fourpeople.campushousekeeper.auction.fragment.ADFragment;
 import com.example.fourpeople.campushousekeeper.R;
+import com.example.fourpeople.campushousekeeper.chat.ChatActivity;
+import com.example.fourpeople.campushousekeeper.person.ChargeActivity;
 
 /**
  * Created by Administrator on 2016/12/19.
@@ -37,6 +39,22 @@ public class AuctionFragment extends Fragment {
                     }
                 });
 
+            }
+        });
+
+        view.findViewById(R.id.chat).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent=new Intent(getActivity(), ChatActivity.class);
+                        intent.putExtra("myName","111");
+                        intent.putExtra("hisName","333");
+                        startActivity(intent);
+
+                    }
+                });
             }
         });
 
