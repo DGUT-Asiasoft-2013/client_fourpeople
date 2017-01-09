@@ -26,6 +26,7 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -148,7 +149,8 @@ public class OrderCenterFragment extends Fragment {
                 public void onClick(View view) {
                     if (!currentOrder.getOver() && currentOrder.getOrderState() < 2) {
                         //发货按钮事件
-
+                        change(currentOrder.getId(), currentOrder.getOver(), currentOrder.getCommentState(), 2);
+                        //
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 2) {
                         Toast.makeText(getActivity(), "请耐心等待买家收货！", Toast.LENGTH_SHORT).show();
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && !currentOrder.getCommentState()) {
@@ -175,6 +177,57 @@ public class OrderCenterFragment extends Fragment {
     void getMessage() {
         Request request = Server.requestBuildWithMall("getShopOrder")
                 .get()
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (getActivity() == null) return;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络挂了...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    myOrder = new ObjectMapper().readValue(response.body().string(), new TypeReference<List<MyOrder>>() {
+                    });
+                    if (getActivity() == null) return;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            baseAdapter.notifyDataSetInvalidated();
+                        }
+                    });
+                } catch (final Exception e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("OrderCenter Error")
+                                    .setMessage(e.getMessage())
+                                    .setPositiveButton("OK", null)
+                                    .show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    void change(Integer overId, Boolean over, Boolean commentState, int orderState) {
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .addFormDataPart("who", "shop")
+                .addFormDataPart("overId", String.valueOf(overId))
+                .addFormDataPart("over", String.valueOf(over))
+                .addFormDataPart("commentState", String.valueOf(commentState))
+                .addFormDataPart("orderState", String.valueOf(orderState))
+                .build();
+        Request request = Server.requestBuildWithMall("updateOrder")
+                .post(multipartBody)
                 .build();
         Server.getSharedClient().newCall(request).enqueue(new Callback() {
             @Override

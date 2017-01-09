@@ -15,8 +15,8 @@ public class MyOrder implements Serializable {
     Goods goods;
     String money;
     int orderState;
-    Boolean commentState;
-    Boolean over;
+    Boolean commentState;//是否评论
+    Boolean over;//是否取消
     int BuyNumber;
 
     public int getBuyNumber() {

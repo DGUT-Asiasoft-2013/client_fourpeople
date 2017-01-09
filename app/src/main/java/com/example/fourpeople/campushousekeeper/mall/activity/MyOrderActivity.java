@@ -2,6 +2,7 @@ package com.example.fourpeople.campushousekeeper.mall.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.Response;
 
@@ -110,7 +112,7 @@ public class MyOrderActivity extends Activity {
             goodsDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(currentOrder.getCreateDate()));
             goodsPiece.setText("￥" + goods.getGoodsPiece());
             goodsNumber.setText("×" + String.valueOf(currentOrder.getBuyNumber()));
-            number.setText("共" + String.valueOf(currentOrder.getBuyNumber())+ "件商品");
+            number.setText("共" + String.valueOf(currentOrder.getBuyNumber()) + "件商品");
             money.setText("合计:￥" + currentOrder.getMoney());
             if (!currentOrder.getOver() && currentOrder.getOrderState() < 3) {
                 delete.setText("取消订单");
@@ -156,8 +158,21 @@ public class MyOrderActivity extends Activity {
                         Toast.makeText(MyOrderActivity.this, "请耐心等待店家发货！", Toast.LENGTH_SHORT).show();
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 2) {
                         //收货功能按钮
+                        new AlertDialog.Builder(MyOrderActivity.this)
+                                .setTitle("提示")
+                                .setMessage("确认收货？收货钱财将汇到对方")
+                                .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        change(currentOrder.getId(), false, false, 3);
+                                    }
+                                })
+                                .setNegativeButton("取消", null)
+                                .show();
+
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && !currentOrder.getCommentState()) {
                         //评论按钮功能
+                        Toast.makeText(MyOrderActivity.this, "此功能未推出", Toast.LENGTH_SHORT).show();
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && currentOrder.getCommentState()) {
                         Toast.makeText(MyOrderActivity.this, "你已评价，谢谢你的购买！", Toast.LENGTH_SHORT).show();
                     } else if (currentOrder.getOver()) {
@@ -209,6 +224,55 @@ public class MyOrderActivity extends Activity {
                         public void run() {
                             new AlertDialog.Builder(MyOrderActivity.this)
                                     .setTitle("MyOrder Error")
+                                    .setMessage(e.getMessage())
+                                    .setPositiveButton("OK", null)
+                                    .show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    void change(Integer overId, Boolean over, Boolean commentState, int orderState) {
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .addFormDataPart("who", "customer")
+                .addFormDataPart("overId", String.valueOf(overId))
+                .addFormDataPart("over", String.valueOf(over))
+                .addFormDataPart("commentState", String.valueOf(commentState))
+                .addFormDataPart("orderState", String.valueOf(orderState))
+                .build();
+        Request request = Server.requestBuildWithMall("updateOrder")
+                .post(multipartBody)
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MyOrderActivity.this, "网络挂了...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    myOrder = new ObjectMapper().readValue(response.body().string(), new TypeReference<List<MyOrder>>() {
+                    });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            baseAdapter.notifyDataSetInvalidated();
+                        }
+                    });
+                } catch (final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(MyOrderActivity.this)
+                                    .setTitle("OrderCenter Error")
                                     .setMessage(e.getMessage())
                                     .setPositiveButton("OK", null)
                                     .show();
