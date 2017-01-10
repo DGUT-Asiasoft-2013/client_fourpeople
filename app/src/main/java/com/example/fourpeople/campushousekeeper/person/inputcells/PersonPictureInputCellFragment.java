@@ -76,6 +76,7 @@ public class PersonPictureInputCellFragment extends BaseInputCellFragment {
 
     void takePhoto() {
         Intent itnt = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         startActivityForResult(itnt, REQUEST_CAMERA);
     }
 

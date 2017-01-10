@@ -2,7 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#f7fafa">
 
     <ScrollView 
         android:layout_width="match_parent"
@@ -20,9 +21,15 @@
             android:text="修改资料"
             android:gravity="center|left"
             android:paddingLeft="15dp"
-            android:background="#FFA500"
-            android:textSize="25sp"
-            android:textStyle="bold"/>
+            android:background="@drawable/person_title"
+            android:textSize="25sp"/>
+
+            <fragment
+                android:id="@+id/modify_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="com.example.fourpeople.campushousekeeper.person.inputcells.PersonPictureInputCellFragment"
+                tools:layout="@layout/person_fragment_inputcell_picture" />
 
         <fragment
             android:id="@+id/modify_name"
@@ -34,14 +41,16 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
                 android:text="性别："
                 android:textColor="@android:color/black"
                 android:textSize="12sp" />
 
             <Spinner
                 android:id="@+id/modify_sex"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="50dp"
+                android:spinnerMode="dialog"
                 android:entries="@array/sexitem" />
         
         <fragment
@@ -58,18 +67,14 @@
             class="com.example.fourpeople.campushousekeeper.person.inputcells.PersonSimpleTextInputCellFragment"
             tools:layout="@layout/person_fragment_inputcell_simpletext" />
 
-        <fragment
-            android:id="@+id/modify_avatar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="com.example.fourpeople.campushousekeeper.person.inputcells.PersonPictureInputCellFragment"
-            tools:layout="@layout/person_fragment_inputcell_picture" />
-
         <Button
             android:id="@+id/btn_upload_modify"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/person_round_click"
             android:text="提交修改"
+            android:textColor="#FFA500"
             android:textSize="20sp" />
 
     </LinearLayout>

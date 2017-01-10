@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
@@ -26,31 +29,52 @@ import okhttp3.Response;
 
 public class ChargeActivity extends Activity {
 
-    PersonSimpleTextInputCellFragment fragCharge;
+    EditText inputCharge;
+    TextView btnConsumRecord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.person_activity_charge);
-        fragCharge = (PersonSimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_charge);
+
+        inputCharge = (EditText) findViewById(R.id.input_charge);
+        btnConsumRecord = (TextView) findViewById(R.id.btn_consum_record);
+        btnConsumRecord.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+
         findViewById(R.id.btn_charge_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chargeSubmit();
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        fragCharge.setLabelText("充值数额：");
-        fragCharge.setHintText("");
+        btnConsumRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //去消费记录
+            }
+        });
     }
 
     void chargeSubmit() {
-        String balance = fragCharge.getText();
+        String balance = inputCharge.getText().toString();
+
+        if (balance.equals("")) {
+            new AlertDialog.Builder(ChargeActivity.this)
+                    .setMessage("请先输入数额.")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
+
+        if (Double.parseDouble(balance)<=0)
+        {
+            new AlertDialog.Builder(ChargeActivity.this)
+                    .setMessage("无效的充值数额.")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
 
         MultipartBody.Builder requestBodyBuilder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
