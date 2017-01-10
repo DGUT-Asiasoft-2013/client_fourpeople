@@ -25,6 +25,7 @@ import com.example.fourpeople.campushousekeeper.parttime.activity.FindPersonActi
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.parttime.activity.JobContentActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.MyEmployActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.MyParttimeActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.ReleaseActivity;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.AvatarView;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.ImagePlayFragment;
@@ -34,8 +35,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -49,44 +48,65 @@ import okhttp3.Response;
 
 public class PartTimeFragment extends Fragment {
     View view;
-    Button release, findPerson, findJob, myEmploy, myJob, myBook;
-    ImageButton Partmunu;
-    PartTimeMenuFragment partTimeMenuFragment = new PartTimeMenuFragment();
-    Boolean isOpen = false;
     ListView listView;
     List<Jobs> data;
     Integer page = 0;
-    ImagePlayFragment imagePlayFragment=new ImagePlayFragment();
+    ImagePlayFragment imagePlayFragment = new ImagePlayFragment();
     final int[] image = {R.drawable.part_1, R.drawable.part_2, R.drawable.part_3};
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         if(view ==null)
-         {
-             view = inflater.inflate(R.layout.fragment_parttime, null);
-         }
-        Partmunu = (ImageButton) view.findViewById(R.id.btn_menu);
-        //myEmploy.setOnClickListener(new View.OnClickListener() {
-        // @Override
-        // public void onClick(View view) {
-        //     Employ();
-        //  }
-        //  });
-        Partmunu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                if (isOpen == false) {
-                    getFragmentManager().beginTransaction().setCustomAnimations(R.animator.slide_in_left,
-                            R.animator.slide_out_right
-                    ).replace(R.id.Partcontainer, partTimeMenuFragment).commit();
-                } else {
-                    getFragmentManager().beginTransaction().remove(partTimeMenuFragment).commit();
+        if(view ==null)
+        {
+            view = inflater.inflate(R.layout.fragment_parttime, null);
+            listView = (ListView) view.findViewById(R.id.new_job);
+            imagePlayFragment = (ImagePlayFragment) getFragmentManager().findFragmentById(R.id.image_play);
+            Button fabu=(Button)view.findViewById(R.id.fabu);
+            fabu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), ReleaseActivity.class));
+                    }
                 }
-                isOpen = !isOpen;
-            }
-        });
-        listView = (ListView) view.findViewById(R.id.new_job);
+            });
+            Button jianli=(Button)view.findViewById(R.id.jianli);
+            jianli.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), FindJobActivity.class));
+                    }
+
+                }
+            });
+            Button jianzhi=(Button)view.findViewById(R.id.jianzhi);
+            jianzhi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if (getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), FindPersonActivity.class));
+                    }
+                }
+            });
+            Button wode=(Button)view.findViewById(R.id.wode);
+            wode.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), MyParttimeActivity.class));
+                    }
+                }
+            });
+        }
+
         listView.setAdapter(listViewAdapetr);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -94,10 +114,6 @@ public class PartTimeFragment extends Fragment {
                 onItemClicked(i);
             }
         });
-      imagePlayFragment=(ImagePlayFragment)getFragmentManager().findFragmentById(R.id.image_play);
-
-
-
 
         return view;
 
@@ -193,10 +209,6 @@ public class PartTimeFragment extends Fragment {
         });
     }
 
-    void Employ() {
-        Intent intent = new Intent(getActivity(), MyEmployActivity.class);
-        startActivity(intent);
-    }
 
     void onItemClicked(int position) {
 
@@ -207,7 +219,6 @@ public class PartTimeFragment extends Fragment {
         itnt.putExtras(bundle);
         startActivity(itnt);
     }
-
 
 
 }

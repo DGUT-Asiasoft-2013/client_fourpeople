@@ -8,13 +8,113 @@
 
     <fragment
         android:layout_width="match_parent"
-        android:layout_height="145dp"
+        android:layout_height="140dp"
         android:id="@+id/image_play"
         class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.ImagePlayFragment"
         tools:layout="@layout/part_fragment_image_play">
 
 
     </fragment>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"></View>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="1">
+            <Button
+                android:id="@+id/fabu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/part_release" />
+
+            <TextView
+                android:id="@+id/tv_introduction"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textSize="15dp"
+                android:text="发布"
+                android:textColor="#14a83b"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="1">
+            <Button
+                android:id="@+id/jianzhi"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/part_jobs" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textSize="15dp"
+                android:text="兼职库"
+                android:textColor="#14a83b"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="1">
+            <Button
+                android:id="@+id/jianli"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/part_resume" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textSize="15dp"
+                android:text="简历库"
+                android:textColor="#14a83b"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="1">
+            <Button
+                android:id="@+id/wode"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/part_me" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textSize="15dp"
+                android:text="简历库"
+                android:textColor="#14a83b"
+                android:gravity="center"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -23,7 +123,8 @@
         android:layout_width="match_parent"
         android:layout_height="22dp"
         android:text="最新兼职"
-        android:gravity="center"/>
+        android:gravity="center"
+        tools:ignore="HardcodedText" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -42,43 +143,7 @@
             </ListView>
         </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
 
-            <FrameLayout
-                android:id="@+id/image_btn"
-                android:layout_width="25dp"
-                android:layout_height="match_parent">
-
-                <RelativeLayout
-                    android:id="@+id/ll_menu"
-                    android:layout_width="10dp"
-                    android:layout_height="match_parent"
-                    android:background="#fde8c6"
-                    android:gravity="center">
-
-                    <ImageButton
-                        android:id="@+id/btn_menu"
-                        android:layout_width="20dp"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:gravity="center" />
-
-                </RelativeLayout>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="95dp"
-                android:id="@+id/Partcontainer"
-                android:layout_height="359dp"
-                android:layout_alignRight="@id/image_btn">
-
-            </FrameLayout>
-
-        </LinearLayout>
 
     </RelativeLayout>
 

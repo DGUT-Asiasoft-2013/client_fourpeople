@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.fourpeople.campushousekeeper.R;
+import com.example.fourpeople.campushousekeeper.parttime.activity.FindJobActivity;
 
 /**
  * Created by Administrator on 2016/12/20.
@@ -24,6 +25,12 @@ public class JobsKinds extends Fragment{
         btn_dabao=(Button)view.findViewById(R.id.btn_04);
         btn_lol=(Button)view.findViewById(R.id.btn_05);
         btn_other=(Button)view.findViewById(R.id.btn_06);
+        btn_daike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return view;
     }
 }

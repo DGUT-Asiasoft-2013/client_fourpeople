@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.fourpeople.campushousekeeper.R;
+import com.example.fourpeople.campushousekeeper.api.Jobs;
 import com.example.fourpeople.campushousekeeper.api.Page;
 import com.example.fourpeople.campushousekeeper.api.Resume;
 import com.example.fourpeople.campushousekeeper.api.Server;
@@ -44,6 +46,48 @@ public class FindPersonActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.part_activity_findperson);
+        Button btn_daike = (Button) findViewById(R.id.btn_01);
+        btn_daike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("代课");
+            }
+        });
+        Button btn_paidan = (Button) findViewById(R.id.btn_02);
+        btn_paidan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("派单");
+            }
+        });
+        Button btn_kuaidi = (Button) findViewById(R.id.btn_03);
+        btn_kuaidi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("快递");
+            }
+        });
+        Button btn_dabao = (Button) findViewById(R.id.btn_04);
+        btn_dabao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("打包");
+            }
+        });
+        Button btn_lol = (Button) findViewById(R.id.btn_05);
+        btn_lol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("lol");
+            }
+        });
+        Button btn_qita = (Button) findViewById(R.id.btn_06);
+        btn_qita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("其他");
+            }
+        });
         listView =(ListView)findViewById(R.id.list_jods);
         listView.setAdapter(personAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,5 +194,59 @@ public class FindPersonActivity extends Activity{
         bundle.putSerializable("content",data.get(position));
         itnt.putExtras(bundle);
         startActivity(itnt);
+    }
+    void search(String key)
+    {
+        OkHttpClient client = Server.getSharedClient();
+        Request request = Server.requestBuilderWithPartTime("resume/s/" + key)
+                .method("GET", null)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(FindPersonActivity.this)
+                                .setMessage("当前搜索兼职为空")
+                                .show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+
+            {
+                try {
+                    final Page<Resume> data = new ObjectMapper().readValue(response.body().string(), new TypeReference<Page<Resume>>() {
+                    });
+                    FindPersonActivity.this.page = data.getNumber();
+                    FindPersonActivity.this.data = data.getContent();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+
+                            personAdapter.notifyDataSetChanged();
+                        }
+
+
+                    });
+                } catch (final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(FindPersonActivity.this)
+                                    .setMessage((CharSequence) e)
+                                    .show();
+                        }
+                    });
+
+                }
+            }
+
+        });
     }
 }

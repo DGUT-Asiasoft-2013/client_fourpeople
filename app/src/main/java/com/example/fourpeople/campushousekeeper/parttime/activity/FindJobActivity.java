@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,6 +47,48 @@ public class FindJobActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.part_activity_findjob);
         listView = (ListView) findViewById(R.id.list_jods);
+        Button btn_daike = (Button) findViewById(R.id.btn_01);
+        btn_daike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("代课");
+            }
+        });
+        Button btn_paidan = (Button) findViewById(R.id.btn_02);
+        btn_paidan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("派单");
+            }
+        });
+        Button btn_kuaidi = (Button) findViewById(R.id.btn_03);
+        btn_kuaidi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("快递");
+            }
+        });
+        Button btn_dabao = (Button) findViewById(R.id.btn_04);
+        btn_dabao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("打包");
+            }
+        });
+        Button btn_lol = (Button) findViewById(R.id.btn_05);
+        btn_lol.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("lol");
+            }
+        });
+        Button btn_qita = (Button) findViewById(R.id.btn_06);
+        btn_qita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search("其他");
+            }
+        });
         listView.setAdapter(listAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,20 +127,20 @@ public class FindJobActivity extends Activity {
             //TextView username=(TextView)view.findViewById(R.id.user_name);
             //要通过view去寻找
             //TextView username=(TextView)findViewById(R.id.user_name);这样会空指针异常
-            TextView username=(TextView)view.findViewById(R.id.user_name);
-            TextView jobKind=(TextView)view.findViewById(R.id.job_kind);
-            TextView relearceTime=(TextView)view.findViewById(R.id.relearce_time);
-            TextView jobDetails=(TextView)view.findViewById(R.id.job_details);
-            TextView jobMoney=(TextView)view.findViewById(R.id.job_money);
-            Jobs jobs=data.get(position);
+            TextView username = (TextView) view.findViewById(R.id.user_name);
+            TextView jobKind = (TextView) view.findViewById(R.id.job_kind);
+            TextView relearceTime = (TextView) view.findViewById(R.id.relearce_time);
+            TextView jobDetails = (TextView) view.findViewById(R.id.job_details);
+            TextView jobMoney = (TextView) view.findViewById(R.id.job_money);
+            Jobs jobs = data.get(position);
             username.setText(jobs.getName());
-            jobKind.setText("类型："+jobs.getKind());
-            jobDetails.setText("内容："+jobs.getDetails());
-            jobMoney.setText("酬劳："+jobs.getMoney());
+            jobKind.setText("类型：" + jobs.getKind());
+            jobDetails.setText("内容：" + jobs.getDetails());
+            jobMoney.setText("酬劳：" + jobs.getMoney());
             String dateStr = DateFormat.format("yyyy-MM-dd hh:mm", jobs.getCreateDate()).toString();
-            relearceTime.setText("发布时间"+dateStr);
-            AvatarView avater=(AvatarView)view.findViewById(R.id.user_image);
-            avater.load(Server.serverAddress+jobs.getAuthorAvater());
+            relearceTime.setText("发布时间" + dateStr);
+            AvatarView avater = (AvatarView) view.findViewById(R.id.user_image);
+            avater.load(Server.serverAddress + jobs.getAuthorAvater());
             return view;
         }
     };
@@ -110,11 +153,10 @@ public class FindJobActivity extends Activity {
 
     }
 
-    void reload()
-    {
-        OkHttpClient client= Server.getSharedClient();
-        Request request=Server.requestBuilderWithPartTime("jobs/list")
-                .method("GET",null)
+    void reload() {
+        OkHttpClient client = Server.getSharedClient();
+        Request request = Server.requestBuilderWithPartTime("jobs/list")
+                .method("GET", null)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -126,18 +168,18 @@ public class FindJobActivity extends Activity {
             public void onResponse(Call call, Response response) throws IOException {
 
                 try {
-                    final Page<Jobs> data=new ObjectMapper().readValue(response.body().string(),new TypeReference<Page<Jobs>>(){});
+                    final Page<Jobs> data = new ObjectMapper().readValue(response.body().string(), new TypeReference<Page<Jobs>>() {
+                    });
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            FindJobActivity.this.page=data.getNumber();
-                            FindJobActivity.this.data=data.getContent();
+                            FindJobActivity.this.page = data.getNumber();
+                            FindJobActivity.this.data = data.getContent();
                             listAdapter.notifyDataSetChanged();
                         }
                     });
 
-                }catch (final Exception e)
-                {
+                } catch (final Exception e) {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -151,13 +193,69 @@ public class FindJobActivity extends Activity {
             }
         });
     }
+
     void onItemClicked(int position) {
 
 
         Intent itnt = new Intent(FindJobActivity.this, JobContentActivity.class);
-        Bundle bundle=new Bundle();
-        bundle.putSerializable("content",data.get(position));
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("content", data.get(position));
         itnt.putExtras(bundle);
         startActivity(itnt);
+    }
+
+    //public static void methodB(){}
+    void search(String key)
+    {
+        OkHttpClient client = Server.getSharedClient();
+        Request request = Server.requestBuilderWithPartTime("jobs/s/" + key)
+                .method("GET", null)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(FindJobActivity.this)
+                                .setMessage("当前搜索兼职为空")
+                                .show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException
+
+            {
+                try {
+                    final Page<Jobs> data = new ObjectMapper().readValue(response.body().string(), new TypeReference<Page<Jobs>>() {
+                    });
+                    FindJobActivity.this.page = data.getNumber();
+                    FindJobActivity.this.data = data.getContent();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            listAdapter.notifyDataSetChanged();
+                        }
+
+
+                    });
+                } catch (final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(FindJobActivity.this)
+                                    .setMessage((CharSequence) e)
+                                    .show();
+                        }
+                    });
+
+                }
+            }
+
+        });
     }
 }

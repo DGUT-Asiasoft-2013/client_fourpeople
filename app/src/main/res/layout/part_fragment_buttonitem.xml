@@ -3,28 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".auction.fragment.widget.SimpleButtonItemFragment">
+    tools:context=".auction.fragment.widget.SimpleButtonItemFragment"
+    android:weightSum="1">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        >
+        android:weightSum="1">
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="62dp"
-            android:layout_height="86dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/auction_menu_btn_background"
             android:src="@android:drawable/ic_input_get" />
 
         <TextView
             android:id="@+id/tv_introduction"
-            android:layout_width="20dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:text="introduction" />
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            android:text="发布"
+            android:textColor="#14a83b"
+             android:gravity="center"/>
     </LinearLayout>
 
 

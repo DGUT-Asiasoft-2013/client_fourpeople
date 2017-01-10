@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.parttime.activity.FindJobActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.FindPersonActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.MyParttimeActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.ReleaseActivity;
 
 /**
@@ -22,7 +23,7 @@ public class PartTimeMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
-            view = inflater.inflate(R.layout.part_fragment_menu, null);
+            view = inflater.inflate(R.layout.part_fragment_menu, container);
             release = (PartButtonItemFragment) getFragmentManager().findFragmentById(R.id.btn_release);
             findPerson = (PartButtonItemFragment) getFragmentManager().findFragmentById(R.id.btn_findPerson);
             findJob = (PartButtonItemFragment) getFragmentManager().findFragmentById(R.id.btn_findJobs);
@@ -31,27 +32,46 @@ public class PartTimeMenuFragment extends Fragment {
                 @Override
                 public void click() {
 
-                    startActivity(new Intent(getActivity(), ReleaseActivity.class));
+
+                    if(getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), ReleaseActivity.class));
+                    }
                 }
             });
             findPerson.setOnClicklistener(new PartButtonItemFragment.OnClicklistener() {
                 @Override
                 public void click() {
 
-                    startActivity(new Intent(getActivity(), FindPersonActivity.class));
+                    if (getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), FindPersonActivity.class));
+                    }
+
                 }
             });
             findJob.setOnClicklistener(new PartButtonItemFragment.OnClicklistener() {
                 @Override
                 public void click() {
 
-                    startActivity(new Intent(getActivity(), FindJobActivity.class));
+
+                    if (getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), FindJobActivity.class));
+                    }
+
 
                 }
             });
             me.setOnClicklistener(new PartButtonItemFragment.OnClicklistener() {
                 @Override
                 public void click() {
+
+                    if(getActivity()!=null)
+                    {
+                        startActivity(new Intent(getActivity(), MyParttimeActivity.class));
+                    }
+
 
                 }
             });
@@ -67,7 +87,7 @@ public class PartTimeMenuFragment extends Fragment {
         release.setDrawable(R.drawable.part_release);
         findPerson.setText("简历库");
         findPerson.setDrawable(R.drawable.part_resume);
-        findJob.setText("全部兼职");
+        findJob.setText("兼职库");
         findJob.setDrawable(R.drawable.part_jobs);
         me.setText("我的");
         me.setDrawable(R.drawable.part_me);

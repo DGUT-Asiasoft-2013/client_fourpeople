@@ -8,42 +8,58 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
         android:layout_marginTop="1dp"
-        android:background="#fde8c6"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:weightSum="1">
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"></View>
 
         <fragment
             android:id="@+id/btn_release"
             class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.PartButtonItemFragment"
-            android:layout_width="70dp"
-            android:layout_height="48dp"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             tools:layout="@layout/part_fragment_buttonitem"></fragment>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"></View>
 
         <fragment
             android:id="@+id/btn_findJobs"
             class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.PartButtonItemFragment"
-            android:layout_width="71dp"
-            android:layout_height="63dp"
+            android:layout_width="43dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             tools:layout="@layout/part_fragment_buttonitem"></fragment>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"></View>
 
         <fragment
             android:id="@+id/btn_findPerson"
             class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.PartButtonItemFragment"
-            android:layout_width="71dp"
-            android:layout_height="72dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             tools:layout="@layout/part_fragment_buttonitem"></fragment>
+
+        <View
+            android:layout_width="10dp"
+            android:layout_height="1dp"></View>
+
 
         <fragment
             android:id="@+id/me"
             class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.PartButtonItemFragment"
-            android:layout_width="72dp"
-            android:layout_height="54dp"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             tools:layout="@layout/part_fragment_buttonitem"></fragment>
 

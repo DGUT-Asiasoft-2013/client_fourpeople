@@ -17,32 +17,124 @@
             android:text="招人"
             android:textColor="@android:color/black"
             android:textSize="28sp" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_search_person"
-            android:text="搜索"/>
     </LinearLayout>
 
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_gravity="bottom"
-        android:background="@android:color/darker_gray" />
-    <fragment
+        android:layout_height="10dp"
+        android:layout_gravity="bottom" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_01"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                android:background="@drawable/part_class"></Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="代课"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_02"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                android:background="@drawable/part_chuandan"></Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="派单"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_03"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/part_kuaidi" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="拿快递"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_04"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                android:background="@drawable/part_waimai"></Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="打包"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_05"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                android:background="@drawable/part_lol"></Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="lol代练"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_06"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                android:background="@drawable/part_other"></Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="其他"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/fragment_jobs_kinds"
-        class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.JobsKinds"
-        tools:layout="@layout/part_fragment_job_kind">
-
-    </fragment>
-
+        android:layout_height="10dp"
+        />
     <ListView
         android:id="@+id/list_jods"
         android:layout_width="match_parent"
-        android:layout_height="280dp">
+        android:layout_height="match_parent">
 
     </ListView>
 
