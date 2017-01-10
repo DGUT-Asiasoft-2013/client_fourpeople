@@ -2,6 +2,7 @@ package com.example.fourpeople.campushousekeeper.fragment.page;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,18 +12,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.fourpeople.campushousekeeper.LoginActivity;
 import com.example.fourpeople.campushousekeeper.api.User;
-import com.example.fourpeople.campushousekeeper.mall.activity.GoodsCarActivity;
 import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity;
-import com.example.fourpeople.campushousekeeper.mall.activity.MyOrderActivity;
 import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
-import com.example.fourpeople.campushousekeeper.parttime.activity.MyParttimeActivity;
 import com.example.fourpeople.campushousekeeper.person.AvatarView;
 import com.example.fourpeople.campushousekeeper.person.ChargeActivity;
-import com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment;
 import com.example.fourpeople.campushousekeeper.person.MyInfoActivity;
+import com.example.fourpeople.campushousekeeper.person.OrdersActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -37,7 +36,7 @@ public class PersonFragment extends Fragment {
     View view;
 
     TextView myName;
-    InfoItemCellFragment fragBalance;
+    TextView infoBalance;
     AvatarView avatar;
 
     @Override
@@ -46,7 +45,7 @@ public class PersonFragment extends Fragment {
             view = inflater.inflate(R.layout.fragment_person, null);
 
             myName = (TextView) view.findViewById(R.id.my_name);
-            fragBalance = (InfoItemCellFragment) getFragmentManager().findFragmentById(R.id.info_balance);
+            infoBalance = (TextView) view.findViewById(R.id.info_balance);
             avatar = (AvatarView) view.findViewById(R.id.person_avatar);
 
             view.findViewById(R.id.btn_info).setOnClickListener(new OnClickListener() {
@@ -80,21 +79,14 @@ public class PersonFragment extends Fragment {
                     goOrders();
                 }
             });
-            //购物车
-            view.findViewById(R.id.btn_buyCar).setOnClickListener(new OnClickListener() {
+
+            view.findViewById(R.id.btn_logout).setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    goBuyCar();
+                public void onClick(View v) {
+                    goLogout();
                 }
             });
         }
-        view.findViewById(R.id.btn_parttime).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getActivity(), MyParttimeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }
@@ -102,8 +94,6 @@ public class PersonFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        fragBalance.setItemName("余额");
 
         OkHttpClient client = Server.getSharedClient();
         Request request = Server.requestBuildWithApi("info")
@@ -156,7 +146,7 @@ public class PersonFragment extends Fragment {
     {
         myName.setText(user.getName());
         avatar.load(user);
-        fragBalance.setItemInfo(user.getBalance());
+        infoBalance.setText("￥"+user.getBalance());
     }
 
     void onFailure(Call call, Exception e) {
@@ -227,13 +217,22 @@ public class PersonFragment extends Fragment {
 
     //去个人订单详情页面
     void goOrders() {
-        //
-        Intent intent = new Intent(getActivity(), MyOrderActivity.class);
+        Intent intent = new Intent(getActivity(), OrdersActivity.class);
         startActivity(intent);
     }
 
-    void goBuyCar(){
-        Intent intent = new Intent(getActivity(), GoodsCarActivity.class);
-        startActivity(intent);
+    void goLogout() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("提示")
+                .setMessage("确定注销吗？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent itnt = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(itnt);
+                        getActivity().finish();
+                    }
+                }).show();
     }
 }

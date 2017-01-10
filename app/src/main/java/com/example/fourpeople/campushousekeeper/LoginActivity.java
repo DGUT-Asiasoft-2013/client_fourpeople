@@ -3,15 +3,19 @@ package com.example.fourpeople.campushousekeeper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.api.User;
-import com.example.fourpeople.campushousekeeper.fragment.inputcells.SimpleTextInputCellFragment;
 import com.example.fourpeople.campushousekeeper.information.MD5;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,7 +28,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LoginActivity extends Activity {
-    SimpleTextInputCellFragment fragStudentId,fragPassword;
+    EditText tStudentId;
+    EditText tPassword;
+    CheckBox rememberPassword;
+
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +63,34 @@ public class LoginActivity extends Activity {
             }
         });
 
-        fragStudentId = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_account);
-        fragPassword = (SimpleTextInputCellFragment) getFragmentManager().findFragmentById(R.id.input_password);
-    }
+        tStudentId = (EditText) findViewById(R.id.input_account);
+        tPassword = (EditText) findViewById(R.id.input_password);
+        rememberPassword = (CheckBox) findViewById(R.id.remember_password);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //设置项目名
-        fragStudentId.setLabelText("学号");
-        fragStudentId.setHintText("请输入学号");
-        fragPassword.setLabelText("密码");
-        fragPassword.setHintText("请输入密码");
-        fragPassword.setIsPassword(true);
+        sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+
+        //判断记住密码多选框的状态
+        if(sp.getBoolean("ISCHECK", false))
+        {
+            //设置默认是记录密码状态
+            rememberPassword.setChecked(true);
+            tStudentId.setText(sp.getString("USER_NAME", ""));
+            tPassword.setText(sp.getString("PASSWORD", ""));
+
+        }
+
+        //监听记住密码多选框按钮事件
+        rememberPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (rememberPassword.isChecked()) {
+                    sp.edit().putBoolean("ISCHECK", true).commit();
+                }else {
+                    sp.edit().putBoolean("ISCHECK", false).commit();
+                }
+
+            }
+        });
+
     }
 
     void goRegister(){  //进入注册界面
@@ -77,8 +100,9 @@ public class LoginActivity extends Activity {
 
     void goLogin(){  //输入用户名、密码进入登录界面
 
-        String studentId = fragStudentId.getText();
-        String password = fragPassword.getText();
+        final String studentId = tStudentId.getText().toString();
+        final String password = tPassword.getText().toString();
+
         //检查用户名密码是否已填
         if (studentId.equals("") || password.equals("")){
             new AlertDialog.Builder(this)
@@ -125,6 +149,17 @@ public class LoginActivity extends Activity {
                         @Override
                         public void run() {
                             dlg.dismiss();
+
+                            //登录成功和记住密码框为选中状态才保存用户信息
+                            if(rememberPassword.isChecked())
+                            {
+                                //记住用户名、密码
+                                SharedPreferences.Editor editor = sp.edit();
+                                editor.putString("USER_NAME", studentId);
+                                editor.putString("PASSWORD",password);
+                                editor.commit();
+                            }
+
                             new AlertDialog.Builder(LoginActivity.this)
                                     .setMessage("Hello "+user.getName())
                                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -135,12 +170,14 @@ public class LoginActivity extends Activity {
                                             Intent itnt = new Intent(LoginActivity.this, BootActivity.class);
                                             itnt.putExtra("userName",user.getName());
                                             startActivity(itnt);
-
+                                            finish();
                                         }
                                     }).show();
 
                         }
                     });
+
+
                 } catch (final Exception e) {
                     runOnUiThread(new Runnable() {
 
@@ -170,8 +207,8 @@ public class LoginActivity extends Activity {
 
             }
         });
-
     }
+
     void goRecoverPassword(){  //进入密码找回界面
         Intent itnt = new Intent(this, PasswordRecoverActivity.class);
         startActivity(itnt);

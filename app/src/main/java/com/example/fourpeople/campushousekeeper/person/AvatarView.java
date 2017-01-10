@@ -8,6 +8,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -57,9 +59,10 @@ public class AvatarView extends View {
 			paint = new Paint();
 			paint.setShader(new BitmapShader(bmp, TileMode.REPEAT, TileMode.REPEAT));
 			paint.setAntiAlias(true); //抗锯齿
-
             srcWidth = bmp.getWidth();
             srcHeight = bmp.getHeight();
+
+
 		}
 
 		invalidate();
@@ -127,9 +130,11 @@ public class AvatarView extends View {
 			float scaleY = srcHeight / dstHeight;
 
 			canvas.scale(1/scaleX, 1/scaleY);
-			canvas.drawRect(0, 0, srcWidth, srcHeight, paint);
+			Rect rect = new Rect(0, 0, (int)srcWidth, (int)srcHeight);
+			RectF rectF = new RectF(rect);
+			canvas.drawRoundRect(rectF, 10, 10, paint);
 			canvas.restore();
 		}
 		
-}
+	}
 }

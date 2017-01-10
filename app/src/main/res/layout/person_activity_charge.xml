@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#f7fafa"
     android:layout_height="match_parent">
 
-    <fragment
+    <EditText
         android:id="@+id/input_charge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.example.fourpeople.campushousekeeper.person.inputcells.PersonSimpleTextInputCellFragment"
-        tools:layout="@layout/person_fragment_inputcell_simpletext"/>
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:paddingLeft="3dp"
+        android:background="@drawable/person_edittext_bg"
+        android:hint="请输入充值数额"
+        android:inputType="numberDecimal"/>
 
     <Button
         android:id="@+id/btn_charge_submit"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="确认充值"/>
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:text="确认充值"
+        android:textColor="#FFA500"
+        android:background="@drawable/person_round_click"/>
+
+    <TextView
+        android:id="@+id/btn_consum_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="查看消费记录" />
 
 </LinearLayout>

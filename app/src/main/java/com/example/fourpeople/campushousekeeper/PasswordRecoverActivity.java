@@ -71,13 +71,17 @@ public class PasswordRecoverActivity extends Activity {
             new AlertDialog.Builder(this)
                     .setTitle("提示")
                     .setMessage("未填写邮箱或密码！")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    }).show();
+        if (!email.matches("^\\w+@\\w+\\.(com|cn)")) {
+            new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("不是有效的邮箱.")
+                    .setNegativeButton("OK", null)
+                    .show();
             return;
         }
 

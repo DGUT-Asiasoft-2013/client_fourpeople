@@ -1,150 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f7fafa"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#FFB937"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:layout_marginTop="30dip"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="15dp">
-
-                <!--                 <ImageView -->
-                <!--                     android:id="@+id/avatar" -->
-                <!--                     android:layout_width="fill_parent" -->
-                <!--                     android:layout_height="fill_parent" -->
-                <!--                     android:src="@drawable/avatar" /> -->
-
-                <com.example.fourpeople.campushousekeeper.person.AvatarView
-                    android:id="@+id/person_avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/portrait_round" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/my_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="用户名"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </FrameLayout>
-
-    <Button
-        android:id="@+id/btn_info"
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:background="#FFA500"
-        android:gravity="center|left"
-        android:text="详细个人信息"
-        android:textColor="@android:color/black" />
+        android:gravity="center"
+        android:text="个人中心"
+        android:textColor="#fff"
+        android:background="#FFA500" />
+
+    <LinearLayout
+        android:id="@+id/btn_info"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/person_round_click"
+        android:orientation="horizontal">
+
+
+        <com.example.fourpeople.campushousekeeper.person.AvatarView
+            android:id="@+id/person_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp" />
+
+
+        <TextView
+            android:id="@+id/my_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.9"
+            android:text="用户名"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.1"
+            android:text=" >"
+            android:layout_gravity="center|right"
+            android:textSize="17sp"
+            android:textColor="#FFA500"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp" />
-    <fragment
-        android:id="@+id/info_balance"
-        class="com.example.fourpeople.campushousekeeper.person.InfoItemCellFragment"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/person_fragment_info_item_cell" />
+        android:orientation="horizontal"
+        android:padding="8dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="余额"
+            android:layout_marginLeft="15dp"
+            android:textSize="15sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        <TextView
+            android:id="@+id/info_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="0"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_charge"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="充值"
-        android:textSize="20sp" />
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/person_round_click"
+        android:text="充值                                                        >"
+        android:textColor="#FFA500"
+        android:textSize="17sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
     <Button
         android:id="@+id/btn_store_management"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="商店管理"
-        android:textSize="20sp" />
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/person_round_click"
+        android:text="商店管理                                                >"
+        android:textColor="#FFA500"
+        android:textSize="17sp" />
+
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp"/>
+        android:layout_height="10dp" />
 
     <Button
-        android:id="@+id/btn_parttime"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="兼职管理"
-        android:textSize="20sp" />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
-
-    <Button
-        android:id="@+id/btn_buyCar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="我的购物车"
-        android:textSize="20sp" />
+        android:id="@+id/btn_my_shopping_cart"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/person_round_click"
+        android:text="我的购物车                                            >"
+        android:textColor="#FFA500"
+        android:textSize="17sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
     <Button
         android:id="@+id/btn_orders"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="我的订单"
-        android:textSize="20sp" />
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/person_round_click"
+        android:text="我的订单                                                >"
+        android:textColor="#FFA500"
+        android:textSize="17sp" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
+        android:layout_height="10dp" />
 
     <Button
-        android:id="@+id/btn_liked"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="我的收藏"
-        android:textSize="20sp" />
+        android:id="@+id/btn_my_favorite"
+        android:layout_width="300dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@drawable/person_round_click"
+        android:text="我的收藏                                                >"
+        android:textColor="#FFA500"
+        android:textSize="17sp" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/person_round_click"
+        android:text="注销"
+        android:textColor="#FFA500"
+        android:textSize="17sp" />
 
 </LinearLayout>

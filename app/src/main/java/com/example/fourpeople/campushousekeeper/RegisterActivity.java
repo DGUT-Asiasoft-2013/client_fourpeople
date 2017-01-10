@@ -117,6 +117,15 @@ public class RegisterActivity extends Activity {
             return;
         }
 
+        if (!email.matches("^\\w+@\\w+\\.(com|cn)")) {
+            new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("不是有效的邮箱.")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
+
         if (!passwordHash.equals(passwordRepeat)) {
             new AlertDialog.Builder(RegisterActivity.this)
                     .setMessage("重复密码不一致!")
