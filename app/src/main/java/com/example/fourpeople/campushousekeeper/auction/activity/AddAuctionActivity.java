@@ -30,7 +30,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AddAuctionActivity extends Activity {
-    private static final String[] m_arr = {"明拍换物", "暗拍换物", "明拍换钱", "暗拍换钱"};
+    private static final String[] m_arr = { "换物", "换钱"};
 
     AuctionSimpleTextCellFragment itenName;
     AuctionSimpleTextCellFragment itemPrice;

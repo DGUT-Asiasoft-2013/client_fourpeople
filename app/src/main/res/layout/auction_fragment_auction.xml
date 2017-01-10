@@ -5,45 +5,70 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/frag_ad_main"
-        class="com.example.fourpeople.campushousekeeper.auction.fragment.ADFragment"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        tools:layout="@layout/auction_fragment_banner"></fragment>
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/auction_bg"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <Button
-            android:id="@+id/btn_enter"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/holo_orange_light"
-            android:text="☜ 随便看看"
-            android:textColor="@android:color/black" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_show"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/holo_orange_dark"
-            android:text="拍卖东西 ☞"
-            android:textColor="@android:color/white" />
+            <fragment
+                android:id="@+id/frag_ad_main"
+                class="com.example.fourpeople.campushousekeeper.auction.fragment.ADFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/auction_fragment_banner"></fragment>
 
-    </LinearLayout>
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/chat"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-    />
 
+                <fragment
+                    android:id="@+id/fra_enter"
+                    class="com.example.fourpeople.campushousekeeper.auction.fragment.widget.SimpleButtonItemFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    tools:layout="@layout/auction_fragment_simple_button_item"></fragment>
+
+
+                <fragment
+                    android:id="@+id/fra_add_auction"
+                    class="com.example.fourpeople.campushousekeeper.auction.fragment.widget.SimpleButtonItemFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    tools:layout="@layout/auction_fragment_simple_button_item"></fragment>
+
+                <fragment
+                    android:id="@+id/fra_to_my_auction"
+                    class="com.example.fourpeople.campushousekeeper.auction.fragment.widget.SimpleButtonItemFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    tools:layout="@layout/auction_fragment_simple_button_item"></fragment>
+            </LinearLayout>
+
+            <fragment
+                android:id="@+id/title"
+                class="com.example.fourpeople.campushousekeeper.auction.fragment.widget.TitleFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/auction_fragment_title"></fragment>
+
+            <fragment
+                android:id="@+id/frag_auction"
+                class="com.example.fourpeople.campushousekeeper.auction.fragment.AuctionsListFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout="@layout/auction_fragment_auctions_list"></fragment>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

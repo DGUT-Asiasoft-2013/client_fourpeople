@@ -20,7 +20,7 @@ public class TitleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.auction_fragment_title, container, false);
+        View view=inflater.inflate(R.layout.auction_fragment_title, null);
         title= (TextView) view.findViewById(R.id.tv_title);
         image= (ImageView) view.findViewById(R.id.img_title_image);
         view.setOnClickListener(new View.OnClickListener() {

@@ -28,6 +28,8 @@ import com.example.fourpeople.campushousekeeper.auction.entity.Auction;
 import com.example.fourpeople.campushousekeeper.auction.entity.Bid;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.logging.SimpleFormatter;
@@ -48,8 +50,11 @@ public class ShowAuctionActivity extends Activity {
     TextView auctionOthers;
     TextView auctionPrice;
     TextView bidCount;
+    TextView auctinonner;
+
     EditText price;
     ImageView auctionImage;
+    Bid bidItem;
 
     Handler myHandler = new Handler() {
         @Override
@@ -66,6 +71,7 @@ public class ShowAuctionActivity extends Activity {
     Button bid;
     Button bidPrice;
     Boolean isMy;
+    TextView maxPrice;
 
 
     @Override
@@ -120,12 +126,15 @@ public class ShowAuctionActivity extends Activity {
         bid = (Button) findViewById(R.id.btn_bid);
         price = (EditText) findViewById(R.id.et_price);
         bidCount = (TextView) findViewById(R.id.tv_count);
+        maxPrice = (TextView) findViewById(R.id.tv_max_price);
         bidPrice = (Button) findViewById(R.id.btn_bid_price);
         RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.bid_menu);
 
-        bidPrice.setText(auction.getBidPrice());
+        bidPrice.setText("+"+auction.getBidPrice());
         auctionName.setText(auction.getAuctionName());
         auctionPrice.setText("￥" + auction.getPrice());
+        auctinonner= (TextView) findViewById(R.id.tv_auctionner_name);
+        auctinonner.setText(auction.getAuctinner().getName());
         auctionIntroduction.setText("\u3000\u3000" + "" + auction.getIntroduction());
         auctionOthers.setText(auction.getOthers());
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -134,6 +143,7 @@ public class ShowAuctionActivity extends Activity {
         Log.d("bidPrice", "onResponse: " + auction.getBidPrice());
         if (isMy) {
             relativeLayout.setVisibility(View.GONE);
+            bidPrice.setVisibility(View.GONE);
         }
 
 
@@ -200,6 +210,7 @@ public class ShowAuctionActivity extends Activity {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         reload();
+                                        loadData();
                                         Message msg = new Message();
                                         msg.what = 0x123;
                                         myHandler.sendMessage(msg);
@@ -262,6 +273,38 @@ public class ShowAuctionActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+    }
+
+    private void loadData() {
+        Request request = Server.requestBuildWithAuction("bid/" + auction.getId()).method("get", null).build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                try {
+                    final String responseString = response.body().string();
+                    ObjectMapper mapper = new ObjectMapper();
+                    bidItem = mapper.readValue(responseString, Bid.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            maxPrice.setText(bidItem.getPrice());
+
+                        }
+                    });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }

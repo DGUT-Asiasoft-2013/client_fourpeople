@@ -258,7 +258,7 @@ public class ADFragment extends Fragment {
             // 异步加载图片
             mImageLoader.displayImage(adList.get(i).getImgUrl(), imageView,
                     options);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             imageViews.add(imageView);
             dots.get(i).setVisibility(View.VISIBLE);
             dotList.add(dots.get(i));

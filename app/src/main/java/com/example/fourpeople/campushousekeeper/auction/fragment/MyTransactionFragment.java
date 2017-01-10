@@ -237,8 +237,6 @@ public class MyTransactionFragment extends Fragment {
                     });
                 }
 
-
-
             }
         });
     }

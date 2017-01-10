@@ -91,6 +91,7 @@ public class MenuFragment extends Fragment {
                     });
                 }
             });
+
         }
         return view;
     }
@@ -110,4 +111,5 @@ public class MenuFragment extends Fragment {
         search.setText("查找拍卖");
         search.setDrawable(R.drawable.auction_search);
     }
+
 }

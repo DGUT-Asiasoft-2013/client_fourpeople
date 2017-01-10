@@ -117,48 +117,38 @@
                 android:layout_below="@id/item_others"
                 android:layout_margin="7dp"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="center_vertical|left"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_addprice"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center_vertical"
-                    android:text=" 出  价 "
-                    android:textAlignment="center" />
 
-                <!--<Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/auction_bg"
-                    android:entries="@array/auction_method"
-                    android:gravity="center_horizontal"
-                    android:prompt="@string/spinner_title"
-                    android:scrollbarSize="15dp"
-                    android:spinnerMode="dialog"
-                    android:textAlignment="gravity" />-->
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_addprice"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
+                        android:text=" 出  价 "
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/et_addprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/tv_addprice"
                         android:background="@drawable/auction_bg"
-                        android:ems="10"
+                        android:ems="6"
                         android:gravity="center_horizontal"
                         android:hint="单次出价不低于"
                         android:inputType="textPassword"
-                        android:padding="2dp">
+                        android:padding="2dp"
+                        android:textSize="14sp">
 
                     </EditText>
 
@@ -166,64 +156,43 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/et_addprice"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/et_addprice"
                         android:gravity="center"
                         android:text="元"
                         android:textSize="14sp" />
                 </RelativeLayout>
 
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_days"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:layout_below="@id/ll_addprice"
-                android:layout_margin="7dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="60dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center_vertical"
-                    android:text=" 为  期 "
-                    android:textAlignment="center" />
-
-                <!--<Spinner
-                    android:id="@+id/spinner1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/auction_bg"
-                    android:entries="@array/auction_method"
-                    android:gravity="center_horizontal"
-                    android:prompt="@string/spinner_title"
-                    android:scrollbarSize="15dp"
-                    android:spinnerMode="dialog"
-                    android:textAlignment="gravity" />-->
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text=" 为  期 "
+                        android:textAlignment="center"
+                        android:textSize="14sp" />
 
                     <EditText
                         android:id="@+id/et_days"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/tv_time"
                         android:background="@drawable/auction_bg"
-                        android:ems="10"
+                        android:ems="5"
                         android:gravity="center_horizontal"
                         android:hint="历时天数"
                         android:inputType="textPassword"
-                        android:padding="2dp">
+                        android:padding="2dp"
+                        android:textSize="14sp">
 
                     </EditText>
 
@@ -231,7 +200,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@id/et_days"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_toRightOf="@id/et_days"
                         android:gravity="center"
                         android:text="天"
@@ -240,10 +209,11 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/ll_days"
+                android:layout_below="@id/ll_addprice"
                 android:layout_marginTop="30dp"
                 android:layout_weight="2"
 

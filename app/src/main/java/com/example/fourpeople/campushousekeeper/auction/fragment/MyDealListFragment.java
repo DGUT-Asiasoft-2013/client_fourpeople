@@ -51,7 +51,7 @@ public class MyDealListFragment extends Fragment {
             auctionList = (ListView) view.findViewById(R.id.lv_post_auction_list);
             auctionList.setAdapter(auctionAdapter);
             //  auctionAdapter = new AuctionAdapter(getActivity(), auctionData);
-            transactionList.setAdapter(transactionAdapter);
+            transactionList.setAdapter(dealAdapter);
             bidTitle = (TitleFragment) getFragmentManager().findFragmentById(R.id.deal_title_bid);
             auctionTitle = (TitleFragment) getFragmentManager().findFragmentById(R.id.deal_title_auction);
             bidTitle.setOnClicklistener(new TitleFragment.OnClicklistener() {
@@ -109,7 +109,7 @@ public class MyDealListFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            transactionAdapter.notifyDataSetChanged();
+                            dealAdapter.notifyDataSetChanged();
                         }
                     });
                 }
@@ -147,7 +147,7 @@ public class MyDealListFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            transactionAdapter.notifyDataSetChanged();
+                            dealAdapter.notifyDataSetChanged();
                         }
                     });
                 }
@@ -167,7 +167,7 @@ public class MyDealListFragment extends Fragment {
         auctionTitle.setImageBitmap(R.drawable.title2);
     }
 
-    BaseAdapter transactionAdapter = new BaseAdapter() {
+    BaseAdapter dealAdapter = new BaseAdapter() {
 
         @Override
         public int getCount() {

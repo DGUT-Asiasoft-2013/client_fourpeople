@@ -67,57 +67,23 @@ public class MyAuctionFragment extends Fragment {
             });
         }
         //loadData();
-
         return view;
     }
 
     private void onClick(int index) {
         final Auction item=auctionData.get(index);
-        if (item.getStateInfo().equals("交易中")) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                  new AlertDialog.Builder(getActivity()).setMessage("是否确认完成交易？").setPositiveButton("是的", new DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialogInterface, int i) {
-                          if(transaction==null){
-                              finishTransaction(item.getId());
-                          }else{
-                              new AlertDialog.Builder(getActivity()).setMessage("私信？").setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                                  @Override
-                                  public void onClick(DialogInterface dialogInterface, int i) {
-                                      Intent intent=new Intent(getActivity(), ChatActivity.class);
-                                      Bundle bundle=new Bundle();
-                                      bundle.putSerializable("mine",transaction.getAuctionner());
-                                      bundle.putSerializable("him",transaction.getBid().getBider());
-                                      intent.putExtras(bundle);
-                                      startActivity(intent);
-                                  }
-                              }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                  @Override
-                                  public void onClick(DialogInterface dialogInterface, int i) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent=new Intent(getActivity(), ExchangeActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("auctionItem",item);
+                intent.putExtra("isMy",true);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
 
-                                  }
-                              }).show();
-                          }
-
-                      }
-                  }).setNegativeButton("还没交易", new DialogInterface.OnClickListener() {
-                      @Override
-                      public void onClick(DialogInterface dialogInterface, int i) {
-
-                      }
-                  }).show();
-                }
-            });
-        }else{
-            Intent intent=new Intent(getActivity(), ExchangeActivity.class);
-            Bundle bundle=new Bundle();
-            bundle.putSerializable("auctionItem",item);
-            intent.putExtra("isMy",true);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
     }
 
     private void loadData() {
@@ -141,12 +107,15 @@ public class MyAuctionFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        auctionAdapter.notifyDataSetChanged();
-                    }
-                });
+                onAttach(getActivity());
+                if (getActivity()!=null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            auctionAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
 
 
             }

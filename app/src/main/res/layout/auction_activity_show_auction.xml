@@ -28,25 +28,14 @@
                     android:id="@+id/tv_auction_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
                     android:text="货物名" />
-                <Button
-                    android:id="@+id/btn_bid_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="#FFF49E61"
-                    android:text="出价"
-                    android:layout_margin="5dp"
-                    android:layout_alignParentRight="true"
-                    android:textColor="#ffffff"
-                    android:textSize="14sp" />
-
                 <TextView
                     android:id="@+id/tv_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/btn_bid_price"
+                    android:layout_alignParentRight="true"
                     android:layout_marginRight="5dp"
                     android:text="       "
                     android:textColor="@android:color/holo_red_light"
@@ -55,9 +44,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="出价次数："
+                    android:id="@+id/label_count"
                     android:layout_alignBaseline="@id/tv_count"
                     android:layout_toLeftOf="@id/tv_count"
                     android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_max_price"
+                     android:layout_toLeftOf="@id/label_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_alignBaseline="@id/label_count"
+                    android:text="       "
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="16sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="最高出价："
+                    android:layout_alignBaseline="@id/tv_max_price"
+                    android:layout_toLeftOf="@id/tv_max_price"
+                    android:textSize="14sp" />
+                <Button
+                    android:id="@+id/btn_bid_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#FFF49E61"
+                    android:text="出价"
+                    android:layout_margin="5dp"
+                    android:layout_below="@id/label_count"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp" />
+
             </RelativeLayout>
 
 
@@ -153,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="结束时间" />
+                    android:text="其他" />
 
                 <TextView
                     android:id="@+id/tv_auction_others"
@@ -162,7 +181,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
-                    android:hint="结束时间" />
+                    android:hint="无" />
 
             </LinearLayout>
 
@@ -182,16 +201,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="结束时间" />
+                    android:text="拍卖家" />
 
                 <TextView
-                    android:id="@+id/tv_auction_"
+                    android:id="@+id/tv_auctionner_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
-                    android:hint="结束时间" />
+                    android:hint="拍卖家" />
             </LinearLayout>
 
             <RelativeLayout

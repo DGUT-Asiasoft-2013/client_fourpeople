@@ -37,6 +37,7 @@ public class AuctionsListFragment extends Fragment {
     View view;
     List<Auction> auctionData;
     ListView auctionList;
+    String userName;
     // AuctionAdapter auctionAdapter;
 
 
@@ -44,6 +45,7 @@ public class AuctionsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        userName=getActivity().getIntent().getStringExtra("userName");
         if (view == null) {
             view = inflater.inflate(R.layout.auction_fragment_auctions_list, null);
             auctionList = (ListView) view.findViewById(R.id.lv_auctions_list);
@@ -65,7 +67,12 @@ public class AuctionsListFragment extends Fragment {
         Intent intent=new Intent(getActivity(), ShowAuctionActivity.class);
         Bundle bundle=new Bundle();
         bundle.putSerializable("auctionItem",auctionData.get(i));
-        intent.putExtra("isMy",false);
+
+        if (userName.equals(auctionData.get(i).getAuctinner().getName())) {
+            intent.putExtra("isMy",false);
+        }else{
+            intent.putExtra("isMy",false);
+        }
         intent.putExtras(bundle);
         startActivity(intent);
     }
