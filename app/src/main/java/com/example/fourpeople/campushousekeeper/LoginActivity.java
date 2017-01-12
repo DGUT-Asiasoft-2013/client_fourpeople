@@ -70,8 +70,7 @@ public class LoginActivity extends Activity {
         sp = this.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
 
         //判断记住密码多选框的状态
-        if(sp.getBoolean("ISCHECK", false))
-        {
+        if (sp.getBoolean("ISCHECK", false)) {
             //设置默认是记录密码状态
             rememberPassword.setChecked(true);
             tStudentId.setText(sp.getString("USER_NAME", ""));
@@ -81,10 +80,10 @@ public class LoginActivity extends Activity {
 
         //监听记住密码多选框按钮事件
         rememberPassword.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (rememberPassword.isChecked()) {
                     sp.edit().putBoolean("ISCHECK", true).commit();
-                }else {
+                } else {
                     sp.edit().putBoolean("ISCHECK", false).commit();
                 }
 
@@ -93,18 +92,18 @@ public class LoginActivity extends Activity {
 
     }
 
-    void goRegister(){  //进入注册界面
-        Intent itnt = new Intent(this,RegisterActivity.class);
+    void goRegister() {  //进入注册界面
+        Intent itnt = new Intent(this, RegisterActivity.class);
         startActivity(itnt);
     }
 
-    void goLogin(){  //输入用户名、密码进入登录界面
+    void goLogin() {  //输入用户名、密码进入登录界面
 
         final String studentId = tStudentId.getText().toString();
         final String password = tPassword.getText().toString();
 
         //检查用户名密码是否已填
-        if (studentId.equals("") || password.equals("")){
+        if (studentId.equals("") || password.equals("")) {
             new AlertDialog.Builder(this)
                     .setTitle("提示")
                     .setMessage("请填写账号密码")
@@ -115,7 +114,7 @@ public class LoginActivity extends Activity {
 
                         }
                     }).show();
-            return ;
+            return;
         }
 
         MultipartBody requestBody = new MultipartBody.Builder()
@@ -151,29 +150,17 @@ public class LoginActivity extends Activity {
                             dlg.dismiss();
 
                             //登录成功和记住密码框为选中状态才保存用户信息
-                            if(rememberPassword.isChecked())
-                            {
+                            if (rememberPassword.isChecked()) {
                                 //记住用户名、密码
                                 SharedPreferences.Editor editor = sp.edit();
                                 editor.putString("USER_NAME", studentId);
-                                editor.putString("PASSWORD",password);
+                                editor.putString("PASSWORD", password);
                                 editor.commit();
                             }
-
-                            new AlertDialog.Builder(LoginActivity.this)
-                                    .setMessage("Hello "+user.getName())
-                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-
-                                            Intent itnt = new Intent(LoginActivity.this, BootActivity.class);
-                                            itnt.putExtra("userName",user.getName());
-                                            startActivity(itnt);
-                                            finish();
-                                        }
-                                    }).show();
-
+                            Intent itnt = new Intent(LoginActivity.this, BootActivity.class);
+                            itnt.putExtra("userName", user.getName());
+                            startActivity(itnt);
+                            finish();
                         }
                     });
 
@@ -209,7 +196,7 @@ public class LoginActivity extends Activity {
         });
     }
 
-    void goRecoverPassword(){  //进入密码找回界面
+    void goRecoverPassword() {  //进入密码找回界面
         Intent itnt = new Intent(this, PasswordRecoverActivity.class);
         startActivity(itnt);
     }

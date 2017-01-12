@@ -35,6 +35,7 @@ public class ManageShopActivity extends Activity {
         tabs = new View[]{
                 goodsList, goodsDispose, orderCenter, shopCenter
         };
+
         for (final View tab : tabs) {
             tab.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,6 +63,7 @@ public class ManageShopActivity extends Activity {
         super.onResume();
         if (selectedIndex < 0) {
             changeContentFragment(0);
+            goodsList.setSelected(true);
         } else if (selectedIndex >= 0) {
             changeContentFragment(selectedIndex);
         }

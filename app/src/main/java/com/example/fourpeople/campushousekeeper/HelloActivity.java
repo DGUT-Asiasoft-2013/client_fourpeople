@@ -3,6 +3,7 @@ package com.example.fourpeople.campushousekeeper;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Toast;
 
 import com.example.fourpeople.campushousekeeper.api.Server;
@@ -56,8 +57,15 @@ public class HelloActivity extends Activity {
     }
 
     void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(HelloActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        },2000);
+
     }
 }

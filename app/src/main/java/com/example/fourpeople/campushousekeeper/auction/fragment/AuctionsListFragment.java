@@ -3,7 +3,6 @@ package com.example.fourpeople.campushousekeeper.auction.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.fourpeople.campushousekeeper.BootActivity;
-import com.example.fourpeople.campushousekeeper.auction.activity.ShowAuctionActivity;
-import com.example.fourpeople.campushousekeeper.auction.view.AuctionnerView;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Page;
 import com.example.fourpeople.campushousekeeper.api.Server;
+import com.example.fourpeople.campushousekeeper.auction.activity.ShowAuctionActivity;
 import com.example.fourpeople.campushousekeeper.auction.entity.Auction;
+import com.example.fourpeople.campushousekeeper.auction.view.AuctionnerView;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -99,12 +97,14 @@ public class AuctionsListFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        auctionAdapter.notifyDataSetChanged();
-                    }
-                });
+                if (getActivity()!=null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            auctionAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
 
 
             }

@@ -36,11 +36,11 @@ import okhttp3.Response;
 
 public class GoodsShowActivity extends Activity {
     Mall mall;
-    TextView titleText, backBtn;
+    TextView titleText, backBtn, isLiked;
     ListView goodsShowList;
     List<Goods> goodsData;
     int page;
-
+    private boolean isLikeed;//判断当前用户是否已经点赞
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +50,7 @@ public class GoodsShowActivity extends Activity {
         titleText = (TextView) findViewById(R.id.goodsShow_text);
         backBtn = (TextView) findViewById(R.id.goodsShow_back);
         goodsShowList = (ListView) findViewById(R.id.goodsShow__lisView);
+        isLiked = (TextView) findViewById(R.id.goodsShow_like);
         goodsShowList.setAdapter(baseAdapter);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +62,12 @@ public class GoodsShowActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 onGoodsItemClick(i);
+            }
+        });
+        isLiked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                likedOnClickListener();
             }
         });
     }
@@ -112,6 +119,83 @@ public class GoodsShowActivity extends Activity {
         titleText.setText(mall.getUser().getName());
         getMessage();
         super.onResume();
+        //检查当前用户是否已经点赞
+        checkLiked();
+    }
+
+    //检查当前用户是否已经点赞方法
+    void checkLiked() {
+        Request request = Server.requestBuildWithMall(mall.getId()+"/isliked")
+                .get()
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(GoodsShowActivity.this, "网络挂了....", Toast.LENGTH_SHORT).show();
+                        isLiked.setBackgroundResource(R.drawable.mall_islike);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    final String responseString = response.body().string();
+                    final Boolean result = new ObjectMapper().readValue(responseString, Boolean.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            isLikeed = result;
+                            if (result == true) {
+                                isLiked.setBackgroundResource(R.drawable.mall_like);
+                            } else {
+                                isLiked.setBackgroundResource(R.drawable.mall_islike);
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(GoodsShowActivity.this, "获取点赞失败", Toast.LENGTH_SHORT).show();
+                            isLiked.setBackgroundResource(R.drawable.mall_islike);
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+    void likedOnClickListener() {
+        MultipartBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("likes", String.valueOf(!isLikeed))//传递给服务器的是与当前状态相反的状态
+                .build();
+        Request request = Server.requestBuildWithMall(mall.getId() + "/likes")
+                .post(body)
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(GoodsShowActivity.this, "客人，恭喜你点赞失败...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //重新刷新页面
+                //检查当前用户是否已经点赞
+                checkLiked();
+            }
+        });
     }
 
     void getMessage() {

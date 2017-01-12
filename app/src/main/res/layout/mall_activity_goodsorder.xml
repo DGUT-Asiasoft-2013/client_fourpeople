@@ -11,9 +11,12 @@
 
         <TextView
             android:id="@+id/goodsOrder_back"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:background="@drawable/app" />
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mall_return"
+            android:gravity="center_vertical" />
 
         <TextView
             android:id="@+id/goodsOrder_text"
@@ -111,7 +114,8 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="继续支付" />
+            android:text="继续支付"
+            android:textSize="14sp"/>
 
         <View
             android:layout_width="15dp"

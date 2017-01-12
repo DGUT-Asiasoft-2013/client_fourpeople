@@ -7,35 +7,59 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="34dp"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/fragment_mall_spinner"
-            android:layout_width="65dp"
-            android:layout_height="40dp"
-            android:layout_weight="2"
-            android:entries="@array/type"></Spinner>
-
-        <EditText
-            android:id="@+id/fragment_mall_editText"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:background="@drawable/mall_rounded_edittext"
-            android:hint="请输入你要搜索的.."
-            android:maxLength="15" />
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/fragment_mall_spinner"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:padding="3dp"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:entries="@array/type"
+                android:gravity="center"></Spinner>
+
+            <EditText
+                android:id="@+id/fragment_mall_editText"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="50"
+                android:gravity="center"
+                android:hint="你要搜索的.."
+                android:maxLength="15"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/fragment_mall_ok"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/mall_search" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:layout_height="25dp">
 
         <Button
             android:id="@+id/fragment_mall_defaultBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:text="默认排序"
             android:textSize="12sp" />
 
@@ -44,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:text="信用排序"
             android:textSize="12sp" />
     </LinearLayout>

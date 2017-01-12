@@ -1,10 +1,9 @@
 package com.example.fourpeople.campushousekeeper.fragment.page;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +11,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Jobs;
 import com.example.fourpeople.campushousekeeper.api.Page;
 import com.example.fourpeople.campushousekeeper.api.Server;
 import com.example.fourpeople.campushousekeeper.parttime.activity.FindJobActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.FindPersonActivity;
-import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.parttime.activity.JobContentActivity;
-import com.example.fourpeople.campushousekeeper.parttime.activity.MyEmployActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.MyParttimeActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.ReleaseActivity;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.AvatarView;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.ImagePlayFragment;
-import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.PartTimeMenuFragment;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -61,7 +56,7 @@ public class PartTimeFragment extends Fragment {
         {
             view = inflater.inflate(R.layout.fragment_parttime, null);
             listView = (ListView) view.findViewById(R.id.new_job);
-            imagePlayFragment = (ImagePlayFragment) getFragmentManager().findFragmentById(R.id.image_play);
+            imagePlayFragment = (ImagePlayFragment) getActivity().getFragmentManager().findFragmentById(R.id.image_play);
             Button fabu=(Button)view.findViewById(R.id.fabu);
             fabu.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -185,6 +180,7 @@ public class PartTimeFragment extends Fragment {
                 try {
                     final Page<Jobs> data = new ObjectMapper().readValue(response.body().string(), new TypeReference<Page<Jobs>>() {
                     });
+                    if(getActivity()==null)return;
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -195,6 +191,7 @@ public class PartTimeFragment extends Fragment {
                     });
 
                 } catch (final Exception e) {
+                    if(getActivity()==null)return;
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

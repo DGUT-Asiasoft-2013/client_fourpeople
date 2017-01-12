@@ -1,10 +1,10 @@
 package com.example.fourpeople.campushousekeeper.auction.fragment;
 
 
-import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;

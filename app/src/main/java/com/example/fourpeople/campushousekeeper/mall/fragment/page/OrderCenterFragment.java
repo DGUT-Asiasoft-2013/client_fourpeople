@@ -2,6 +2,7 @@ package com.example.fourpeople.campushousekeeper.mall.fragment.page;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,7 @@ public class OrderCenterFragment extends Fragment {
                 view = inflater.inflate(R.layout.mall_fragment_ordercenter_list, null);
             }
             TextView state = (TextView) view.findViewById(R.id.myOrder_state);
+            TextView dateId = (TextView) view.findViewById(R.id.myOrder__dateId);
             GoodsAvatar goodsAvatar = (GoodsAvatar) view.findViewById(R.id.myOrder_avatar);
             TextView goodsName = (TextView) view.findViewById(R.id.myOrder_name);
             TextView goodsDate = (TextView) view.findViewById(R.id.myOrder_date);
@@ -99,6 +101,7 @@ public class OrderCenterFragment extends Fragment {
             } else {
                 state.setText("未知错误");
             }
+            dateId.setText("   订单编号:" + new SimpleDateFormat("yyyyMMddhhmmss").format(currentOrder.getCreateDate()));
             goodsAvatar.load(goods.getGoodsAvatar());
             goodsName.setText(goods.getGoodsName() + "  " + goods.getGoodsAbout());
             goodsDate.setText(new SimpleDateFormat("yyyy-MM-dd").format(currentOrder.getCreateDate()));
@@ -110,7 +113,7 @@ public class OrderCenterFragment extends Fragment {
             if (!currentOrder.getOver() && currentOrder.getOrderState() < 3) {
                 delete.setText("取消订单");
             } else if (currentOrder.getOver()) {
-                delete.setText("订单已取消");
+                delete.setText("删除订单");
             } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && !currentOrder.getCommentState()) {
                 delete.setText("删除订单");
             } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && currentOrder.getCommentState()) {
@@ -124,13 +127,35 @@ public class OrderCenterFragment extends Fragment {
                 public void onClick(View view) {
                     if (!currentOrder.getOver() && currentOrder.getOrderState() < 3) {
                         //进行取消按钮事件
-                        Toast.makeText(getActivity(), "此功能未完成", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "请联系买家取消订单!", Toast.LENGTH_SHORT).show();
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && currentOrder.getCommentState()) {
                         //删除订单按钮（已评价）
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("提示")
+                                .setMessage("你确定要删除订单？删除后将清除信息!")
+                                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        delete(currentOrder.getId());
+                                    }
+                                })
+                                .setPositiveButton("取消", null)
+                                .show();
                     } else if (!currentOrder.getOver() && currentOrder.getOrderState() == 3 && !currentOrder.getCommentState()) {
-                        Toast.makeText(getActivity(), "订单未完成，不能删除！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "正在等待订单被评价，不能删除！", Toast.LENGTH_SHORT).show();
                     } else if (currentOrder.getOver()) {
-                        Toast.makeText(getActivity(), "订单已取消", Toast.LENGTH_SHORT).show();
+                        //删除订单按钮（已取消）
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("提示")
+                                .setMessage("你确定要删除订单？删除后将清除信息!")
+                                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        delete(currentOrder.getId());
+                                    }
+                                })
+                                .setPositiveButton("取消", null)
+                                .show();
                     } else {
                         Toast.makeText(getActivity(), "删除按钮未知错误!", Toast.LENGTH_SHORT).show();
                     }
@@ -167,6 +192,59 @@ public class OrderCenterFragment extends Fragment {
             return view;
         }
     };
+
+    //删除订单按钮（已评价）
+    void delete(Integer id) {
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .addFormDataPart("orderId", String.valueOf(id))
+                .build();
+        Request request = Server.requestBuildWithMall("deleteOrder")
+                .post(multipartBody)
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (getActivity() == null) return;
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "网络挂了...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    final Boolean succssed = new ObjectMapper().readValue(response.body().bytes(), Boolean.class);
+                    if (getActivity() == null) return;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (succssed) {
+                                Toast.makeText(getActivity(), "删除成功...", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "删除失败...", Toast.LENGTH_SHORT).show();
+                            }
+                            baseAdapter.notifyDataSetInvalidated();
+                        }
+                    });
+                    getMessage();
+                } catch (final Exception e) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("delete Error")
+                                    .setMessage(e.getMessage())
+                                    .setPositiveButton("OK", null)
+                                    .show();
+                        }
+                    });
+                }
+            }
+        });
+    }
 
     @Override
     public void onResume() {

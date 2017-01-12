@@ -12,9 +12,12 @@
 
         <TextView
             android:id="@+id/goodsShow_back"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:background="@drawable/app" />
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mall_return"
+            android:gravity="center_vertical" />
 
         <TextView
             android:id="@+id/goodsShow_text"
@@ -26,11 +29,13 @@
 
         <TextView
             android:id="@+id/goodsShow_like"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:text="收藏" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/mall_islike"
+            android:gravity="center" />
 
     </RelativeLayout>
 

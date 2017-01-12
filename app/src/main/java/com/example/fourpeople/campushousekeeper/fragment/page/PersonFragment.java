@@ -1,10 +1,10 @@
 package com.example.fourpeople.campushousekeeper.fragment.page;
 
 import android.app.AlertDialog;
-import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,15 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.fourpeople.campushousekeeper.LoginActivity;
-import com.example.fourpeople.campushousekeeper.api.User;
-import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity;
-import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Server;
+import com.example.fourpeople.campushousekeeper.api.User;
+import com.example.fourpeople.campushousekeeper.mall.activity.GoodsCarActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.ManageShopActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.MyFavoriteActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.MyOrderActivity;
+import com.example.fourpeople.campushousekeeper.mall.activity.OpenShopActivity;
+import com.example.fourpeople.campushousekeeper.parttime.activity.MyParttimeActivity;
 import com.example.fourpeople.campushousekeeper.person.AvatarView;
 import com.example.fourpeople.campushousekeeper.person.ChargeActivity;
 import com.example.fourpeople.campushousekeeper.person.MyInfoActivity;
-import com.example.fourpeople.campushousekeeper.person.OrdersActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -41,15 +44,12 @@ public class PersonFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (view==null) {
+        if (view == null) {
             view = inflater.inflate(R.layout.fragment_person, null);
-
             myName = (TextView) view.findViewById(R.id.my_name);
             infoBalance = (TextView) view.findViewById(R.id.info_balance);
             avatar = (AvatarView) view.findViewById(R.id.person_avatar);
-
             view.findViewById(R.id.btn_info).setOnClickListener(new OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     goInfo();
@@ -87,7 +87,30 @@ public class PersonFragment extends Fragment {
                 }
             });
         }
-
+//购物车
+        view.findViewById(R.id.btn_my_shopping_cart).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itnt = new Intent(getActivity(), GoodsCarActivity.class);
+                startActivity(itnt);
+            }
+        });
+        //我的收藏
+        view.findViewById(R.id.btn_my_favorite).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent itnt = new Intent(getActivity(), MyFavoriteActivity.class);
+                startActivity(itnt);
+            }
+        });
+        //我的兼职
+        view.findViewById(R.id.btn_partTime).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent itnt = new Intent(getActivity(), MyParttimeActivity.class);
+                startActivity(itnt);
+            }
+        });
         return view;
     }
 
@@ -110,7 +133,7 @@ public class PersonFragment extends Fragment {
 
                         @Override
                         public void run() {
-                            PersonFragment.this.onResponse(arg0,user);
+                            PersonFragment.this.onResponse(arg0, user);
 
                         }
                     });
@@ -142,11 +165,10 @@ public class PersonFragment extends Fragment {
         });
     }
 
-    void onResponse(Call arg0, User user)
-    {
+    void onResponse(Call arg0, User user) {
         myName.setText(user.getName());
         avatar.load(user);
-        infoBalance.setText("￥"+user.getBalance());
+        infoBalance.setText("￥" + user.getBalance());
     }
 
     void onFailure(Call call, Exception e) {
@@ -158,15 +180,13 @@ public class PersonFragment extends Fragment {
     }
 
     //去个人信息Activity
-    void goInfo()
-    {
+    void goInfo() {
         Intent itnt = new Intent(getActivity(), MyInfoActivity.class);
         startActivity(itnt);
     }
 
     //去充值页面
-    void goCharge()
-    {
+    void goCharge() {
         Intent itnt = new Intent(getActivity(), ChargeActivity.class);
         startActivity(itnt);
     }
@@ -193,10 +213,10 @@ public class PersonFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (ishaveshop){
+                        if (ishaveshop) {
                             //如果已经有小店，进入管理界面
                             manageShop();
-                        }else{
+                        } else {
                             //没有小店，进入创建界面
                             openShop();
                         }
@@ -206,18 +226,20 @@ public class PersonFragment extends Fragment {
             }
         });
     }
-    void openShop(){
+
+    void openShop() {
         Intent intent = new Intent(getActivity(), OpenShopActivity.class);
         startActivity(intent);
     }
-    void manageShop(){
+
+    void manageShop() {
         Intent intent = new Intent(getActivity(), ManageShopActivity.class);
         startActivity(intent);
     }
 
     //去个人订单详情页面
     void goOrders() {
-        Intent intent = new Intent(getActivity(), OrdersActivity.class);
+        Intent intent = new Intent(getActivity(), MyOrderActivity.class);
         startActivity(intent);
     }
 

@@ -224,16 +224,34 @@ public class GoodsCarActivity extends Activity {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (goodsCarCheck.isChecked()) {
                         currentCar.setChoice(true);
+                        //check();
                         setMoney();
                     } else {
                         currentCar.setChoice(false);
                         setMoney();
+                       // check();
                     }
                 }
             });
             return view;
         }
     };
+
+    //判断是否全部选中
+    void check() {
+        int i;
+        for (i = 0; i < car.size(); i++) {
+            if (!car.get(i).getChoice()) {
+                break;
+            }
+        }
+        if (i == car.size()) {
+            goodsCarCheckBox.setChecked(true);
+        } else {
+            goodsCarCheckBox.setChecked(false);
+        }
+        baseAdapter.notifyDataSetInvalidated();
+    }
 
     //删除对应购物车商品
     void deleteCar(Integer id) {
@@ -307,6 +325,7 @@ public class GoodsCarActivity extends Activity {
         super.onResume();
         getMessage();
         setMoney();
+        goodsCarCheckBox.setChecked(false);
     }
 
     void getMessage() {

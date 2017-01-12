@@ -2,6 +2,7 @@ package com.example.fourpeople.campushousekeeper.mall.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class GoodsOrderActivity extends Activity {
     User currentUser;
     List<Car> buyCar;
     Double money = 0.0;
-
+    ProgressDialog dlg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +119,11 @@ public class GoodsOrderActivity extends Activity {
                                         Log.d("getmoney3", "!!!!!!!!!" + Double.valueOf(currentUser.getBalance()));
                                         Log.d("getmoney4", "!!!!!!!!!" + currentUser);
                                         if (money <= Double.valueOf(currentUser.getBalance()) && money > 0) {
+                                            dlg = new ProgressDialog(GoodsOrderActivity.this);
+                                            dlg.setCancelable(false);
+                                            dlg.setCanceledOnTouchOutside(false);
+                                            dlg.setMessage("正在下单...");
+                                            dlg.show();
                                             for (int n = 0; n < buyCar.size(); n++) {
                                                 //一个个地下单
                                                 buyGoods(n);
@@ -140,6 +146,7 @@ public class GoodsOrderActivity extends Activity {
     }
 
     void buyGoods(final int n) {
+
         final Car car = buyCar.get(n);
         MultipartBody multipartBody = new MultipartBody.Builder()
                 .addFormDataPart("carId", car.getId().toString())
@@ -178,6 +185,7 @@ public class GoodsOrderActivity extends Activity {
                                 //支付成功
                                 //确认是最后的一件
                                 if (n == buyCar.size() - 1) {
+                                    dlg.dismiss();
                                     Toast.makeText(GoodsOrderActivity.this, "下单成功!", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
@@ -227,6 +235,7 @@ public class GoodsOrderActivity extends Activity {
                 view = inflater.inflate(R.layout.mall_activity_order_list, null);
             }
             TextView mall = (TextView) view.findViewById(R.id.orderList_mallName);
+
             GoodsAvatar avatar = (GoodsAvatar) view.findViewById(R.id.orderList_goodsAvatar);
             TextView name = (TextView) view.findViewById(R.id.orderList_goodsName);
             TextView about = (TextView) view.findViewById(R.id.orderList_goodsAbout);

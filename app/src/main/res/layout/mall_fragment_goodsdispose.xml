@@ -116,7 +116,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="上架商品" />
+            android:text="上架商品"
+            android:textSize="14sp" />
     </LinearLayout>
 
 

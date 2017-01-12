@@ -3,6 +3,7 @@ package com.example.fourpeople.campushousekeeper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -55,6 +56,23 @@ public class PasswordRecoverActivity extends Activity {
     }
 
     void goStep2() {
+        String email = step1.getEmail();
+        if (email.equals("")) {
+            new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("未填写邮箱！")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
+        if (!email.matches("^\\w+@\\w+\\.(com|cn)")) {
+            new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("不是有效的邮箱.")
+                    .setNegativeButton("OK", null)
+                    .show();
+            return;
+        }
         // 切换fragment并使用动画渐变效果
         getFragmentManager()
                 .beginTransaction()
@@ -108,7 +126,6 @@ public class PasswordRecoverActivity extends Activity {
 
                 try {
                     final Boolean succeed = new ObjectMapper().readValue(arg1.body().bytes(), Boolean.class);
-
                     runOnUiThread(new Runnable() {
 
                         @Override
@@ -120,21 +137,18 @@ public class PasswordRecoverActivity extends Activity {
                                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
-
+                                                Intent itnt = new Intent(PasswordRecoverActivity.this, LoginActivity.class);
+                                                startActivity(itnt);
+                                                PasswordRecoverActivity.this.finish();
                                             }
                                         }).show();
                             } else {
                                 new AlertDialog.Builder(PasswordRecoverActivity.this)
                                         .setTitle("请求成功")
                                         .setMessage("修改密码失败！")
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                                            }
-                                        }).show();
+                                        .setPositiveButton("OK", null)
+                                        .show();
                             }
-
                         }
                     });
                 } catch (Exception e) {
@@ -145,7 +159,6 @@ public class PasswordRecoverActivity extends Activity {
                             Toast.makeText(PasswordRecoverActivity.this, "邮箱错误！", Toast.LENGTH_SHORT).show();
                         }
                     });
-
                     e.printStackTrace();
                 }
             }
@@ -158,13 +171,7 @@ public class PasswordRecoverActivity extends Activity {
                     public void run() {
                         new AlertDialog.Builder(PasswordRecoverActivity.this)
                                 .setTitle("请求失败")
-                                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                })
+                                .setNegativeButton("OK", null)
                                 .show();
                     }
                 });

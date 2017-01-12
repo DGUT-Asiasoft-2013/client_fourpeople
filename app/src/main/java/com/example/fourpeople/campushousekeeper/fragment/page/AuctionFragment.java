@@ -1,21 +1,20 @@
 package com.example.fourpeople.campushousekeeper.fragment.page;
 
-import android.app.Fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.auction.activity.AddAuctionActivity;
 import com.example.fourpeople.campushousekeeper.auction.activity.AuctionsListActivity;
 import com.example.fourpeople.campushousekeeper.auction.activity.MyAuctionActivity;
 import com.example.fourpeople.campushousekeeper.auction.fragment.ADFragment;
-import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.auction.fragment.widget.SimpleButtonItemFragment;
 import com.example.fourpeople.campushousekeeper.auction.fragment.widget.TitleFragment;
-import com.example.fourpeople.campushousekeeper.chat.ChatActivity;
-import com.example.fourpeople.campushousekeeper.person.ChargeActivity;
 
 /**
  * Created by Administrator on 2016/12/19.
@@ -32,10 +31,10 @@ public class AuctionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (view == null) {
             view = inflater.inflate(R.layout.auction_fragment_auction, null);
-            enter= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_enter);
-            addAuction= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_add_auction);
-            myAuction= (SimpleButtonItemFragment) getFragmentManager().findFragmentById(R.id.fra_to_my_auction);
-            titleFragment= (TitleFragment) getFragmentManager().findFragmentById(R.id.title);
+            enter= (SimpleButtonItemFragment) getActivity().getFragmentManager().findFragmentById(R.id.fra_enter);
+            addAuction= (SimpleButtonItemFragment) getActivity().getFragmentManager().findFragmentById(R.id.fra_add_auction);
+            myAuction= (SimpleButtonItemFragment) getActivity().getFragmentManager().findFragmentById(R.id.fra_to_my_auction);
+            titleFragment= (TitleFragment)getActivity(). getFragmentManager().findFragmentById(R.id.title);
             userName=getActivity().getIntent().getStringExtra("userName");
         }
 

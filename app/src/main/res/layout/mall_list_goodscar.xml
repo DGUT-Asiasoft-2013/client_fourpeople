@@ -19,11 +19,12 @@
 
         <TextView
             android:id="@+id/goodsCarList_delete"
-            android:layout_width="50dp"
+            android:layout_width="27dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:gravity="center"
-            android:text="-" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/mall_reduce"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -118,25 +119,28 @@
 
                 <TextView
                     android:id="@+id/goodsCarList_add"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/mall_add"
                     android:gravity="center"
-                    android:text="+" />
+                    android:layout_marginLeft="25dp"/>
 
 
                 <TextView
                     android:id="@+id/goodsCarList_buyNumber"
                     android:layout_width="15dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:gravity="center"
                     android:text="1" />
 
                 <TextView
                     android:id="@+id/goodsCarList_reduce"
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="-" />
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@drawable/mall_reduce"
+                    android:gravity="center" />
 
             </LinearLayout>
         </LinearLayout>

@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mall"
+            android:text="商店"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -45,7 +45,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PartTime"
+            android:text="兼职"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -68,7 +68,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Auction"
+            android:text="拍卖"
             android:textColor="@android:color/black" />
     </LinearLayout>
 
@@ -90,7 +90,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Me"
+            android:text="个人中心"
             android:textColor="@android:color/black" />
     </LinearLayout>
 </LinearLayout>

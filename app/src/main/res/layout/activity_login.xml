@@ -7,8 +7,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#FFA500">
+        android:layout_height="50dp"
+        android:background="@color/Moli">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|right"
             android:padding="2dp"
-            android:textColor="#ffffff"
+            android:textColor="#f4b12f"
             android:text="忘记密码？" />
 
     </FrameLayout>
@@ -31,12 +31,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
             android:background="@drawable/login_user_ic"/>
 
         <EditText
@@ -55,12 +58,15 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
             android:background="@drawable/login_password_ic"/>
 
         <EditText
@@ -76,6 +82,9 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -106,27 +115,27 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="5dp">
+        android:gravity="center"
+        android:layout_marginTop="20dp">
 
         <Button
             android:id="@+id/btn_register"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+            android:layout_marginRight="30dp"
+            android:textSize="18sp"
             android:background="@drawable/login_click"
             android:textColor="#ffa500"
-            android:text="注册" />
+            android:text="  注  册  " />
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="1dp"
+            android:textSize="18sp"
             android:background="@drawable/login_click"
             android:textColor="#ffa500"
-            android:text="登录"/>
+            android:text="  登  录  "/>
 
     </LinearLayout>
 

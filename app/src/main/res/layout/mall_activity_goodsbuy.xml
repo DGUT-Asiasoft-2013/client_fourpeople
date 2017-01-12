@@ -11,9 +11,12 @@
 
         <TextView
             android:id="@+id/goodsBuy_back"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:background="@drawable/app" />
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mall_return"
+            android:gravity="center_vertical" />
 
         <TextView
             android:id="@+id/goodsBuy_text"
@@ -25,11 +28,13 @@
 
         <TextView
             android:id="@+id/goodsBuy_like"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentRight="true"
-            android:gravity="center"
-            android:text="点赞" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/mall_islike"
+            android:gravity="center" />
     </RelativeLayout>
 
     <View
@@ -113,10 +118,11 @@
 
             <TextView
                 android:id="@+id/goodsBuy_add"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/mall_add"
                 android:gravity="center"
-                android:text="+" />
+                android:layout_marginRight="10dp"/>
 
 
             <TextView
@@ -128,10 +134,11 @@
 
             <TextView
                 android:id="@+id/goodsBuy_reduce"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@drawable/mall_reduce"
                 android:gravity="center"
-                android:text="-" />
+                android:layout_marginLeft="10dp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -155,19 +162,26 @@
             android:layout_width="120dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="加入购物车" />
+            android:text="加入购物车"
+            android:textSize="14sp"/>
 
         <Button
             android:id="@+id/goodsBuy_buy"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="购买" />
+            android:text="购买"
+            android:textSize="14sp"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
 
     <ListView
         android:id="@+id/goodsBuy_comment"

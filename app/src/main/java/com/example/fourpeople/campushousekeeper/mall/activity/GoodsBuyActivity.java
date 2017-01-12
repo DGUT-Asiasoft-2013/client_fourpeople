@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,8 +17,11 @@ import android.widget.Toast;
 import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Car;
 import com.example.fourpeople.campushousekeeper.api.Goods;
+import com.example.fourpeople.campushousekeeper.api.GoodsComment;
 import com.example.fourpeople.campushousekeeper.api.Server;
+import com.example.fourpeople.campushousekeeper.mall.view.AvatarDispose;
 import com.example.fourpeople.campushousekeeper.mall.view.GoodsAvatar;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -42,7 +48,8 @@ public class GoodsBuyActivity extends Activity {
     TextView goodsBack, goodsLiked;
     Button goodsAddCart, goodsBuy;
     ListView commentList;
-
+    List<GoodsComment> comment;
+    private boolean isLikeed;//判断当前用户是否已经点赞
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +69,10 @@ public class GoodsBuyActivity extends Activity {
         //
         goodsBack = (TextView) findViewById(R.id.goodsBuy_back);
         goodsLiked = (TextView) findViewById(R.id.goodsBuy_like);
-        //
+        //评论列表
         commentList = (ListView) findViewById(R.id.goodsBuy_comment);
+        commentList.setAdapter(baseAdapter);
+        //
         goodsAddCart = (Button) findViewById(R.id.goodsBuy_addCart);
         goodsBuy = (Button) findViewById(R.id.goodsBuy_buy);
         goodsBack.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +133,51 @@ public class GoodsBuyActivity extends Activity {
                 goOrder();
             }
         });
+        //收藏按钮
+        goodsLiked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                likedOnClickListener();
+            }
+        });
     }
+
+    BaseAdapter baseAdapter = new BaseAdapter() {
+        @Override
+        public int getCount() {
+            return comment == null ? 0 : comment.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return comment.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            if (view == null) {
+                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+                view = inflater.inflate(R.layout.mall_activity_goodsbuy_list, null);
+            }
+            TextView orderId = (TextView) view.findViewById(R.id.goodsBuy_list_orderId);
+            AvatarDispose avatar = (AvatarDispose) view.findViewById(R.id.goodsBuy_list_avatar);
+            TextView name = (TextView) view.findViewById(R.id.goodsBuy_list_name);
+            TextView text = (TextView) view.findViewById(R.id.goodsBuy_list_text);
+            TextView date = (TextView) view.findViewById(R.id.goodsBuy_list_date);
+            GoodsComment currentComment = comment.get(i);
+            orderId.setText("订单编号:" + new SimpleDateFormat("yyyyMMddhhmmss").format(currentComment.getMyOrderDate()));
+            avatar.load(currentComment.getGoods().getGoodsAvatar());
+            name.setText(currentComment.getGoods().getGoodsName());
+            text.setText(currentComment.getText());
+            date.setText(new SimpleDateFormat("yyyy-MM-dd").format(currentComment.getCreateDate()));
+            return view;
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -140,9 +193,135 @@ public class GoodsBuyActivity extends Activity {
             goodsBuyNumber.setText("0");
         }
         super.onResume();
-        //及时更新goodsnumber
+        //及时更新goodsNumber
         getGoodNumber();
+        //获得评论
+        getComment();
+        //检查当前用户是否已经点赞
+        checkLiked();
     }
+
+    //检查当前用户是否已经点赞方法
+    void checkLiked() {
+        Request request = Server.requestBuildWithMall("goods/"+goods.getId()+"/isliked")
+                .get()
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(GoodsBuyActivity.this, "网络挂了....", Toast.LENGTH_SHORT).show();
+                        goodsLiked.setBackgroundResource(R.drawable.mall_islike);
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    final String responseString = response.body().string();
+                    final Boolean result = new ObjectMapper().readValue(responseString, Boolean.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            isLikeed = result;
+                            if (result == true) {
+                                goodsLiked.setBackgroundResource(R.drawable.mall_like);
+                            } else {
+                                goodsLiked.setBackgroundResource(R.drawable.mall_islike);
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(GoodsBuyActivity.this, "获取点赞失败", Toast.LENGTH_SHORT).show();
+                            goodsLiked.setBackgroundResource(R.drawable.mall_islike);
+                        }
+                    });
+
+                }
+            }
+        });
+    }
+    void likedOnClickListener() {
+        MultipartBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("likes", String.valueOf(!isLikeed))//传递给服务器的是与当前状态相反的状态
+                .build();
+        Request request = Server.requestBuildWithMall("goods/"+goods.getId() + "/likes")
+                .post(body)
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(GoodsBuyActivity.this, "客人，恭喜你点赞失败...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                //重新刷新页面
+                //检查当前用户是否已经点赞
+                checkLiked();
+            }
+        });
+    }
+
+    //获得评论
+    void getComment() {
+        MultipartBody multipartBody = new MultipartBody.Builder()
+                .addFormDataPart("goodId", String.valueOf(goods.getId()))
+                .build();
+        Request request = Server.requestBuildWithMall("getGoodsComment")
+                .post(multipartBody)
+                .build();
+        Server.getSharedClient().newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(GoodsBuyActivity.this, "网络挂了...", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    comment = new ObjectMapper().readValue(response.body().string(), new TypeReference<List<GoodsComment>>() {
+                    });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            baseAdapter.notifyDataSetInvalidated();
+                        }
+                    });
+                } catch (final Exception e) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            new AlertDialog.Builder(GoodsBuyActivity.this)
+                                    .setTitle("GoodsBuy Error")
+                                    .setMessage(e.getMessage())
+                                    .setNegativeButton("OK", null)
+                                    .show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
 
     //购买按钮事件
     void goOrder() {
@@ -174,7 +353,7 @@ public class GoodsBuyActivity extends Activity {
     }
 
     void addCart() {
-        if (Integer.valueOf(goodsBuyNumber.getText().toString()).intValue() <= 0&&Integer.valueOf(goodsNumber.getText().toString())>0) {
+        if (Integer.valueOf(goodsBuyNumber.getText().toString()).intValue() <= 0 && Integer.valueOf(goodsNumber.getText().toString()) > 0) {
             new AlertDialog.Builder(GoodsBuyActivity.this)
                     .setTitle("ERROR")
                     .setMessage("购买数量错误!")

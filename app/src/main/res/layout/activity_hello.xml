@@ -3,16 +3,7 @@
     android:id="@+id/activity_hello"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFA500">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="64dp"
-        android:text="你好,"
-        android:textColor="#FFDA95"
-        android:textSize="50sp" />
+    android:background="@drawable/welcome">
 
     <ProgressBar
         style="@android:style/Widget.ProgressBar.Small"
@@ -32,8 +23,8 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="31dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="centerInside"
             android:src="@drawable/app" />
 
@@ -42,9 +33,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2dp"
-            android:text="App_Version"
+            android:text="校园管家"
             android:textColor="@android:color/black"
-            android:textSize="9sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 </RelativeLayout>

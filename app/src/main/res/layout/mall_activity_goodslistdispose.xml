@@ -14,9 +14,12 @@
 
         <TextView
             android:id="@+id/goodsListDispose_back"
-            android:layout_width="55dp"
-            android:layout_height="40dp"
-            android:background="@drawable/app" />
+            android:layout_width="40dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/mall_return"
+            android:gravity="center_vertical" />
 
         <TextView
             android:layout_width="match_parent"

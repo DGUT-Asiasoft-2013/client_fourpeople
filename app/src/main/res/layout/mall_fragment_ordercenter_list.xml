@@ -16,6 +16,14 @@
             android:paddingLeft="15dp"
             android:text="state" />
 
+        <TextView
+            android:id="@+id/myOrder__dateId"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@+id/myOrder_state"
+            android:gravity="center"
+            android:text="date" />
+
     </RelativeLayout>
 
     <LinearLayout
@@ -138,12 +146,12 @@
 
         <Button
             android:id="@+id/myOrder_delete"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="删除订单"
-            android:textSize="15px" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="10dp"
@@ -152,11 +160,11 @@
         <Button
             android:id="@+id/myOrder_comment"
             android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="评价"
-            android:textSize="15px" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 </LinearLayout>

@@ -4,6 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/Moli"
+        android:gravity="center"
+        android:text="拍   卖"
+        android:textColor="#393938"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_orange_dark"></View>
 
     <ScrollView
         android:layout_width="match_parent"

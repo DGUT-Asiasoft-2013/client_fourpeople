@@ -1,35 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:weightSum="1">
 
-    <fragment
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="40dp"
+        android:background="@color/Moli"
+        android:gravity="center"
+        android:text="兼  职"
+        android:textColor="#393938"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/holo_orange_dark"></View>
+
+    <fragment
         android:id="@+id/image_play"
         class="com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.ImagePlayFragment"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
         tools:layout="@layout/part_fragment_image_play">
 
 
     </fragment>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"></View>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
+
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
+            android:orientation="vertical"
             android:weightSum="1">
+
             <Button
                 android:id="@+id/fabu"
                 android:layout_width="40dp"
@@ -41,18 +59,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:textSize="15dp"
+                android:gravity="center"
                 android:text="发布"
                 android:textColor="#14a83b"
-                android:gravity="center"/>
+                android:textSize="15dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
+            android:orientation="vertical"
             android:weightSum="1">
+
             <Button
                 android:id="@+id/jianzhi"
                 android:layout_width="40dp"
@@ -63,18 +83,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:textSize="15dp"
+                android:gravity="center"
                 android:text="兼职库"
                 android:textColor="#14a83b"
-                android:gravity="center"/>
+                android:textSize="15dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
+            android:orientation="vertical"
             android:weightSum="1">
+
             <Button
                 android:id="@+id/jianli"
                 android:layout_width="40dp"
@@ -85,18 +107,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:textSize="15dp"
+                android:gravity="center"
                 android:text="简历库"
                 android:textColor="#14a83b"
-                android:gravity="center"/>
+                android:textSize="15dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
+            android:orientation="vertical"
             android:weightSum="1">
+
             <Button
                 android:id="@+id/wode"
                 android:layout_width="40dp"
@@ -107,10 +131,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:textSize="15dp"
+                android:gravity="center"
                 android:text="简历库"
                 android:textColor="#14a83b"
-                android:gravity="center"/>
+                android:textSize="15dp" />
         </LinearLayout>
 
 
@@ -119,11 +143,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="5dp"></View>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="22dp"
-        android:text="最新兼职"
         android:gravity="center"
+        android:text="最新兼职"
         tools:ignore="HardcodedText" />
 
     <RelativeLayout
@@ -142,7 +167,6 @@
 
             </ListView>
         </FrameLayout>
-
 
 
     </RelativeLayout>

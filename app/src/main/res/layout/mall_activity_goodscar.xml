@@ -60,7 +60,8 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:paddingRight="15dp"
-            android:text="购买" />
+            android:text="购买"
+            android:textSize="14sp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -17,8 +17,6 @@ import com.example.fourpeople.campushousekeeper.R;
 import com.example.fourpeople.campushousekeeper.api.Page;
 import com.example.fourpeople.campushousekeeper.api.Resume;
 import com.example.fourpeople.campushousekeeper.api.Server;
-import com.example.fourpeople.campushousekeeper.parttime.activity.FindPersonActivity;
-import com.example.fourpeople.campushousekeeper.parttime.activity.PersonContentActivity;
 import com.example.fourpeople.campushousekeeper.parttime.activity.ResumeContentActivity;
 import com.example.fourpeople.campushousekeeper.parttime.fragments_widgets.AvatarView;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -125,6 +123,7 @@ public class ResumeWarehouseFragment extends Fragment{
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     final Page<Resume> data=new ObjectMapper().readValue(response.body().string(),new TypeReference<Page<Resume>>(){});
+                    if(getActivity()==null)return;
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -136,6 +135,7 @@ public class ResumeWarehouseFragment extends Fragment{
 
                 }catch (final Exception e)
                 {
+                    if(getActivity()==null)return;
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
